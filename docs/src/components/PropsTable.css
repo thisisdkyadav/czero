@@ -1,0 +1,51 @@
+.props-table-container {
+  overflow-x: auto;
+  margin: var(--cz-spacing-lg) 0;
+}
+
+.props-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--cz-font-size-sm);
+}
+
+.props-table th,
+.props-table td {
+  padding: var(--cz-spacing-md);
+  text-align: left;
+  border-bottom: 1px solid hsl(var(--cz-color-border));
+}
+
+.props-table th {
+  font-weight: var(--cz-font-weight-semibold);
+  color: hsl(var(--cz-color-mutedFg));
+  font-size: var(--cz-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prop-name {
+  color: hsl(var(--cz-color-primary));
+  background: hsl(var(--cz-color-muted));
+  padding: 2px 6px;
+  border-radius: var(--cz-radius-sm);
+}
+
+.prop-type {
+  color: hsl(var(--cz-color-success));
+  background: hsl(142 70% 45% / 0.1);
+  padding: 2px 6px;
+  border-radius: var(--cz-radius-sm);
+  font-size: var(--cz-font-size-xs);
+}
+
+.prop-default {
+  color: hsl(var(--cz-color-warning));
+  background: hsl(38 92% 50% / 0.1);
+  padding: 2px 6px;
+  border-radius: var(--cz-radius-sm);
+}
+
+.prop-none {
+  color: hsl(var(--cz-color-mutedFg));
+}

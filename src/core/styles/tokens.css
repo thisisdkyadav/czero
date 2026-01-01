@@ -1,0 +1,74 @@
+/**
+ * CZero Design Tokens
+ * Auto-generated from theme.config.ts - DO NOT EDIT MANUALLY
+ */
+
+:root {
+  --cz-color-bg: 0 0% 100%;
+  --cz-color-fg: 220 15% 10%;
+  --cz-color-primary: 222 47% 45%;
+  --cz-color-primaryFg: 0 0% 100%;
+  --cz-color-secondary: 220 10% 95%;
+  --cz-color-secondaryFg: 220 15% 10%;
+  --cz-color-muted: 220 10% 95%;
+  --cz-color-mutedFg: 220 10% 40%;
+  --cz-color-danger: 0 70% 55%;
+  --cz-color-dangerFg: 0 0% 100%;
+  --cz-color-success: 142 70% 45%;
+  --cz-color-successFg: 0 0% 100%;
+  --cz-color-warning: 38 92% 50%;
+  --cz-color-warningFg: 0 0% 100%;
+  --cz-color-border: 220 13% 90%;
+  --cz-color-ring: 222 47% 45%;
+  --cz-radius-none: 0;
+  --cz-radius-sm: 0.25rem;
+  --cz-radius-md: 0.5rem;
+  --cz-radius-lg: 0.75rem;
+  --cz-radius-xl: 1rem;
+  --cz-radius-full: 9999px;
+  --cz-shadow-none: none;
+  --cz-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --cz-shadow-md: 0 2px 4px rgb(0 0 0 / 0.08);
+  --cz-shadow-lg: 0 4px 12px rgb(0 0 0 / 0.12);
+  --cz-spacing-xs: 0.25rem;
+  --cz-spacing-sm: 0.5rem;
+  --cz-spacing-md: 0.75rem;
+  --cz-spacing-lg: 1rem;
+  --cz-spacing-xl: 1.5rem;
+  --cz-spacing-2xl: 2rem;
+  --cz-transition-fast: 150ms ease;
+  --cz-transition-normal: 200ms ease;
+  --cz-transition-slow: 300ms ease;
+  --cz-font-fontFamily: Inter, system-ui, -apple-system, sans-serif;
+  --cz-font-size-xs: 0.75rem;
+  --cz-font-size-sm: 0.875rem;
+  --cz-font-size-md: 1rem;
+  --cz-font-size-lg: 1.125rem;
+  --cz-font-size-xl: 1.25rem;
+  --cz-font-weight-normal: 400;
+  --cz-font-weight-medium: 500;
+  --cz-font-weight-semibold: 600;
+  --cz-font-weight-bold: 700;
+  --cz-font-lineHeight-tight: 1.25;
+  --cz-font-lineHeight-normal: 1.5;
+  --cz-font-lineHeight-relaxed: 1.75;
+}
+
+.dark {
+  --cz-color-bg: 220 40% 3%;
+  --cz-color-fg: 210 40% 96%;
+  --cz-color-primary: 210 80% 65%;
+  --cz-color-primaryFg: 220 40% 3%;
+  --cz-color-secondary: 220 8% 25%;
+  --cz-color-secondaryFg: 210 40% 96%;
+  --cz-color-muted: 220 8% 20%;
+  --cz-color-mutedFg: 220 10% 60%;
+  --cz-color-danger: 0 80% 65%;
+  --cz-color-dangerFg: 0 0% 100%;
+  --cz-color-success: 142 70% 55%;
+  --cz-color-successFg: 0 0% 100%;
+  --cz-color-warning: 38 92% 60%;
+  --cz-color-warningFg: 0 0% 0%;
+  --cz-color-border: 220 10% 20%;
+  --cz-color-ring: 210 80% 65%;
+}

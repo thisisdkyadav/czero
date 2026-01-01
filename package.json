@@ -1,0 +1,61 @@
+{
+  "name": "czero",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A lightweight, design-token-driven React component library",
+  "main": "./dist/react/index.cjs",
+  "module": "./dist/react/index.js",
+  "types": "./dist/react/index.d.ts",
+  "bin": {
+    "czero": "./dist/cli/index.js"
+  },
+  "exports": {
+    "./styles.css": "./dist/styles.css",
+    "./components.css": "./dist/components.css",
+    "./reset.css": "./dist/reset.css",
+    "./react": {
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs",
+      "types": "./dist/react/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:tokens": "tsx src/core/build-tokens.ts",
+    "build:css": "pwsh -Command \"Copy-Item src/core/styles/reset.css dist/reset.css; Copy-Item src/core/styles/components.css dist/components.css; Get-Content src/core/styles/reset.css, src/core/styles/tokens.css, src/core/styles/components.css | Set-Content dist/styles.css\"",
+    "build:components": "rollup -c",
+    "build:cli": "npx esbuild cli/index.ts --bundle --platform=node --format=esm --outdir=dist/cli --packages=external",
+    "build": "npm run build:tokens && npm run build:css && npm run build:components && npm run build:cli",
+    "dev": "rollup -c -w",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^25.0.3",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "esbuild": "^0.24.2",
+    "rollup": "^4.9.6",
+    "rollup-plugin-dts": "^6.1.0",
+    "tslib": "^2.6.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "design-tokens",
+    "cli"
+  ],
+  "license": "MIT"
+}

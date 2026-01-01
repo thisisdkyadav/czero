@@ -1,0 +1,21 @@
+/**
+ * CZero Minimal Reset
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: var(--cz-font-lineHeight-normal);
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--cz-font-fontFamily);
+}
+
+button, input, textarea, select {
+  font: inherit;
+}

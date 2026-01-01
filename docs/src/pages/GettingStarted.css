@@ -1,0 +1,59 @@
+.docs-page {
+  max-width: 700px;
+}
+
+.docs-page h1 {
+  font-size: 2rem;
+  font-weight: var(--cz-font-weight-bold);
+  margin-bottom: var(--cz-spacing-md);
+}
+
+.docs-page .lead {
+  font-size: var(--cz-font-size-lg);
+  color: hsl(var(--cz-color-mutedFg));
+  margin-bottom: var(--cz-spacing-xl);
+}
+
+.docs-page h2 {
+  font-size: var(--cz-font-size-xl);
+  font-weight: var(--cz-font-weight-semibold);
+  margin-top: var(--cz-spacing-2xl);
+  margin-bottom: var(--cz-spacing-md);
+  padding-top: var(--cz-spacing-lg);
+  border-top: 1px solid hsl(var(--cz-color-border));
+}
+
+.docs-page h2:first-of-type {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+.docs-page p {
+  line-height: var(--cz-font-lineHeight-relaxed);
+  margin-bottom: var(--cz-spacing-md);
+}
+
+.docs-page code {
+  background: hsl(var(--cz-color-muted));
+  padding: 2px 6px;
+  border-radius: var(--cz-radius-sm);
+  font-size: var(--cz-font-size-sm);
+}
+
+.docs-page .code-block {
+  background: hsl(220 40% 8%);
+  color: hsl(210 40% 96%);
+  padding: var(--cz-spacing-lg);
+  border-radius: var(--cz-radius-lg);
+  overflow-x: auto;
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: var(--cz-font-size-sm);
+  line-height: 1.6;
+  margin: var(--cz-spacing-md) 0;
+}
+
+.docs-page .code-block code {
+  background: transparent;
+  padding: 0;
+}

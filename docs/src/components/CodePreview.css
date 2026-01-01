@@ -1,0 +1,52 @@
+.code-preview {
+  border: 1px solid hsl(var(--cz-color-border));
+  border-radius: var(--cz-radius-lg);
+  overflow: hidden;
+  margin: var(--cz-spacing-lg) 0;
+}
+
+.preview-area {
+  padding: var(--cz-spacing-xl);
+  background: hsl(var(--cz-color-bg));
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cz-spacing-md);
+  align-items: center;
+}
+
+.preview-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--cz-spacing-sm) var(--cz-spacing-md);
+  background: hsl(var(--cz-color-muted));
+  border-top: 1px solid hsl(var(--cz-color-border));
+}
+
+.toolbar-btn {
+  background: transparent;
+  border: 1px solid hsl(var(--cz-color-border));
+  border-radius: var(--cz-radius-md);
+  padding: var(--cz-spacing-xs) var(--cz-spacing-md);
+  font-size: var(--cz-font-size-sm);
+  cursor: pointer;
+  color: hsl(var(--cz-color-fg));
+  transition: all var(--cz-transition-fast);
+}
+
+.toolbar-btn:hover,
+.toolbar-btn.active {
+  background: hsl(var(--cz-color-primary));
+  color: hsl(var(--cz-color-primaryFg));
+  border-color: hsl(var(--cz-color-primary));
+}
+
+.code-block {
+  background: hsl(220 40% 8%);
+  color: hsl(210 40% 96%);
+  padding: var(--cz-spacing-lg);
+  margin: 0;
+  overflow-x: auto;
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: var(--cz-font-size-sm);
+  line-height: 1.6;
+}
