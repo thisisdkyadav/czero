@@ -617,3 +617,219 @@ button, input, textarea, select {
   border-color: hsl(var(--cz-color-danger) / 0.3);
   color: hsl(var(--cz-color-danger));
 }
+
+/* ===== CHECKBOX ===== */
+
+.cz-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cz-checkbox-wrapper.cz-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.cz-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cz-checkbox-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--cz-radius-sm);
+  border: 2px solid hsl(var(--cz-color-border));
+  background-color: hsl(var(--cz-color-bg));
+  transition: all var(--cz-transition-fast);
+  flex-shrink: 0;
+}
+
+.cz-checkbox:checked + .cz-checkbox-indicator {
+  background-color: hsl(var(--cz-color-primary));
+  border-color: hsl(var(--cz-color-primary));
+}
+
+.cz-checkbox:checked + .cz-checkbox-indicator::after {
+  content: "";
+  display: block;
+  border: solid hsl(var(--cz-color-primaryFg));
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.cz-checkbox:focus-visible + .cz-checkbox-indicator {
+  box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring));
+}
+
+.cz-checkbox-label {
+  font-size: var(--cz-font-size-sm);
+  color: hsl(var(--cz-color-fg));
+}
+
+/* Checkbox Sizes */
+.cz-checkbox-sm + .cz-checkbox-indicator { width: 1rem; height: 1rem; }
+.cz-checkbox-sm:checked + .cz-checkbox-indicator::after { width: 0.25rem; height: 0.5rem; margin-bottom: 0.125rem; }
+
+.cz-checkbox-md + .cz-checkbox-indicator { width: 1.25rem; height: 1.25rem; }
+.cz-checkbox-md:checked + .cz-checkbox-indicator::after { width: 0.3rem; height: 0.6rem; margin-bottom: 0.15rem; }
+
+.cz-checkbox-lg + .cz-checkbox-indicator { width: 1.5rem; height: 1.5rem; }
+.cz-checkbox-lg:checked + .cz-checkbox-indicator::after { width: 0.375rem; height: 0.75rem; margin-bottom: 0.2rem; }
+
+/* ===== TOOLTIP ===== */
+
+.cz-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.cz-tooltip {
+  position: absolute;
+  z-index: 50;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--cz-font-size-sm);
+  background-color: hsl(var(--cz-color-fg));
+  color: hsl(var(--cz-color-bg));
+  border-radius: var(--cz-radius-md);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: var(--cz-shadow-md);
+}
+
+.cz-tooltip-top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0.5rem;
+}
+
+.cz-tooltip-bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+}
+
+.cz-tooltip-left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 0.5rem;
+}
+
+.cz-tooltip-right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.5rem;
+}
+
+/* ===== PROGRESS ===== */
+
+.cz-progress {
+  width: 100%;
+  background-color: hsl(var(--cz-color-muted));
+  border-radius: var(--cz-radius-full);
+  overflow: hidden;
+}
+
+.cz-progress-bar {
+  height: 100%;
+  border-radius: var(--cz-radius-full);
+  transition: width var(--cz-transition-normal);
+}
+
+/* Progress Sizes */
+.cz-progress-sm { height: 0.375rem; }
+.cz-progress-md { height: 0.5rem; }
+.cz-progress-lg { height: 0.75rem; }
+
+/* Progress Variants */
+.cz-progress-default { background-color: hsl(var(--cz-color-primary)); }
+.cz-progress-success { background-color: hsl(var(--cz-color-success)); }
+.cz-progress-warning { background-color: hsl(var(--cz-color-warning)); }
+.cz-progress-danger { background-color: hsl(var(--cz-color-danger)); }
+
+/* ===== SKELETON ===== */
+
+@keyframes cz-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.cz-skeleton {
+  background-color: hsl(var(--cz-color-muted));
+  animation: cz-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.cz-skeleton-text {
+  height: 1rem;
+  width: 100%;
+  border-radius: var(--cz-radius-sm);
+}
+
+.cz-skeleton-circular {
+  border-radius: var(--cz-radius-full);
+}
+
+.cz-skeleton-rectangular {
+  border-radius: var(--cz-radius-md);
+}
+
+/* ===== TABS ===== */
+
+.cz-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.cz-tabs-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-bottom: 1px solid hsl(var(--cz-color-border));
+  padding-bottom: 0;
+}
+
+.cz-tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: var(--cz-font-size-sm);
+  font-weight: var(--cz-font-weight-medium);
+  color: hsl(var(--cz-color-mutedFg));
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: all var(--cz-transition-fast);
+}
+
+.cz-tabs-trigger:hover {
+  color: hsl(var(--cz-color-fg));
+}
+
+.cz-tabs-trigger-active {
+  color: hsl(var(--cz-color-primary));
+  border-bottom-color: hsl(var(--cz-color-primary));
+}
+
+.cz-tabs-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--cz-color-ring));
+  border-radius: var(--cz-radius-sm);
+}
+
+.cz-tabs-content {
+  padding-top: var(--cz-spacing-lg);
+}

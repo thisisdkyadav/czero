@@ -11,6 +11,11 @@ import SwitchPage from "./pages/components/SwitchPage";
 import AvatarPage from "./pages/components/AvatarPage";
 import SeparatorPage from "./pages/components/SeparatorPage";
 import AlertPage from "./pages/components/AlertPage";
+import CheckboxPage from "./pages/components/CheckboxPage";
+import TooltipPage from "./pages/components/TooltipPage";
+import ProgressPage from "./pages/components/ProgressPage";
+import SkeletonPage from "./pages/components/SkeletonPage";
+import TabsPage from "./pages/components/TabsPage";
 import "./index.css";
 
 function App() {
@@ -29,6 +34,11 @@ function App() {
           <Route path="components/avatar" element={<AvatarPage />} />
           <Route path="components/separator" element={<SeparatorPage />} />
           <Route path="components/alert" element={<AlertPage />} />
+          <Route path="components/checkbox" element={<CheckboxPage />} />
+          <Route path="components/tooltip" element={<TooltipPage />} />
+          <Route path="components/progress" element={<ProgressPage />} />
+          <Route path="components/skeleton" element={<SkeletonPage />} />
+          <Route path="components/tabs" element={<TabsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
