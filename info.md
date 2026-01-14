@@ -78,13 +78,19 @@ CZero/
 
 ### React Components
 
-| File | Purpose |
-|------|---------|
-| `src/react/components/button.tsx` | Button with variants (primary, secondary, outline, ghost, danger) and sizes |
-| `src/react/components/input.tsx` | Input with label, error state, sizes |
-| `src/react/components/card.tsx` | Compound component (Card, Card.Header, Card.Title, etc.) |
-| `src/react/components/badge.tsx` | Badge with variants (primary, success, danger, warning, outline) |
-| `src/react/index.ts` | Barrel exports all components |
+> **33 components** organized by category:
+
+| Category | Components |
+|----------|------------|
+| **Forms** | `button`, `input`, `textarea`, `select`, `checkbox`, `switch`, `radio-group`, `label` |
+| **Display** | `card`, `badge`, `tag`, `avatar`, `separator`, `code`, `kbd` |
+| **Overlay** | `dialog`, `dropdown-menu`, `tooltip` |
+| **Feedback** | `alert`, `toast`, `progress`, `skeleton`, `spinner` |
+| **Navigation** | `tabs`, `accordion`, `breadcrumb` |
+| **Data** | `table` |
+| **Layout** | `stack`, `grid`, `container`, `aspect-ratio`, `scroll-area`, `visually-hidden` |
+
+All components are in `src/react/components/` and exported from `src/react/index.ts`.
 
 ### Build Configuration
 
