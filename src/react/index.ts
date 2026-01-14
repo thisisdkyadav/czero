@@ -32,3 +32,6 @@ export { Grid, type GridProps } from "./components/grid";
 export { Kbd, type KbdProps } from "./components/kbd";
 export { Code, type CodeProps } from "./components/code";
 export { ScrollArea, type ScrollAreaProps } from "./components/scroll-area";
+export { DropdownMenu, type DropdownMenuProps, type DropdownMenuTriggerProps, type DropdownMenuContentProps, type DropdownMenuItemProps, type DropdownMenuSeparatorProps, type DropdownMenuLabelProps } from "./components/dropdown-menu";
+export { Toast, Toaster, ToastProvider, useToast, type ToastProps, type ToasterProps } from "./components/toast";
+export { Tag, type TagProps } from "./components/tag";

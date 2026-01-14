@@ -31,6 +31,9 @@ import GridPage from "./pages/components/GridPage";
 import KbdPage from "./pages/components/KbdPage";
 import CodePage from "./pages/components/CodePage";
 import ScrollAreaPage from "./pages/components/ScrollAreaPage";
+import DropdownMenuPage from "./pages/components/DropdownMenuPage";
+import ToastPage from "./pages/components/ToastPage";
+import TagPage from "./pages/components/TagPage";
 import "./index.css";
 
 function App() {
@@ -69,6 +72,9 @@ function App() {
           <Route path="components/kbd" element={<KbdPage />} />
           <Route path="components/code" element={<CodePage />} />
           <Route path="components/scroll-area" element={<ScrollAreaPage />} />
+          <Route path="components/dropdown-menu" element={<DropdownMenuPage />} />
+          <Route path="components/toast" element={<ToastPage />} />
+          <Route path="components/tag" element={<TagPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
