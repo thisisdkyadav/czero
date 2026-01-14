@@ -26,24 +26,26 @@ button, input, textarea, select {
  */
 
 :root {
-  --cz-color-bg: 0 0% 100%;
-  --cz-color-fg: 220 15% 10%;
-  --cz-color-primary: 222 47% 45%;
+  --cz-color-bg: 200 30% 99%;
+  --cz-color-fg: 200 20% 15%;
+  --cz-color-primary: 200 85% 50%;
   --cz-color-primaryFg: 0 0% 100%;
   --cz-color-secondary: 220 10% 95%;
   --cz-color-secondaryFg: 220 15% 10%;
-  --cz-color-muted: 220 10% 95%;
-  --cz-color-mutedFg: 220 10% 40%;
+  --cz-color-muted: 200 25% 95%;
+  --cz-color-mutedFg: 200 15% 40%;
   --cz-color-danger: 0 70% 55%;
   --cz-color-dangerFg: 0 0% 100%;
-  --cz-color-success: 142 70% 45%;
+  --cz-color-success: 160 70% 40%;
   --cz-color-successFg: 0 0% 100%;
-  --cz-color-warning: 38 92% 50%;
+  --cz-color-warning: 40 90% 50%;
   --cz-color-warningFg: 0 0% 100%;
-  --cz-color-border: 220 13% 90%;
+  --cz-color-border: 200 20% 88%;
   --cz-color-ring: 222 47% 45%;
+  --cz-color-accent: 200 90% 55%;
+  --cz-color-accentFg: 0 0% 100%;
   --cz-radius-none: 0;
-  --cz-radius-sm: 0.25rem;
+  --cz-radius-sm: 0.375rem;
   --cz-radius-md: 0.5rem;
   --cz-radius-lg: 0.75rem;
   --cz-radius-xl: 1rem;
@@ -77,22 +79,24 @@ button, input, textarea, select {
 }
 
 .dark {
-  --cz-color-bg: 220 40% 3%;
-  --cz-color-fg: 210 40% 96%;
-  --cz-color-primary: 210 80% 65%;
-  --cz-color-primaryFg: 220 40% 3%;
+  --cz-color-bg: 220 40% 4%;
+  --cz-color-fg: 200 20% 95%;
+  --cz-color-primary: 200 80% 60%;
+  --cz-color-primaryFg: 0 0% 100%;
   --cz-color-secondary: 220 8% 25%;
   --cz-color-secondaryFg: 210 40% 96%;
-  --cz-color-muted: 220 8% 20%;
-  --cz-color-mutedFg: 220 10% 60%;
-  --cz-color-danger: 0 80% 65%;
+  --cz-color-muted: 200 10% 15%;
+  --cz-color-mutedFg: 200 15% 65%;
+  --cz-color-danger: 0 75% 60%;
   --cz-color-dangerFg: 0 0% 100%;
-  --cz-color-success: 142 70% 55%;
+  --cz-color-success: 160 60% 50%;
   --cz-color-successFg: 0 0% 100%;
-  --cz-color-warning: 38 92% 60%;
+  --cz-color-warning: 40 80% 55%;
   --cz-color-warningFg: 0 0% 0%;
-  --cz-color-border: 220 10% 20%;
+  --cz-color-border: 200 10% 20%;
   --cz-color-ring: 210 80% 65%;
+  --cz-color-accent: 200 85% 50%;
+  --cz-color-accentFg: 0 0% 100%;
 }
 
 /**

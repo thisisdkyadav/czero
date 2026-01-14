@@ -1,3 +1,5 @@
+/* Docs Page Styles - Light Blue Theme */
+
 .docs-page {
   max-width: 700px;
 }
@@ -6,12 +8,14 @@
   font-size: 2rem;
   font-weight: var(--cz-font-weight-bold);
   margin-bottom: var(--cz-spacing-md);
+  color: hsl(var(--cz-color-fg));
 }
 
 .docs-page .lead {
   font-size: var(--cz-font-size-lg);
   color: hsl(var(--cz-color-mutedFg));
   margin-bottom: var(--cz-spacing-xl);
+  line-height: var(--cz-font-lineHeight-relaxed);
 }
 
 .docs-page h2 {
@@ -21,6 +25,7 @@
   margin-bottom: var(--cz-spacing-md);
   padding-top: var(--cz-spacing-lg);
   border-top: 1px solid hsl(var(--cz-color-border));
+  color: hsl(var(--cz-color-fg));
 }
 
 .docs-page h2:first-of-type {
@@ -32,28 +37,33 @@
 .docs-page p {
   line-height: var(--cz-font-lineHeight-relaxed);
   margin-bottom: var(--cz-spacing-md);
+  color: hsl(var(--cz-color-fg));
 }
 
 .docs-page code {
-  background: hsl(var(--cz-color-muted));
-  padding: 2px 6px;
+  background: hsl(var(--cz-color-primary) / 0.1);
+  color: hsl(var(--cz-color-primary));
+  padding: 2px 8px;
   border-radius: var(--cz-radius-sm);
   font-size: var(--cz-font-size-sm);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 .docs-page .code-block {
   background: hsl(220 40% 8%);
-  color: hsl(210 40% 96%);
+  color: hsl(200 20% 90%);
   padding: var(--cz-spacing-lg);
   border-radius: var(--cz-radius-lg);
   overflow-x: auto;
-  font-family: "Fira Code", "Consolas", monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: var(--cz-font-size-sm);
   line-height: 1.6;
   margin: var(--cz-spacing-md) 0;
+  border: 1px solid hsl(220 20% 15%);
 }
 
 .docs-page .code-block code {
   background: transparent;
+  color: inherit;
   padding: 0;
 }

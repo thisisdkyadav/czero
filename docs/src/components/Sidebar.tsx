@@ -1,38 +1,73 @@
 import { NavLink } from "react-router-dom";
 
-const components = [
-  { name: "Button", path: "/components/button" },
-  { name: "Input", path: "/components/input" },
-  { name: "Textarea", path: "/components/textarea" },
-  { name: "Select", path: "/components/select" },
-  { name: "Checkbox", path: "/components/checkbox" },
-  { name: "Switch", path: "/components/switch" },
-  { name: "RadioGroup", path: "/components/radio-group" },
-  { name: "Label", path: "/components/label" },
-  { name: "Card", path: "/components/card" },
-  { name: "Badge", path: "/components/badge" },
-  { name: "Tag", path: "/components/tag" },
-  { name: "Avatar", path: "/components/avatar" },
-  { name: "Separator", path: "/components/separator" },
-  { name: "Alert", path: "/components/alert" },
-  { name: "Toast", path: "/components/toast" },
-  { name: "Dialog", path: "/components/dialog" },
-  { name: "DropdownMenu", path: "/components/dropdown-menu" },
-  { name: "Tooltip", path: "/components/tooltip" },
-  { name: "Progress", path: "/components/progress" },
-  { name: "Skeleton", path: "/components/skeleton" },
-  { name: "Spinner", path: "/components/spinner" },
-  { name: "Tabs", path: "/components/tabs" },
-  { name: "Accordion", path: "/components/accordion" },
-  { name: "Table", path: "/components/table" },
-  { name: "Breadcrumb", path: "/components/breadcrumb" },
-  { name: "Stack", path: "/components/stack" },
-  { name: "Grid", path: "/components/grid" },
-  { name: "Container", path: "/components/container" },
-  { name: "AspectRatio", path: "/components/aspect-ratio" },
-  { name: "ScrollArea", path: "/components/scroll-area" },
-  { name: "Code", path: "/components/code" },
-  { name: "Kbd", path: "/components/kbd" },
+const componentCategories = [
+  {
+    title: "Forms",
+    components: [
+      { name: "Button", path: "/docs/components/button" },
+      { name: "Input", path: "/docs/components/input" },
+      { name: "Textarea", path: "/docs/components/textarea" },
+      { name: "Select", path: "/docs/components/select" },
+      { name: "Checkbox", path: "/docs/components/checkbox" },
+      { name: "Switch", path: "/docs/components/switch" },
+      { name: "RadioGroup", path: "/docs/components/radio-group" },
+      { name: "Label", path: "/docs/components/label" },
+    ],
+  },
+  {
+    title: "Display",
+    components: [
+      { name: "Card", path: "/docs/components/card" },
+      { name: "Badge", path: "/docs/components/badge" },
+      { name: "Tag", path: "/docs/components/tag" },
+      { name: "Avatar", path: "/docs/components/avatar" },
+      { name: "Separator", path: "/docs/components/separator" },
+      { name: "Code", path: "/docs/components/code" },
+      { name: "Kbd", path: "/docs/components/kbd" },
+    ],
+  },
+  {
+    title: "Overlay",
+    components: [
+      { name: "Dialog", path: "/docs/components/dialog" },
+      { name: "DropdownMenu", path: "/docs/components/dropdown-menu" },
+      { name: "Tooltip", path: "/docs/components/tooltip" },
+    ],
+  },
+  {
+    title: "Feedback",
+    components: [
+      { name: "Alert", path: "/docs/components/alert" },
+      { name: "Toast", path: "/docs/components/toast" },
+      { name: "Progress", path: "/docs/components/progress" },
+      { name: "Skeleton", path: "/docs/components/skeleton" },
+      { name: "Spinner", path: "/docs/components/spinner" },
+    ],
+  },
+  {
+    title: "Navigation",
+    components: [
+      { name: "Tabs", path: "/docs/components/tabs" },
+      { name: "Accordion", path: "/docs/components/accordion" },
+      { name: "Breadcrumb", path: "/docs/components/breadcrumb" },
+    ],
+  },
+  {
+    title: "Data",
+    components: [
+      { name: "Table", path: "/docs/components/table" },
+    ],
+  },
+  {
+    title: "Layout",
+    components: [
+      { name: "Stack", path: "/docs/components/stack" },
+      { name: "Grid", path: "/docs/components/grid" },
+      { name: "Container", path: "/docs/components/container" },
+      { name: "AspectRatio", path: "/docs/components/aspect-ratio" },
+      { name: "ScrollArea", path: "/docs/components/scroll-area" },
+    ],
+  },
 ];
 
 export default function Sidebar() {
@@ -41,19 +76,21 @@ export default function Sidebar() {
       <div className="sidebar-section">
         <div className="sidebar-title">Getting Started</div>
         <div className="sidebar-links">
-          <NavLink to="/getting-started">Introduction</NavLink>
+          <NavLink to="/docs" end>Introduction</NavLink>
         </div>
       </div>
-      <div className="sidebar-section">
-        <div className="sidebar-title">Components</div>
-        <div className="sidebar-links">
-          {components.map((c) => (
-            <NavLink key={c.path} to={c.path}>
-              {c.name}
-            </NavLink>
-          ))}
+      {componentCategories.map((category) => (
+        <div key={category.title} className="sidebar-section">
+          <div className="sidebar-title">{category.title}</div>
+          <div className="sidebar-links">
+            {category.components.map((c) => (
+              <NavLink key={c.path} to={c.path}>
+                {c.name}
+              </NavLink>
+            ))}
+          </div>
         </div>
-      </div>
+      ))}
     </aside>
   );
 }

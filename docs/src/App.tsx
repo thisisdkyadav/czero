@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import LandingLayout from "./components/LandingLayout";
+import DocsLayout from "./components/DocsLayout";
 import Home from "./pages/Home";
 import GettingStarted from "./pages/GettingStarted";
 import ButtonPage from "./pages/components/ButtonPage";
@@ -40,8 +41,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        {/* Landing page uses LandingLayout (no sidebar) */}
+        <Route path="/" element={<LandingLayout />}>
           <Route index element={<Home />} />
+        </Route>
+
+        {/* Docs pages use DocsLayout (with sidebar) */}
+        <Route path="/docs" element={<DocsLayout />}>
+          <Route index element={<GettingStarted />} />
           <Route path="getting-started" element={<GettingStarted />} />
           <Route path="components/button" element={<ButtonPage />} />
           <Route path="components/input" element={<InputPage />} />
