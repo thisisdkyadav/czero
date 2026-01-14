@@ -16,6 +16,14 @@ import TooltipPage from "./pages/components/TooltipPage";
 import ProgressPage from "./pages/components/ProgressPage";
 import SkeletonPage from "./pages/components/SkeletonPage";
 import TabsPage from "./pages/components/TabsPage";
+import DialogPage from "./pages/components/DialogPage";
+import SelectPage from "./pages/components/SelectPage";
+import RadioGroupPage from "./pages/components/RadioGroupPage";
+import TablePage from "./pages/components/TablePage";
+import AccordionPage from "./pages/components/AccordionPage";
+import StackPage from "./pages/components/StackPage";
+import SpinnerPage from "./pages/components/SpinnerPage";
+import AspectRatioPage from "./pages/components/AspectRatioPage";
 import "./index.css";
 
 function App() {
@@ -39,6 +47,14 @@ function App() {
           <Route path="components/progress" element={<ProgressPage />} />
           <Route path="components/skeleton" element={<SkeletonPage />} />
           <Route path="components/tabs" element={<TabsPage />} />
+          <Route path="components/dialog" element={<DialogPage />} />
+          <Route path="components/select" element={<SelectPage />} />
+          <Route path="components/radio-group" element={<RadioGroupPage />} />
+          <Route path="components/table" element={<TablePage />} />
+          <Route path="components/accordion" element={<AccordionPage />} />
+          <Route path="components/stack" element={<StackPage />} />
+          <Route path="components/spinner" element={<SpinnerPage />} />
+          <Route path="components/aspect-ratio" element={<AspectRatioPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
