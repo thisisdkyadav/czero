@@ -3,8 +3,13 @@ import { NavLink } from "react-router-dom";
 const components = [
   { name: "Button", path: "/components/button" },
   { name: "Input", path: "/components/input" },
+  { name: "Textarea", path: "/components/textarea" },
+  { name: "Switch", path: "/components/switch" },
   { name: "Card", path: "/components/card" },
   { name: "Badge", path: "/components/badge" },
+  { name: "Avatar", path: "/components/avatar" },
+  { name: "Separator", path: "/components/separator" },
+  { name: "Alert", path: "/components/alert" },
 ];
 
 export default function Sidebar() {
