@@ -24,3 +24,11 @@ export { Accordion, type AccordionProps, type AccordionItemProps, type Accordion
 export { Stack, type StackProps } from "./components/stack";
 export { Spinner, type SpinnerProps } from "./components/spinner";
 export { AspectRatio, type AspectRatioProps } from "./components/aspect-ratio";
+export { Breadcrumb, type BreadcrumbProps, type BreadcrumbListProps, type BreadcrumbItemProps, type BreadcrumbLinkProps, type BreadcrumbSeparatorProps, type BreadcrumbPageProps } from "./components/breadcrumb";
+export { Label, type LabelProps } from "./components/label";
+export { VisuallyHidden, type VisuallyHiddenProps } from "./components/visually-hidden";
+export { Container, type ContainerProps } from "./components/container";
+export { Grid, type GridProps } from "./components/grid";
+export { Kbd, type KbdProps } from "./components/kbd";
+export { Code, type CodeProps } from "./components/code";
+export { ScrollArea, type ScrollAreaProps } from "./components/scroll-area";

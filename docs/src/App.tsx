@@ -24,6 +24,13 @@ import AccordionPage from "./pages/components/AccordionPage";
 import StackPage from "./pages/components/StackPage";
 import SpinnerPage from "./pages/components/SpinnerPage";
 import AspectRatioPage from "./pages/components/AspectRatioPage";
+import BreadcrumbPage from "./pages/components/BreadcrumbPage";
+import LabelPage from "./pages/components/LabelPage";
+import ContainerPage from "./pages/components/ContainerPage";
+import GridPage from "./pages/components/GridPage";
+import KbdPage from "./pages/components/KbdPage";
+import CodePage from "./pages/components/CodePage";
+import ScrollAreaPage from "./pages/components/ScrollAreaPage";
 import "./index.css";
 
 function App() {
@@ -55,6 +62,13 @@ function App() {
           <Route path="components/stack" element={<StackPage />} />
           <Route path="components/spinner" element={<SpinnerPage />} />
           <Route path="components/aspect-ratio" element={<AspectRatioPage />} />
+          <Route path="components/breadcrumb" element={<BreadcrumbPage />} />
+          <Route path="components/label" element={<LabelPage />} />
+          <Route path="components/container" element={<ContainerPage />} />
+          <Route path="components/grid" element={<GridPage />} />
+          <Route path="components/kbd" element={<KbdPage />} />
+          <Route path="components/code" element={<CodePage />} />
+          <Route path="components/scroll-area" element={<ScrollAreaPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
