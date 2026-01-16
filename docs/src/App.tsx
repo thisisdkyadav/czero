@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "../../src/react/hooks/use-theme";
+import { TooltipProvider } from "../../src/react/components/tooltip";
 import LandingLayout from "./components/LandingLayout";
 import DocsLayout from "./components/DocsLayout";
 import Home from "./pages/Home";
@@ -41,7 +42,8 @@ import "./index.css";
 function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="czero-docs-theme">
-      <BrowserRouter>
+      <TooltipProvider delayDuration={200}>
+        <BrowserRouter>
         <Routes>
           {/* Landing page uses LandingLayout (no sidebar) */}
           <Route path="/" element={<LandingLayout />}>
@@ -86,7 +88,8 @@ function App() {
             <Route path="components/tag" element={<TagPage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+      </TooltipProvider>
     </ThemeProvider>
   );
 }

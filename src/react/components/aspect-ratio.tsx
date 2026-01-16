@@ -1,28 +1,21 @@
 import * as React from "react";
+import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio";
 
-export interface AspectRatioProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AspectRatioProps
+  extends React.ComponentPropsWithoutRef<typeof AspectRatioPrimitive.Root> {
   ratio?: number;
   children: React.ReactNode;
 }
 
-export const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(
-  ({ className = "", ratio = 16 / 9, children, style, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={`cz-aspect-ratio ${className}`}
-        style={{
-          ...style,
-          paddingBottom: `${(1 / ratio) * 100}%`,
-        }}
-        {...props}
-      >
-        <div className="cz-aspect-ratio-content">
-          {children}
-        </div>
-      </div>
-    );
-  }
-);
+export const AspectRatio = React.forwardRef<
+  React.ElementRef<typeof AspectRatioPrimitive.Root>,
+  AspectRatioProps
+>(({ className = "", ratio = 16 / 9, children, ...props }, ref) => (
+  <div className={`cz-aspect-ratio ${className}`}>
+    <AspectRatioPrimitive.Root ref={ref} ratio={ratio} {...props}>
+      {children}
+    </AspectRatioPrimitive.Root>
+  </div>
+));
 
-AspectRatio.displayName = "AspectRatio";
+AspectRatio.displayName = AspectRatioPrimitive.Root.displayName;

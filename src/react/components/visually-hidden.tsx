@@ -1,13 +1,16 @@
 import * as React from "react";
+import * as VisuallyHiddenPrimitive from "@radix-ui/react-visually-hidden";
 
-export interface VisuallyHiddenProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface VisuallyHiddenProps
+  extends React.ComponentPropsWithoutRef<typeof VisuallyHiddenPrimitive.Root> {
   children: React.ReactNode;
 }
 
-export const VisuallyHidden = React.forwardRef<HTMLSpanElement, VisuallyHiddenProps>(
-  ({ className = "", ...props }, ref) => (
-    <span ref={ref} className={`cz-visually-hidden ${className}`} {...props} />
-  )
-);
+export const VisuallyHidden = React.forwardRef<
+  React.ElementRef<typeof VisuallyHiddenPrimitive.Root>,
+  VisuallyHiddenProps
+>(({ ...props }, ref) => (
+  <VisuallyHiddenPrimitive.Root ref={ref} {...props} />
+));
 
-VisuallyHidden.displayName = "VisuallyHidden";
+VisuallyHidden.displayName = VisuallyHiddenPrimitive.Root.displayName;
