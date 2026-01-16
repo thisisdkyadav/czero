@@ -1,18 +1,14 @@
-import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
+import { useTheme } from "../../../src/react/hooks/use-theme";
 import Sidebar from "./Sidebar";
 import "./DocsLayout.css";
 
 export default function DocsLayout() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+  const { resolvedTheme, toggleTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <div className={`docs-layout ${darkMode ? "dark" : ""}`}>
+    <div className={`docs-layout ${isDark ? "dark" : ""}`}>
       <header className="docs-header">
         <div className="docs-header-inner">
           <NavLink to="/" className="docs-logo">
@@ -31,8 +27,8 @@ export default function DocsLayout() {
               GitHub
             </a>
           </nav>
-          <button className="docs-theme-toggle" onClick={toggleDarkMode} aria-label="Toggle theme">
-            {darkMode ? "☀️" : "🌙"}
+          <button className="docs-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {isDark ? "☀️" : "🌙"}
           </button>
         </div>
       </header>
@@ -45,3 +41,4 @@ export default function DocsLayout() {
     </div>
   );
 }
+

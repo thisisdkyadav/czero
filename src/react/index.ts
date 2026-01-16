@@ -35,3 +35,13 @@ export { ScrollArea, type ScrollAreaProps } from "./components/scroll-area";
 export { DropdownMenu, type DropdownMenuProps, type DropdownMenuTriggerProps, type DropdownMenuContentProps, type DropdownMenuItemProps, type DropdownMenuSeparatorProps, type DropdownMenuLabelProps } from "./components/dropdown-menu";
 export { Toast, Toaster, ToastProvider, useToast, type ToastProps, type ToasterProps } from "./components/toast";
 export { Tag, type TagProps } from "./components/tag";
+
+// Hooks
+export {
+  useTheme,
+  ThemeProvider,
+  type Theme,
+  type ThemeProviderProps,
+  type ThemeContextValue,
+} from "./hooks/use-theme";
+

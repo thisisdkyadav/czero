@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "../../src/react/hooks/use-theme";
 import LandingLayout from "./components/LandingLayout";
 import DocsLayout from "./components/DocsLayout";
 import Home from "./pages/Home";
@@ -39,53 +40,56 @@ import "./index.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Landing page uses LandingLayout (no sidebar) */}
-        <Route path="/" element={<LandingLayout />}>
-          <Route index element={<Home />} />
-        </Route>
+    <ThemeProvider defaultTheme="system" storageKey="czero-docs-theme">
+      <BrowserRouter>
+        <Routes>
+          {/* Landing page uses LandingLayout (no sidebar) */}
+          <Route path="/" element={<LandingLayout />}>
+            <Route index element={<Home />} />
+          </Route>
 
-        {/* Docs pages use DocsLayout (with sidebar) */}
-        <Route path="/docs" element={<DocsLayout />}>
-          <Route index element={<GettingStarted />} />
-          <Route path="getting-started" element={<GettingStarted />} />
-          <Route path="components/button" element={<ButtonPage />} />
-          <Route path="components/input" element={<InputPage />} />
-          <Route path="components/card" element={<CardPage />} />
-          <Route path="components/badge" element={<BadgePage />} />
-          <Route path="components/textarea" element={<TextareaPage />} />
-          <Route path="components/switch" element={<SwitchPage />} />
-          <Route path="components/avatar" element={<AvatarPage />} />
-          <Route path="components/separator" element={<SeparatorPage />} />
-          <Route path="components/alert" element={<AlertPage />} />
-          <Route path="components/checkbox" element={<CheckboxPage />} />
-          <Route path="components/tooltip" element={<TooltipPage />} />
-          <Route path="components/progress" element={<ProgressPage />} />
-          <Route path="components/skeleton" element={<SkeletonPage />} />
-          <Route path="components/tabs" element={<TabsPage />} />
-          <Route path="components/dialog" element={<DialogPage />} />
-          <Route path="components/select" element={<SelectPage />} />
-          <Route path="components/radio-group" element={<RadioGroupPage />} />
-          <Route path="components/table" element={<TablePage />} />
-          <Route path="components/accordion" element={<AccordionPage />} />
-          <Route path="components/stack" element={<StackPage />} />
-          <Route path="components/spinner" element={<SpinnerPage />} />
-          <Route path="components/aspect-ratio" element={<AspectRatioPage />} />
-          <Route path="components/breadcrumb" element={<BreadcrumbPage />} />
-          <Route path="components/label" element={<LabelPage />} />
-          <Route path="components/container" element={<ContainerPage />} />
-          <Route path="components/grid" element={<GridPage />} />
-          <Route path="components/kbd" element={<KbdPage />} />
-          <Route path="components/code" element={<CodePage />} />
-          <Route path="components/scroll-area" element={<ScrollAreaPage />} />
-          <Route path="components/dropdown-menu" element={<DropdownMenuPage />} />
-          <Route path="components/toast" element={<ToastPage />} />
-          <Route path="components/tag" element={<TagPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* Docs pages use DocsLayout (with sidebar) */}
+          <Route path="/docs" element={<DocsLayout />}>
+            <Route index element={<GettingStarted />} />
+            <Route path="getting-started" element={<GettingStarted />} />
+            <Route path="components/button" element={<ButtonPage />} />
+            <Route path="components/input" element={<InputPage />} />
+            <Route path="components/card" element={<CardPage />} />
+            <Route path="components/badge" element={<BadgePage />} />
+            <Route path="components/textarea" element={<TextareaPage />} />
+            <Route path="components/switch" element={<SwitchPage />} />
+            <Route path="components/avatar" element={<AvatarPage />} />
+            <Route path="components/separator" element={<SeparatorPage />} />
+            <Route path="components/alert" element={<AlertPage />} />
+            <Route path="components/checkbox" element={<CheckboxPage />} />
+            <Route path="components/tooltip" element={<TooltipPage />} />
+            <Route path="components/progress" element={<ProgressPage />} />
+            <Route path="components/skeleton" element={<SkeletonPage />} />
+            <Route path="components/tabs" element={<TabsPage />} />
+            <Route path="components/dialog" element={<DialogPage />} />
+            <Route path="components/select" element={<SelectPage />} />
+            <Route path="components/radio-group" element={<RadioGroupPage />} />
+            <Route path="components/table" element={<TablePage />} />
+            <Route path="components/accordion" element={<AccordionPage />} />
+            <Route path="components/stack" element={<StackPage />} />
+            <Route path="components/spinner" element={<SpinnerPage />} />
+            <Route path="components/aspect-ratio" element={<AspectRatioPage />} />
+            <Route path="components/breadcrumb" element={<BreadcrumbPage />} />
+            <Route path="components/label" element={<LabelPage />} />
+            <Route path="components/container" element={<ContainerPage />} />
+            <Route path="components/grid" element={<GridPage />} />
+            <Route path="components/kbd" element={<KbdPage />} />
+            <Route path="components/code" element={<CodePage />} />
+            <Route path="components/scroll-area" element={<ScrollAreaPage />} />
+            <Route path="components/dropdown-menu" element={<DropdownMenuPage />} />
+            <Route path="components/toast" element={<ToastPage />} />
+            <Route path="components/tag" element={<TagPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
 export default App;
+

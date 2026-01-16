@@ -1,17 +1,13 @@
-import { useState } from "react";
 import { Outlet, NavLink, Link } from "react-router-dom";
+import { useTheme } from "../../../src/react/hooks/use-theme";
 import "./LandingLayout.css";
 
 export default function LandingLayout() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+  const { resolvedTheme, toggleTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <div className={`landing-layout ${darkMode ? "dark" : ""}`}>
+    <div className={`landing-layout ${isDark ? "dark" : ""}`}>
       <header className="landing-header">
         <div className="landing-header-inner">
           <NavLink to="/" className="landing-logo">
@@ -30,8 +26,8 @@ export default function LandingLayout() {
               GitHub
             </a>
           </nav>
-          <button className="landing-theme-toggle" onClick={toggleDarkMode} aria-label="Toggle theme">
-            {darkMode ? "☀️" : "🌙"}
+          <button className="landing-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {isDark ? "☀️" : "🌙"}
           </button>
         </div>
       </header>
@@ -67,3 +63,4 @@ export default function LandingLayout() {
     </div>
   );
 }
+
