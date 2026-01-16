@@ -1,201 +1,277 @@
+# CZero — Architecture & Vision
 
-## 🧱 1. Project goals
-
-**Core philosophy**
-- **Design‑token driven:** entire look & feel controlled by a single config file.  
-- **React first:** built using React + Radix UI primitives.  
-- **Tailwind used only for authoring utilities** — we ship precompiled CSS.  
-- **Composable components:** flexible, accessible, low‑level.  
-- **Customizable themes:** users can add brand palettes or modes easily.  
-- **Lightweight CSS package:** one compiled file, tree‑shakeable JS.  
+> **Last Updated:** January 16, 2026
+>
+> A design-token-driven React component library built on top of **Radix UI primitives**.
 
 ---
 
-## 📚 2. Technical stack
+## 🧱 1. Core Philosophy
 
-- **React + TypeScript**
-- **Radix UI** for accessibility and behavior (dialogs, popovers, menus, switches, etc.)
-- **Tailwind CSS (internal use only)** – generates token‑based utilities
-- **PostCSS build** – compiles CSS to a single distributable file
-- **Rollup / Vite library build** – bundles components
-- **ESM + CJS output** – for compatibility
-- **CSS Variables** – theming, brand colors, responsive spacing, shadows
+| Principle | Description |
+|-----------|-------------|
+| **Radix First** | Every interactive component is built on Radix UI primitives for accessibility and behavior. No custom implementations for complex interactions. |
+| **Design-Token Driven** | Entire look & feel controlled by a single `theme.config.ts` file |
+| **Zero Runtime Styling** | We ship precompiled CSS — users don't need Tailwind at runtime |
+| **Composable & Accessible** | Leverage Radix's WAI-ARIA compliance out of the box |
+| **Customizable Themes** | Users override tokens to match their brand |
 
 ---
 
-## 🎨 3. Design-token config
+## 📚 2. Technical Stack
 
-The heart of your system.
+| Layer | Technology |
+|-------|------------|
+| **Framework** | React 18+ with TypeScript |
+| **Primitives** | **Radix UI** for all interactive components |
+| **Styling** | Pure CSS with `--cz-*` CSS variables (no Tailwind at runtime) |
+| **Build** | Rollup for components, esbuild for CLI |
+| **Output** | ESM + CJS bundles with TypeScript declarations |
 
-Example `theme.config.ts`:
+### Peer Dependencies
+```json
+{
+  "react": ">=18.0.0",
+  "react-dom": ">=18.0.0"
+}
+```
+
+### Bundled Dependencies
+Radix primitives are bundled WITH the library — users don't need to install them separately.
+
+---
+
+## 🎯 3. Radix Integration Strategy
+
+### Why Radix?
+
+1. **Accessibility** — WAI-ARIA compliant, keyboard navigation, screen reader support
+2. **Behavior** — Focus management, scroll locking, click-outside handling
+3. **Unstyled** — We apply CZero's token-based CSS on top
+4. **Composable** — Parts-based API for flexibility
+
+### Component → Radix Primitive Mapping
+
+| CZero Component | Radix Primitive | Notes |
+|-----------------|-----------------|-------|
+| **Dialog** | `@radix-ui/react-dialog` | Portal, overlay, focus trap |
+| **AlertDialog** | `@radix-ui/react-alert-dialog` | Non-dismissible confirmation |
+| **DropdownMenu** | `@radix-ui/react-dropdown-menu` | Submenus, keyboard nav |
+| **Select** | `@radix-ui/react-select` | Virtualization ready |
+| **Checkbox** | `@radix-ui/react-checkbox` | Indeterminate state |
+| **Switch** | `@radix-ui/react-switch` | Toggle behavior |
+| **RadioGroup** | `@radix-ui/react-radio-group` | Roving tabindex |
+| **Tabs** | `@radix-ui/react-tabs` | Automatic/manual activation |
+| **Accordion** | `@radix-ui/react-accordion` | Single/multiple open |
+| **Tooltip** | `@radix-ui/react-tooltip` | Delay, positioning |
+| **Toast** | `@radix-ui/react-toast` | Queue, swipe dismiss |
+| **Popover** | `@radix-ui/react-popover` | Positioning, collision |
+| **Collapsible** | `@radix-ui/react-collapsible` | Animate height |
+| **Slider** | `@radix-ui/react-slider` | Range, marks |
+| **Progress** | `@radix-ui/react-progress` | Semantic progress |
+| **ScrollArea** | `@radix-ui/react-scroll-area` | Custom scrollbars |
+| **Separator** | `@radix-ui/react-separator` | Semantic HR |
+| **Label** | `@radix-ui/react-label` | Form label association |
+| **AspectRatio** | `@radix-ui/react-aspect-ratio` | Responsive media |
+| **VisuallyHidden** | `@radix-ui/react-visually-hidden` | Screen reader only |
+| **Avatar** | `@radix-ui/react-avatar` | Fallback handling |
+| **Slot** | `@radix-ui/react-slot` | `asChild` pattern |
+| **NavigationMenu** | `@radix-ui/react-navigation-menu` | Site navigation |
+| **ContextMenu** | `@radix-ui/react-context-menu` | Right-click menu |
+| **HoverCard** | `@radix-ui/react-hover-card` | Preview cards |
+| **Menubar** | `@radix-ui/react-menubar` | App menu bar |
+
+### Components WITHOUT Radix (Pure Styling)
+
+These components are purely stylistic and don't need Radix:
+
+| Component | Reason |
+|-----------|--------|
+| **Button** | Simple element, no complex behavior |
+| **Input** | Native HTML input with styles |
+| **Textarea** | Native HTML textarea |
+| **Card** | Container with styling |
+| **Badge** | Static label |
+| **Tag** | Static label with optional dismiss |
+| **Alert** | Static feedback block |
+| **Skeleton** | CSS animation only |
+| **Spinner** | CSS/SVG animation |
+| **Container** | Layout wrapper |
+| **Grid** | CSS grid layout |
+| **Stack** | Flexbox layout |
+| **Table** | Styled HTML table |
+| **Breadcrumb** | Navigation with links |
+| **Code** | Styled code block |
+| **Kbd** | Keyboard shortcut indicator |
+
+---
+
+## 🪝 4. Hooks & Utilities
+
+### Required Hooks
+
+| Hook | Purpose |
+|------|---------|
+| `useTheme` | Dark/light mode toggle with system preference detection and localStorage persistence |
+
+### Optional Hooks
+
+| Hook | Purpose |
+|------|---------|
+| `useMediaQuery` | Responsive breakpoint detection in JS |
+
+### Utilities
+
+Since CZero uses semantic CSS classes (not Tailwind utilities), we do **NOT** need:
+- ~~`cn()`~~ (tailwind-merge) — No conflicting utility classes to resolve
+- ~~`clsx`~~ — Simple array join is sufficient
+
+---
+
+## 🧩 5. Package Structure
+
+```
+CZero/
+├── src/
+│   ├── core/
+│   │   ├── theme.config.ts      # Design tokens
+│   │   ├── build-tokens.ts      # Generates tokens.css
+│   │   └── styles/
+│   │       ├── reset.css        # Minimal CSS reset
+│   │       ├── tokens.css       # Generated CSS variables
+│   │       ├── components.css   # All component styles
+│   │       └── index.css        # Entry point
+│   ├── react/
+│   │   ├── components/          # All React components
+│   │   ├── hooks/               # useTheme, etc.
+│   │   └── index.ts             # Barrel exports
+│   └── index.ts                 # Package entry
+├── cli/
+│   └── index.ts                 # CLI for CSS generation
+├── docs/                        # Documentation site
+├── dist/                        # Build output
+├── package.json
+└── rollup.config.ts
+```
+
+---
+
+## 🎨 6. Design Token System
+
 ```ts
+// theme.config.ts
 export const theme = {
   color: {
     bg: { light: "0 0% 100%", dark: "220 40% 3%" },
     fg: { light: "220 15% 10%", dark: "210 40% 96%" },
     primary: { light: "222 47% 45%", dark: "210 80% 65%" },
-    accent: { light: "200 90% 55%", dark: "200 90% 45%" },
-    muted: { light: "220 10% 95%", dark: "220 8% 20%" },
-    danger: { light: "0 70% 55%", dark: "0 80% 65%" },
+    // ...
   },
-  radius: {
-    sm: "0.25rem",
-    md: "0.5rem",
-    lg: "0.75rem",
-    full: "9999px",
-  },
-  shadow: {
-    sm: "0 1px 2px rgb(0 0 0 / 0.05)",
-    md: "0 2px 4px rgb(0 0 0 / 0.08)",
-  },
-  typography: {
-    fontFamily: "Inter, sans-serif",
-    size: { sm: "0.875rem", md: "1rem", lg: "1.25rem" },
-    lineHeight: { sm: "1.4", md: "1.6", lg: "1.75" },
-  },
-  spacing: { xs: "0.25rem", sm: "0.5rem", md: "0.75rem", lg: "1rem" },
+  radius: { sm: "0.25rem", md: "0.5rem", lg: "0.75rem" },
+  shadow: { sm: "...", md: "..." },
+  spacing: { sm: "0.5rem", md: "0.75rem", lg: "1rem" },
+  typography: { /* sizes, weights, lineHeights */ },
+  transition: { fast: "150ms ease", normal: "200ms ease" },
 };
 ```
 
-Build script reads this → outputs:
-- tokens.css (`:root` variables)
-- utilities.css (small class set)
-- final `dist/styles.css` → included by users
-
----
-
-## 🧩 4. Package structure
-
-```
-your-ui/
-├─ src/
-│  ├─ core/
-│  │   ├─ theme.config.ts
-│  │   ├─ build-tokens.ts
-│  │   └─ styles/
-│  │       ├─ tokens.css
-│  │       ├─ utilities.css
-│  │       └─ index.css
-│  ├─ react/
-│  │   ├─ components/
-│  │   │   ├─ ui/
-│  │   │   │   ├─ button.tsx
-│  │   │   │   ├─ input.tsx
-│  │   │   │   ├─ switch.tsx
-│  │   │   │   ├─ dialog.tsx
-│  │   │   │   ├─ dropdown-menu.tsx
-│  │   │   │   └─ ... etc ...
-│  │   ├─ hooks/
-│  │   │   ├─ use-toast.ts
-│  │   │   └─ use-theme.ts
-│  │   └─ lib/
-│  │       └─ cn.ts
-│  └─ index.ts (barrel export)
-├─ scripts/
-│  └─ build-css.ts  (reads theme.config.ts → builds tokens/utilities)
-├─ package.json
-└─ rollup.config.ts
+Generated CSS:
+```css
+:root {
+  --cz-color-primary: 222 47% 45%;
+  --cz-radius-md: 0.5rem;
+  /* ... */
+}
+.dark {
+  --cz-color-primary: 210 80% 65%;
+  /* ... */
+}
 ```
 
 ---
 
-## 🧠 5. Component plan
+## 🧰 7. Developer Experience
 
-### **Stage 1 — Foundations**
-Basic core components to shape the system.
+### Installation
+```bash
+npm install czero
+```
 
-| Category | Component | Core feature |
-|-----------|------------|---------------|
-| **Form** | Button | variants, sizes, disabled state |
-| | Input, Textarea | labels, focus ring, validation colors |
-| | Checkbox, Switch | Radix primitives |
-| **Display** | Card, Badge, Avatar | static styling + tokens |
-| **Overlay** | Dialog (Radix), Tooltip, Dropdown | accessibility + animation |
-| **Feedback** | Toast, Alert | Radix + transitions |
-| **Navigation** | Tabs, Separator, Breadcrumb | tailwind utilities |
+### Usage
+```tsx
+import "czero/styles.css";
+import { Button, Dialog, useTheme } from "czero/react";
 
-### **Stage 2 — Composition**
-| Category | Component | Core feature |
-|-----------|------------|---------------|
-| **Layout** | Container, Grid, Stack | spacing utils |
-| **Feedback** | Progress, Skeleton | animation + tokens |
-| **Forms extended** | Select, RadioGroup | full keyboard interactions |
-| **Data display** | Table, Tag, Accordion | style consistency |
+function App() {
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <Dialog>
+      <Dialog.Trigger asChild>
+        <Button variant="primary">Open</Button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Title>Hello</Dialog.Title>
+        <Dialog.Description>Content here</Dialog.Description>
+      </Dialog.Content>
+    </Dialog>
+  );
+}
+```
 
-### **Stage 3 — Advanced / Docs**
-| Category | Component | Core feature |
-|-----------|------------|---------------|
-| **Docs utilities** | Typography system (Headings, Text) |
-| **Theme switching** | Dark/light + runtime theme API |
-| **Showcase site** | Example docs using your library |
-
----
-
-## 🧰 6. Developer experience (DX)
-
-- **Usage**
-  ```js
-  import "@your/ui/styles.css"
-  import { Button } from "@your/ui/react"
-  ```
-  ```tsx
-  <Button variant="primary">Click</Button>
-  ```
-
-- **Theming**
-  Developers change `theme.config.ts` → run `npm run build:theme` → new CSS generated.
-
-- **Dark mode**
-  `.dark` overrides variables on :root.  
-  You can also support runtime toggle via `useTheme()` hook.
-
-- **Custom brand**
-  Users can extend your theme by merging additional token files before build.
+### Custom Theming
+```bash
+npx czero build --config czero.config.js --output czero.css
+```
 
 ---
 
-## ⚙️ 7. Build and release process
+## 🧭 8. Roadmap
 
-1. **Build CSS tokens**  
-   `node scripts/build-css.ts` → generates `dist/styles.css`
-2. **Bundle React components**  
-   `rollup -c` → outputs `dist/react`
-3. **Publish NPM**  
-   includes:
-   - `/react` → JS + types
-   - `/css` → compiled tokens+utilities
-4. **Docs playground (Storybook or Ladle)**  
-   optional for demos.
+### Phase 1: Foundation (Current) ✅
+- [x] Token system + CLI
+- [x] 33 components implemented
+- [x] Documentation site
+- [x] Dark mode CSS support
+
+### Phase 2: Radix Integration 🔄
+- [ ] Add Radix dependencies
+- [ ] Implement `useTheme` hook
+- [ ] Migrate Dialog → Radix Dialog
+- [ ] Migrate Dropdown → Radix Dropdown
+- [ ] Migrate Checkbox → Radix Checkbox
+- [ ] Migrate Switch → Radix Switch
+- [ ] Migrate Tabs → Radix Tabs
+- [ ] Migrate Accordion → Radix Accordion
+- [ ] Migrate Select → Radix Select
+- [ ] Migrate RadioGroup → Radix RadioGroup
+- [ ] Migrate Tooltip → Radix Tooltip
+- [ ] Migrate Toast → Radix Toast
+- [ ] Add new Radix-based components (Popover, Collapsible, Slider)
+
+### Phase 3: Advanced Features
+- [ ] NavigationMenu component
+- [ ] Command palette (⌘K)
+- [ ] Form validation integration
+- [ ] Animation system
+- [ ] Theme editor (live config → CSS)
+
+### Phase 4: Open Source Release
+- [ ] Comprehensive docs
+- [ ] Storybook integration
+- [ ] Changelog
+- [ ] Contributing guide
+- [ ] v1.0 release
 
 ---
 
-## 🧭 8. Roadmap highlights
+## ✅ Summary
 
-**Phase 1 (MVP)**
-- Setup tokens system + build script  
-- Button, Input, Dialog, Card  
-- Single theme config  
-- Rollup publish ready
-
-**Phase 2**
-- More components (Switch, Tooltip, Toast)
-- Add dark mode support
-- Add docs/examples
-
-**Phase 3**
-- Extended component suite
-- Theme editor (live config → CSS generation)
-- Prepare for open-source release or branding
-
----
-
-## ✅ TL;DR — What we’ll build
-
-| Layer | Purpose |
+| Aspect | Approach |
 |--------|----------|
-| **theme.config.ts** | Source of truth for design |
-| **build-css.ts** | Generates CSS variables + utilities |
-| **dist/styles.css** | Single lightweight theme file |
-| **React components (Radix-based)** | Accessible UI primitives |
-| **Hooks & helpers** | Theming, state, utilities |
-| **Future ready** | Core CSS reusable with any framework later |
+| **Primitives** | Radix UI for all interactive components |
+| **Styling** | Pure CSS with design tokens |
+| **Accessibility** | Inherited from Radix (WCAG 2.1 AA) |
+| **Theming** | CSS variables + CLI generation |
+| **Bundle** | Tree-shakeable ESM + CJS |
+| **TypeScript** | Full type definitions |
