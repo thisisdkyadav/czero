@@ -14,13 +14,13 @@
     "./components.css": "./dist/components.css",
     "./reset.css": "./dist/reset.css",
     "./react": {
+      "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js",
-      "require": "./dist/react/index.cjs",
-      "types": "./dist/react/index.d.ts"
+      "require": "./dist/react/index.cjs"
     },
     "./presets": {
-      "import": "./dist/presets/index.js",
-      "types": "./dist/presets/index.d.ts"
+      "types": "./dist/presets/index.d.ts",
+      "import": "./dist/presets/index.js"
     },
     "./config": {
       "types": "./dist/core/types/config.d.ts"
