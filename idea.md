@@ -228,29 +228,36 @@ npx czero build --config czero.config.js --output czero.css
 
 ## 🧭 8. Roadmap
 
-### Phase 1: Foundation (Current) ✅
+### Phase 1: Foundation ✅
 - [x] Token system + CLI
 - [x] 33 components implemented
 - [x] Documentation site
 - [x] Dark mode CSS support
+- [x] **Extended Config System** — Per-component customization with:
+  - [x] Component-specific tokens (sizes, colors, spacing)
+  - [x] Custom variants (success, gradient, etc.)
+  - [x] State customization (hover, focus, disabled)
+  - [x] Token references (`$radius-md`)
+  - [x] CSS generators for all 28 components
 
-### Phase 2: Radix Integration 🔄
-- [ ] Add Radix dependencies
-- [ ] Implement `useTheme` hook
-- [ ] Migrate Dialog → Radix Dialog
-- [ ] Migrate Dropdown → Radix Dropdown
-- [ ] Migrate Checkbox → Radix Checkbox
-- [ ] Migrate Switch → Radix Switch
-- [ ] Migrate Tabs → Radix Tabs
-- [ ] Migrate Accordion → Radix Accordion
-- [ ] Migrate Select → Radix Select
-- [ ] Migrate RadioGroup → Radix RadioGroup
-- [ ] Migrate Tooltip → Radix Tooltip
-- [ ] Migrate Toast → Radix Toast
-- [ ] Add new Radix-based components (Popover, Collapsible, Slider)
+### Phase 2: Radix Integration ✅
+- [x] Add Radix dependencies
+- [x] Implement `useTheme` hook
+- [x] Migrate Dialog → Radix Dialog
+- [x] Migrate Dropdown → Radix Dropdown
+- [x] Migrate Checkbox → Radix Checkbox
+- [x] Migrate Switch → Radix Switch
+- [x] Migrate Tabs → Radix Tabs
+- [x] Migrate Accordion → Radix Accordion
+- [x] Migrate Select → Radix Select
+- [x] Migrate RadioGroup → Radix RadioGroup
+- [x] Migrate Tooltip → Radix Tooltip
+- [x] Migrate Toast → Radix Toast
+- [x] Add new Radix-based components (ScrollArea, Progress, Avatar)
 
-### Phase 3: Advanced Features
-- [ ] NavigationMenu component
+### Phase 3: Advanced Features (Planned)
+- [ ] Theme presets (compact, comfortable, rounded, sharp)
+- [ ] Responsive breakpoint overrides
 - [ ] Command palette (⌘K)
 - [ ] Form validation integration
 - [ ] Animation system

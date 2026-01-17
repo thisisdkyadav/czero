@@ -9,6 +9,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import { buildComponentsCSS } from "./build-css";
+import { generateUtilitiesCSS } from "./generators";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -228,6 +230,7 @@ Options:
   --help, -h        Show this help message
 
 Example:
+  npx czero build
   npx czero build --config my-theme.js --output src/styles/czero.css
 `);
       process.exit(0);
@@ -246,7 +249,12 @@ Example:
   // Generate CSS
   const resetCSS = getResetCSS();
   const tokensCSS = generateTokensCSS(theme);
-  const componentsCSS = getComponentsCSS();
+  
+  // Generate component CSS from config
+  let componentsCSS = buildComponentsCSS(userConfig);
+  
+  // Add utilities
+  componentsCSS += "\n" + generateUtilitiesCSS();
 
   const finalCSS = `${resetCSS}
 ${tokensCSS}
@@ -260,3 +268,4 @@ ${componentsCSS}`;
 }
 
 main().catch(console.error);
+

@@ -1,43 +1,50 @@
 /**
- * CZero Theme Configuration for Docs Site
- * Light Blue Theme - Modern and Clean
+ * CZero Test Configuration for Button Features
+ * Testing: sizes, variants, states, custom variant
  */
+
 export default {
-  color: {
-    // Light blue primary colors
-    primary: { light: "200 85% 50%", dark: "200 80% 60%" },
-    primaryFg: { light: "0 0% 100%", dark: "0 0% 100%" },
-    
-    // Accent colors
-    accent: { light: "200 90% 55%", dark: "200 85% 50%" },
-    accentFg: { light: "0 0% 100%", dark: "0 0% 100%" },
-    
-    // Background with subtle blue tint
-    bg: { light: "200 30% 99%", dark: "220 40% 4%" },
-    fg: { light: "200 20% 15%", dark: "200 20% 95%" },
-    
-    // Muted backgrounds
-    muted: { light: "200 25% 95%", dark: "200 10% 15%" },
-    mutedFg: { light: "200 15% 40%", dark: "200 15% 65%" },
-    
-    // Borders
-    border: { light: "200 20% 88%", dark: "200 10% 20%" },
-    
-    // Success, warning, danger
-    success: { light: "160 70% 40%", dark: "160 60% 50%" },
-    warning: { light: "40 90% 50%", dark: "40 80% 55%" },
-    danger: { light: "0 70% 55%", dark: "0 75% 60%" },
-  },
-  
-  radius: {
-    sm: "0.375rem",
-    md: "0.5rem",
-    lg: "0.75rem",
-    xl: "1rem",
-    full: "9999px",
-  },
-  
-  typography: {
-    fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+  // Test 1: Custom button sizes (smaller than default)
+  components: {
+    button: {
+      height: { sm: "1.5rem", md: "2rem", lg: "2.5rem" },
+      paddingX: { sm: "0.5rem", md: "0.75rem", lg: "1rem" },
+      gap: "0.25rem",
+      
+      // Test 2: Custom border radius (more rounded)
+      borderRadius: "0.75rem",
+      
+      // Test 3: Custom states
+      states: {
+        hover: { opacity: "0.7" }, // More transparent on hover
+        focus: { 
+          ringWidth: "4px", // Thicker focus ring
+          ringOffset: "3px",
+        },
+      },
+      
+      // Test 4: Custom variants
+      variants: {
+        // Override primary variant
+        primary: {
+          bg: "#3b82f6", // Blue-500
+          color: "white",
+          hover: { opacity: "0.8" },
+        },
+        // Add custom "success" variant
+        success: {
+          bg: "#10b981", // Green-500
+          color: "white",
+          borderColor: "transparent",
+          hover: { opacity: "0.85" },
+        },
+        // Add custom "gradient" variant
+        gradient: {
+          bg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          color: "white",
+          borderColor: "transparent",
+        },
+      },
+    },
   },
 };

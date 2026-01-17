@@ -109,11 +109,32 @@ All components are in `src/react/components/` and exported from `src/react/index
 ```js
 // czero.config.js (in user's project)
 export default {
+  // Global design tokens
   color: {
     primary: { light: "280 70% 50%", dark: "280 60% 60%" },
     // ...override any token
   },
   radius: { md: "0.75rem" },
+  
+  // Component-level customization (Extended Config System)
+  components: {
+    button: {
+      height: { sm: "1.75rem", md: "2rem", lg: "2.5rem" },
+      borderRadius: "0.75rem",
+      states: {
+        hover: { opacity: "0.85" },
+        focus: { ringWidth: "3px", ringOffset: "2px" },
+      },
+      variants: {
+        success: { bg: "#10b981", color: "white" },
+        gradient: { bg: "linear-gradient(135deg, #667eea, #764ba2)", color: "white" },
+      },
+    },
+    badge: {
+      borderRadius: "$radius-full", // Reference global tokens with $
+    },
+    // ... customize any of the 28 components
+  },
 };
 ```
 
@@ -126,11 +147,12 @@ npx czero build --config czero.config.js --output czero.css
 ### 3. CLI Does This:
 
 1. Loads user's config file
-2. Deep-merges with default theme
+2. Deep-merges with default theme and component defaults
 3. Generates CSS variables (`:root { --cz-color-primary: ... }`)
-4. Prepends reset.css
-5. Appends components.css
-6. Writes everything to output file
+4. **Generates component CSS from per-component tokens**
+5. Prepends reset.css
+6. Appends utilities CSS
+7. Writes everything to output file
 
 ### 4. User Imports
 
@@ -138,6 +160,7 @@ npx czero build --config czero.config.js --output czero.css
 import "./czero.css";
 import { Button } from "czero/react";
 ```
+
 
 ---
 
