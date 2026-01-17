@@ -34,15 +34,17 @@ RadioGroupRoot.displayName = "RadioGroup";
 export interface RadioGroupItemProps
   extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> {
   label?: string;
+  description?: string;
 }
 
 const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupItemProps
->(({ className = "", label, disabled, ...props }, ref) => {
+>(({ className = "", label, description, disabled, ...props }, ref) => {
   const wrapperClasses = [
     "cz-radio-wrapper",
     disabled && "cz-disabled",
+    description && "cz-radio-wrapper-with-description",
   ].filter(Boolean).join(" ");
 
   return (
@@ -55,7 +57,12 @@ const RadioGroupItem = React.forwardRef<
       >
         <RadioGroupPrimitive.Indicator className="cz-radio-indicator" />
       </RadioGroupPrimitive.Item>
-      {label && <span className="cz-radio-label">{label}</span>}
+      {(label || description) && (
+        <div className="cz-radio-text">
+          {label && <span className="cz-radio-label">{label}</span>}
+          {description && <span className="cz-radio-description">{description}</span>}
+        </div>
+      )}
     </label>
   );
 });
