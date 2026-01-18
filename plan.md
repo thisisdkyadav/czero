@@ -2,29 +2,30 @@
 
 > **Future development priorities and suggestions**
 > 
-> Last Updated: January 17, 2026
+> Last Updated: January 18, 2026
 
 ---
 
 ## 🔥 High Priority
 
-### 1. Theme Presets
-Finalize and document pre-built theme configurations:
-- `compact` — Smaller sizes, tighter spacing
-- `comfortable` — Larger, more spacious
-- `rounded` — Full border radius everywhere
-- `sharp` — Square corners
-- `minimal` — Subtle colors, less visual noise
+### 1. Theme Presets ✅
+~~Finalize and document pre-built theme configurations:~~
+- ✅ `compact` — Smaller sizes, tighter spacing
+- ✅ `comfortable` — Larger, more spacious
+- ✅ `rounded` — Full border radius everywhere
+- ✅ `sharp` — Square corners
+- ✅ `minimal` — Subtle colors, less visual noise
+- ✅ `vibrant` — Bold, saturated colors
 
-**Usage:** `preset: "compact"` in config
+**Usage:** `npx czero build --preset compact`
 
 ---
 
-### 2. Documentation Website Polish
-- [ ] Live theme customizer (adjust tokens, see changes in real-time)
-- [ ] Code copy buttons on all examples
-- [ ] Prop tables for each component page
-- [ ] Improved mobile responsiveness
+### 2. Documentation Website Polish ✅
+- [x] Live theme customizer (adjust tokens, see changes in real-time)
+- [x] Code copy buttons on all examples
+- [ ] Prop tables for each component page *(future)*
+- [ ] Improved mobile responsiveness *(future)*
 
 ---
 
