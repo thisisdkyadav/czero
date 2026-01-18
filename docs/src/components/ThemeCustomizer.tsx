@@ -239,17 +239,32 @@ ${colorEntries}
 
               <Section title="📐 Radius" expanded={expandedSections.has("radius")} onToggle={() => toggleSection("radius")}>
                 <div className="preset-row">
-                  {["none", "sm", "md", "lg", "xl", "full"].map((r) => (
-                    <button key={r} className={`preset-chip ${config.radius.md === defaultConfig.radius[r as keyof typeof defaultConfig.radius] ? "active" : ""}`}
-                      onClick={() => setConfig(prev => ({ ...prev, radius: { ...defaultConfig.radius } }))}>{r}</button>
+                  {[
+                    { key: "none", values: { none: "0", sm: "0", md: "0", lg: "0", xl: "0", full: "0" } },
+                    { key: "sm", values: { none: "0", sm: "0.125rem", md: "0.25rem", lg: "0.375rem", xl: "0.5rem", full: "9999px" } },
+                    { key: "md", values: { none: "0", sm: "0.25rem", md: "0.5rem", lg: "0.75rem", xl: "1rem", full: "9999px" } },
+                    { key: "lg", values: { none: "0", sm: "0.375rem", md: "0.75rem", lg: "1rem", xl: "1.5rem", full: "9999px" } },
+                    { key: "xl", values: { none: "0", sm: "0.5rem", md: "1rem", lg: "1.5rem", xl: "2rem", full: "9999px" } },
+                    { key: "full", values: { none: "0", sm: "9999px", md: "9999px", lg: "9999px", xl: "9999px", full: "9999px" } },
+                  ].map((preset) => (
+                    <button key={preset.key} 
+                      className={`preset-chip ${config.radius.md === preset.values.md ? "active" : ""}`}
+                      onClick={() => setConfig(prev => ({ ...prev, radius: preset.values }))}>{preset.key}</button>
                   ))}
                 </div>
               </Section>
 
               <Section title="🌑 Shadows" expanded={expandedSections.has("shadows")} onToggle={() => toggleSection("shadows")}>
                 <div className="preset-row">
-                  {["none", "sm", "md", "lg"].map((s) => (
-                    <button key={s} className="preset-chip" onClick={() => {}}>{s}</button>
+                  {[
+                    { key: "none", values: { none: "none", sm: "none", md: "none", lg: "none" } },
+                    { key: "sm", values: { none: "none", sm: "0 1px 1px rgb(0 0 0 / 0.03)", md: "0 1px 2px rgb(0 0 0 / 0.05)", lg: "0 2px 4px rgb(0 0 0 / 0.08)" } },
+                    { key: "md", values: { none: "none", sm: "0 1px 2px rgb(0 0 0 / 0.05)", md: "0 2px 4px rgb(0 0 0 / 0.08)", lg: "0 4px 8px rgb(0 0 0 / 0.12)" } },
+                    { key: "lg", values: { none: "none", sm: "0 2px 4px rgb(0 0 0 / 0.08)", md: "0 4px 12px rgb(0 0 0 / 0.12)", lg: "0 8px 24px rgb(0 0 0 / 0.16)" } },
+                  ].map((preset) => (
+                    <button key={preset.key} 
+                      className={`preset-chip ${config.shadow.md === preset.values.md ? "active" : ""}`}
+                      onClick={() => setConfig(prev => ({ ...prev, shadow: preset.values }))}>{preset.key}</button>
                   ))}
                 </div>
               </Section>
