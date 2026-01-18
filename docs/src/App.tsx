@@ -37,6 +37,7 @@ import ScrollAreaPage from "./pages/components/ScrollAreaPage";
 import DropdownMenuPage from "./pages/components/DropdownMenuPage";
 import ToastPage from "./pages/components/ToastPage";
 import TagPage from "./pages/components/TagPage";
+import Presets from "./pages/Presets";
 import "./index.css";
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path="/docs" element={<DocsLayout />}>
             <Route index element={<GettingStarted />} />
             <Route path="getting-started" element={<GettingStarted />} />
+            <Route path="presets" element={<Presets />} />
             <Route path="components/button" element={<ButtonPage />} />
             <Route path="components/input" element={<InputPage />} />
             <Route path="components/card" element={<CardPage />} />

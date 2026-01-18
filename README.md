@@ -50,6 +50,46 @@ This creates `czero.css` with your custom tokens + component styles.
 Options:
 - `--config <path>` - Config file path (default: `czero.config.js`)
 - `--output <path>` - Output CSS path (default: `czero.css`)
+- `--preset <name>` - Apply a theme preset (can be used multiple times)
+
+## Theme Presets
+
+Use pre-built theme configurations for quick customization:
+
+```bash
+# Apply a single preset
+npx czero build --preset compact
+
+# Compose multiple presets
+npx czero build --preset compact --preset rounded
+```
+
+**Available Presets:**
+
+| Preset | Description |
+|--------|-------------|
+| `compact` | Smaller sizes, tighter spacing |
+| `comfortable` | Larger touch targets, more spacing |
+| `rounded` | Increased border radius everywhere |
+| `sharp` | Minimal border radius, angular look |
+| `minimal` | Subtle shadows, less visual noise |
+| `vibrant` | Bold colors, pronounced effects |
+
+### Programmatic Usage
+
+```js
+// czero.config.js
+import { presets } from "czero/presets";
+
+export default {
+  ...presets.compact,
+  ...presets.rounded,
+  // Your overrides
+  color: {
+    primary: { light: "280 70% 50%", dark: "280 60% 60%" },
+  },
+};
+```
 
 ### 4. Import & Use
 

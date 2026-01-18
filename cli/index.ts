@@ -3,7 +3,7 @@
  * CZero CLI
  * Generates CSS from user's theme configuration
  * 
- * Usage: npx czero build [--config czero.config.js] [--output czero.css]
+ * Usage: npx czero build [--config czero.config.js] [--output czero.css] [--preset compact]
  */
 
 import * as fs from "fs";
@@ -11,6 +11,7 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 import { buildComponentsCSS } from "./build-css";
 import { generateUtilitiesCSS } from "./generators";
+import { presets as themePresets } from "../src/presets";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -207,6 +208,7 @@ async function main() {
   // Parse arguments
   let configPath = "czero.config.js";
   let outputPath = "czero.css";
+  const presetNames: string[] = [];
   
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--config" && args[i + 1]) {
@@ -214,6 +216,9 @@ async function main() {
       i++;
     } else if (args[i] === "--output" && args[i + 1]) {
       outputPath = args[i + 1];
+      i++;
+    } else if (args[i] === "--preset" && args[i + 1]) {
+      presetNames.push(args[i + 1]);
       i++;
     } else if (args[i] === "build") {
       // Just the build command, continue
@@ -227,11 +232,15 @@ Usage:
 Options:
   --config <path>   Path to config file (default: czero.config.js)
   --output <path>   Output CSS file path (default: czero.css)
+  --preset <name>   Apply a theme preset. Can be specified multiple times.
+                    Available: compact, comfortable, rounded, sharp, minimal, vibrant
   --help, -h        Show this help message
 
 Example:
   npx czero build
   npx czero build --config my-theme.js --output src/styles/czero.css
+  npx czero build --preset compact
+  npx czero build --preset compact --preset rounded
 `);
       process.exit(0);
     }
@@ -240,18 +249,35 @@ Example:
   console.log("🎨 CZero CSS Generator");
   console.log(`   Config: ${configPath}`);
   console.log(`   Output: ${outputPath}`);
+  if (presetNames.length > 0) {
+    console.log(`   Presets: ${presetNames.join(", ")}`);
+  }
   console.log("");
 
-  // Load user config and merge with defaults
+  // Load user config
   const userConfig = await loadUserConfig(configPath);
-  const theme = deepMerge(defaultTheme, userConfig);
+  
+  // Apply presets in order, then user config (user config wins)
+  let mergedConfig: any = {};
+  for (const presetName of presetNames) {
+    const preset = (themePresets as Record<string, any>)[presetName];
+    if (preset) {
+      mergedConfig = deepMerge(mergedConfig, preset);
+    } else {
+      console.warn(`⚠️  Unknown preset: ${presetName}`);
+    }
+  }
+  mergedConfig = deepMerge(mergedConfig, userConfig);
+  
+  // Merge with defaults for theme tokens
+  const theme = deepMerge(defaultTheme, mergedConfig);
 
   // Generate CSS
   const resetCSS = getResetCSS();
   const tokensCSS = generateTokensCSS(theme);
   
-  // Generate component CSS from config
-  let componentsCSS = buildComponentsCSS(userConfig);
+  // Generate component CSS from merged config (presets + user config)
+  let componentsCSS = buildComponentsCSS(mergedConfig);
   
   // Add utilities
   componentsCSS += "\n" + generateUtilitiesCSS();

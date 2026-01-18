@@ -16,6 +16,11 @@
 export function resolveToken(value: string | undefined): string {
   if (!value) return "";
   
+  // If value is not a string, return empty (shouldn't happen but handles edge cases)
+  if (typeof value !== "string") {
+    return "";
+  }
+  
   // If it doesn't start with $, return as-is (literal value)
   if (!value.startsWith("$")) {
     return value;
