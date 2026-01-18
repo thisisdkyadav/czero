@@ -8,6 +8,17 @@ interface CodePreviewProps {
 
 export default function CodePreview({ children, code }: CodePreviewProps) {
   const [showCode, setShowCode] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
 
   return (
     <div className="code-preview">
@@ -18,6 +29,12 @@ export default function CodePreview({ children, code }: CodePreviewProps) {
           onClick={() => setShowCode(!showCode)}
         >
           {showCode ? "Hide Code" : "Show Code"}
+        </button>
+        <button
+          className={`toolbar-btn toolbar-btn-copy ${copied ? "copied" : ""}`}
+          onClick={handleCopy}
+        >
+          {copied ? "✓ Copied!" : "Copy"}
         </button>
       </div>
       {showCode && (

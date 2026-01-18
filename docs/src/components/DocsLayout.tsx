@@ -1,6 +1,7 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { useTheme } from "../../../src/react/hooks/use-theme";
 import Sidebar from "./Sidebar";
+import ThemeCustomizer from "./ThemeCustomizer";
 import "./DocsLayout.css";
 
 export default function DocsLayout() {
@@ -38,7 +39,7 @@ export default function DocsLayout() {
           <Outlet />
         </main>
       </div>
+      <ThemeCustomizer />
     </div>
   );
 }
-

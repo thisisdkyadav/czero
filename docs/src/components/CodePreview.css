@@ -17,6 +17,7 @@
 .preview-toolbar {
   display: flex;
   justify-content: flex-end;
+  gap: var(--cz-spacing-sm);
   padding: var(--cz-spacing-sm) var(--cz-spacing-md);
   background: hsl(var(--cz-color-muted));
   border-top: 1px solid hsl(var(--cz-color-border));
@@ -38,6 +39,12 @@
   background: hsl(var(--cz-color-primary));
   color: hsl(var(--cz-color-primaryFg));
   border-color: hsl(var(--cz-color-primary));
+}
+
+.toolbar-btn-copy.copied {
+  background: hsl(var(--cz-color-success));
+  color: hsl(var(--cz-color-successFg));
+  border-color: hsl(var(--cz-color-success));
 }
 
 .code-block {
