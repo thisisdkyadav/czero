@@ -2,7 +2,7 @@
 
 > **Complete reference for AI coding agents to use the CZero component library.**
 > 
-> Last Updated: January 17, 2026
+> Last Updated: January 18, 2026
 
 ---
 
@@ -534,9 +534,24 @@ npx czero build
 # Custom config and output
 npx czero build --config my-theme.js --output src/styles/czero.css
 
+# Apply built-in presets
+npx czero build --preset compact
+npx czero build --preset rounded --preset minimal
+
 # Show help
 npx czero build --help
 ```
+
+### Available Presets
+
+| Preset | Description |
+|--------|-------------|
+| `compact` | Smaller spacing and component sizes |
+| `comfortable` | Larger, more spacious layout |
+| `rounded` | Larger border radii |
+| `sharp` | No border radius (square corners) |
+| `minimal` | Subtle shadows and muted colors |
+| `vibrant` | Bold, saturated colors |
 
 ### Options
 
@@ -544,6 +559,7 @@ npx czero build --help
 |--------|-------------|---------|
 | `--config <path>` | Path to config file | `czero.config.js` |
 | `--output <path>` | Output CSS file path | `czero.css` |
+| `--preset <name>` | Apply a built-in preset (can be used multiple times) | - |
 | `--help, -h` | Show help message | - |
 
 ---

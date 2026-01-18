@@ -47,13 +47,13 @@ CZero/
 │   ├── components.css
 │   └── styles.css            # Combined CSS for library dev
 ├── docs/                     # Documentation site (Vite + React)
-│   ├── czero.config.js       # Example user config
+│   ├── czero.config.js       # Example user config (keep empty for Theme Customizer to work)
 │   ├── src/
-│   │   ├── czero.css         # Generated CSS (from CLI)
+│   │   ├── czero.css         # Generated CSS (from: node ../dist/cli/index.js build)
 │   │   ├── index.css         # Imports czero.css
 │   │   ├── App.tsx
-│   │   ├── components/       # Layout, CodePreview, etc.
-│   │   └── pages/            # Home, GettingStarted, component pages
+│   │   ├── components/       # Layout, CodePreview, ThemeCustomizer, etc.
+│   │   └── pages/            # Home, GettingStarted, Presets, component pages
 │   └── package.json
 ├── package.json
 ├── rollup.config.ts          # Component bundling

@@ -1,6 +1,6 @@
 # CZero — Architecture & Vision
 
-> **Last Updated:** January 16, 2026
+> **Last Updated:** January 18, 2026
 >
 > A design-token-driven React component library built on top of **Radix UI primitives**.
 
@@ -255,13 +255,13 @@ npx czero build --config czero.config.js --output czero.css
 - [x] Migrate Toast → Radix Toast
 - [x] Add new Radix-based components (ScrollArea, Progress, Avatar)
 
-### Phase 3: Advanced Features (Planned)
-- [ ] Theme presets (compact, comfortable, rounded, sharp)
+### Phase 3: Advanced Features ✅
+- [x] Theme presets (compact, comfortable, rounded, sharp, minimal, vibrant)
+- [x] Theme editor / Live Theme Customizer (docs site)
 - [ ] Responsive breakpoint overrides
 - [ ] Command palette (⌘K)
 - [ ] Form validation integration
 - [ ] Animation system
-- [ ] Theme editor (live config → CSS)
 
 ### Phase 4: Open Source Release
 - [ ] Comprehensive docs
