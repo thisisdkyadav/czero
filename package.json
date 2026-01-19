@@ -1,6 +1,6 @@
 {
   "name": "czero",
-  "version": "2.0.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "A lightweight, design-token-driven React component library with Radix UI primitives",
   "main": "./dist/react/index.cjs",

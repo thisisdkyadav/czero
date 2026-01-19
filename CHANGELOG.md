@@ -4,9 +4,9 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
-## [2.0.0] - 2026-01-18
+## [0.2.0] - 2026-01-18
 
-### 🎉 Major Release
+### 🎉 Initial Public Release
 
 This is the first public release of CZero — a design-token-driven React component library built on Radix UI primitives.
 
