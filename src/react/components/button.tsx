@@ -69,7 +69,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         )}
-        <span className={loading ? "cz-btn-content" : undefined}>{children}</span>
+        {children}
       </button>
     );
   }

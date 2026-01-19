@@ -159,20 +159,24 @@ function App() {
 ```tsx
 interface ButtonProps {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "link";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "icon";  // "icon" for square icon-only buttons
   disabled?: boolean;
   loading?: boolean;
-  icon?: boolean;  // For icon-only buttons
   asChild?: boolean;  // Render as child element
 }
 ```
 
 **Examples:**
 ```jsx
+// Basic variants
 <Button variant="primary" size="lg">Large Primary</Button>
 <Button variant="danger" disabled>Disabled</Button>
 <Button loading>Loading...</Button>
-<Button variant="ghost" icon><IconMenu /></Button>
+
+// With icons (icons are passed as children alongside text)
+<Button><IconMail /> Send Email</Button>        {/* Icon on left */}
+<Button>Download <IconDownload /></Button>      {/* Icon on right */}
+<Button size="icon" variant="ghost"><IconSearch /></Button>  {/* Icon-only */}
 ```
 
 ### Input
