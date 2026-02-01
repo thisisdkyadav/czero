@@ -130,8 +130,19 @@ function generateButtonVariables(config: ButtonTokens): string {
       if (variant.color) {
         vars.push(`  --cz-btn-${name}-color: ${resolveToken(variant.color)};`);
       }
+      // Support full border shorthand (e.g., "2px solid #1360AB")
+      if (variant.border) {
+        vars.push(`  --cz-btn-${name}-border: ${resolveToken(variant.border)};`);
+      }
       if (variant.borderColor) {
         vars.push(`  --cz-btn-${name}-border-color: ${resolveToken(variant.borderColor)};`);
+      }
+      // Hover color variable for hover state color changes
+      if (variant.hover?.color) {
+        vars.push(`  --cz-btn-${name}-hover-color: ${resolveToken(variant.hover.color)};`);
+      }
+      if (variant.hover?.bg) {
+        vars.push(`  --cz-btn-${name}-hover-bg: ${resolveToken(variant.hover.bg)};`);
       }
     }
   }
@@ -200,7 +211,10 @@ function generateButtonVariants(
     css += `  background: var(--cz-btn-${name}-bg);\n`;
     css += `  color: var(--cz-btn-${name}-color);\n`;
     
-    if (variant.borderColor && variant.borderColor !== "transparent") {
+    // Support full border shorthand (e.g., "2px solid #1360AB")
+    if (variant.border) {
+      css += `  border: var(--cz-btn-${name}-border);\n`;
+    } else if (variant.borderColor && variant.borderColor !== "transparent") {
       css += `  border-color: var(--cz-btn-${name}-border-color);\n`;
     }
     
@@ -215,12 +229,22 @@ function generateButtonVariants(
     if (variant.hover) {
       css += `.cz-btn-${name}:hover {\n`;
       
-      if (variant.hover.opacity) {
+      // FIX: Only add opacity if hover.bg is NOT specified
+      // If hover.bg is specified, use background change instead of opacity
+      if (variant.hover.opacity && !variant.hover.bg) {
         css += `  opacity: ${variant.hover.opacity};\n`;
       }
+      
+      // Hover background - use CSS variable
       if (variant.hover.bg) {
-        css += `  background: ${resolveToken(variant.hover.bg)};\n`;
+        css += `  background: var(--cz-btn-${name}-hover-bg);\n`;
       }
+      
+      // FIX: Hover color change support
+      if (variant.hover.color) {
+        css += `  color: var(--cz-btn-${name}-hover-color);\n`;
+      }
+      
       if (variant.textDecoration) {
         css += `  text-decoration-thickness: 2px;\n`;
       }

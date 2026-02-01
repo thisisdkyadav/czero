@@ -38,6 +38,7 @@ export interface StatesConfig {
 export interface VariantConfig {
   bg?: string;
   color?: string;
+  border?: string;           // Full border shorthand: "2px solid #color"
   borderColor?: string;
   borderWidth?: string;
   shadow?: string;

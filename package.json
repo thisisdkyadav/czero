@@ -7,7 +7,8 @@
   "module": "./dist/react/index.js",
   "types": "./dist/react/index.d.ts",
   "bin": {
-    "czero": "./dist/cli/index.js"
+    "czero": "./dist/cli/index.js",
+    "czero20": "./dist/cli/index.js"
   },
   "exports": {
     "./styles.css": "./dist/styles.css",
@@ -31,7 +32,7 @@
   ],
   "scripts": {
     "build:tokens": "tsx src/core/build-tokens.ts",
-    "build:css": "pwsh -Command \"Copy-Item src/core/styles/reset.css dist/reset.css; Copy-Item src/core/styles/components.css dist/components.css; Get-Content src/core/styles/reset.css, src/core/styles/tokens.css, src/core/styles/components.css | Set-Content dist/styles.css\"",
+    "build:css": "cp src/core/styles/reset.css dist/reset.css && cp src/core/styles/components.css dist/components.css && cat src/core/styles/reset.css src/core/styles/tokens.css src/core/styles/components.css > dist/styles.css",
     "build:components": "rollup -c",
     "build:cli": "npx esbuild cli/index.ts --bundle --platform=node --format=esm --outdir=dist/cli --packages=external",
     "build": "npm run build:tokens && npm run build:css && npm run build:components && npm run build:cli",
