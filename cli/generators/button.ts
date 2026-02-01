@@ -284,6 +284,11 @@ function generateButtonIcon(config: ButtonTokens): string {
 .cz-btn-icon.cz-btn-sm { width: var(--cz-btn-icon-size-sm); height: var(--cz-btn-icon-size-sm); }
 .cz-btn-icon.cz-btn-md { width: var(--cz-btn-icon-size-md); height: var(--cz-btn-icon-size-md); }
 .cz-btn-icon.cz-btn-lg { width: var(--cz-btn-icon-size-lg); height: var(--cz-btn-icon-size-lg); }
+
+/* Full Width Button */
+.cz-btn-full {
+  width: 100%;
+}
 `;
 }
 

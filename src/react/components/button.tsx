@@ -6,6 +6,7 @@ export interface ButtonProps
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "link";
   size?: "sm" | "md" | "lg" | "icon";
   loading?: boolean;
+  fullWidth?: boolean;
   asChild?: boolean;
 }
 
@@ -16,6 +17,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "primary",
       size = "md",
       loading = false,
+      fullWidth = false,
       disabled,
       asChild = false,
       children,
@@ -28,6 +30,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       `cz-btn-${variant}`,
       `cz-btn-${size}`,
       loading && "cz-btn-loading",
+      fullWidth && "cz-btn-full",
       className,
     ].filter(Boolean).join(" ");
 
