@@ -67,6 +67,12 @@ function generateButtonVariables(config: ButtonTokens): string {
     }
   }
 
+  if (config.paddingY) {
+    for (const [size, value] of Object.entries(config.paddingY)) {
+      vars.push(`  ${componentVarName("button", "paddingY", size)}: ${resolveToken(value)};`);
+    }
+  }
+
   if (config.fontSize && typeof config.fontSize === "object") {
     for (const [size, value] of Object.entries(config.fontSize)) {
       vars.push(`  ${componentVarName("button", "fontSize", size)}: ${resolveToken(value)};`);
@@ -186,12 +192,23 @@ function generateButtonSizes(config: ButtonTokens): string {
   const sizes = ["sm", "md", "lg"];
   let css = "/* Button Sizes */\n";
 
+  // Check if paddingY is configured (flexible height mode)
+  const usePaddingY = config.paddingY && Object.keys(config.paddingY).length > 0;
+
   for (const size of sizes) {
-    css += `.cz-btn-${size} {
-  height: var(--cz-btn-height-${size});
-  padding: 0 var(--cz-btn-padding-x-${size});
-  font-size: var(--cz-btn-font-size-${size});
-}\n`;
+    css += `.cz-btn-${size} {\n`;
+    
+    if (usePaddingY) {
+      // Flexible height: use padding for both axes
+      css += `  padding: var(--cz-btn-padding-y-${size}) var(--cz-btn-padding-x-${size});\n`;
+    } else {
+      // Fixed height mode (default)
+      css += `  height: var(--cz-btn-height-${size});\n`;
+      css += `  padding: 0 var(--cz-btn-padding-x-${size});\n`;
+    }
+    
+    css += `  font-size: var(--cz-btn-font-size-${size});\n`;
+    css += `}\n`;
   }
 
   return css;

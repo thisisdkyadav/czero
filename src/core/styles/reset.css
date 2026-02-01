@@ -1,21 +1,12 @@
 /**
- * CZero Minimal Reset
+ * CZero Component Reset
+ * Scoped to CZero components only - won't affect other elements
  */
 
-*, *::before, *::after {
+/* Base reset for all CZero components */
+[class*="cz-"],
+[class*="cz-"]::before,
+[class*="cz-"]::after {
   box-sizing: border-box;
-}
-
-* {
   margin: 0;
-}
-
-body {
-  line-height: var(--cz-font-lineHeight-normal);
-  -webkit-font-smoothing: antialiased;
-  font-family: var(--cz-font-fontFamily);
-}
-
-button, input, textarea, select {
-  font: inherit;
 }

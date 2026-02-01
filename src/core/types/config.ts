@@ -77,6 +77,7 @@ export interface ButtonTokens extends ComponentTokensBase {
   // Sizing
   height?: SizeVariants<string>;
   paddingX?: SizeVariants<string>;
+  paddingY?: SizeVariants<string>;  // For flexible height buttons
   gap?: string;
 
   // Typography
