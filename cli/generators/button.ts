@@ -169,7 +169,7 @@ function generateButtonBase(): string {
   font-weight: var(--cz-btn-font-weight);
   transition: all var(--cz-btn-transition);
   cursor: pointer;
-  border: var(--cz-btn-border-width) solid transparent;
+  border: none;
 }
 
 .cz-btn:focus-visible {
