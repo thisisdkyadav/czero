@@ -19,6 +19,7 @@ const componentCategories = [
     components: [
       { name: "Card", path: "/docs/components/card" },
       { name: "Badge", path: "/docs/components/badge" },
+      { name: "StatusBadge", path: "/docs/components/status-badge" },
       { name: "Tag", path: "/docs/components/tag" },
       { name: "Avatar", path: "/docs/components/avatar" },
       { name: "Separator", path: "/docs/components/separator" },

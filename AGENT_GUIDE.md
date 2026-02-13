@@ -80,7 +80,7 @@ function App() {
 
 ---
 
-## 3. All Components (34 Total)
+## 3. All Components (35 Total)
 
 ### Form Components
 
@@ -101,6 +101,7 @@ function App() {
 |-----------|--------|-------------|
 | **Card** | `Card` | `<Card><Card.Header>...</Card.Header><Card.Body>...</Card.Body></Card>` |
 | **Badge** | `Badge` | `<Badge variant="success">Active</Badge>` |
+| **StatusBadge** | `StatusBadge` | `<StatusBadge status="Checked In" />` |
 | **Tag** | `Tag` | `<Tag variant="primary" onRemove={fn}>Label</Tag>` |
 | **Avatar** | `Avatar` | `<Avatar src="/img.jpg" fallback="JD" />` |
 | **Separator** | `Separator` | `<Separator orientation="horizontal" />` |

@@ -9,6 +9,7 @@ import ButtonPage from "./pages/components/ButtonPage";
 import InputPage from "./pages/components/InputPage";
 import CardPage from "./pages/components/CardPage";
 import BadgePage from "./pages/components/BadgePage";
+import StatusBadgePage from "./pages/components/StatusBadgePage";
 import TextareaPage from "./pages/components/TextareaPage";
 import SwitchPage from "./pages/components/SwitchPage";
 import AvatarPage from "./pages/components/AvatarPage";
@@ -61,6 +62,7 @@ function App() {
             <Route path="components/input" element={<InputPage />} />
             <Route path="components/card" element={<CardPage />} />
             <Route path="components/badge" element={<BadgePage />} />
+            <Route path="components/status-badge" element={<StatusBadgePage />} />
             <Route path="components/textarea" element={<TextareaPage />} />
             <Route path="components/switch" element={<SwitchPage />} />
             <Route path="components/avatar" element={<AvatarPage />} />
