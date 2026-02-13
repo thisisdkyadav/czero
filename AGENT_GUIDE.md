@@ -80,7 +80,7 @@ function App() {
 
 ---
 
-## 3. All Components (33 Total)
+## 3. All Components (34 Total)
 
 ### Form Components
 
@@ -138,6 +138,7 @@ function App() {
 | Component | Import | Basic Usage |
 |-----------|--------|-------------|
 | **Table** | `Table` | `<Table><Table.Header>...</Table.Header><Table.Body>...</Table.Body></Table>` |
+| **DataTable** | `DataTable` | `<DataTable data={rows} columns={columns} sortable pagination />` |
 
 ### Layout Components
 

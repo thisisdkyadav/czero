@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "build:tokens": "tsx src/core/build-tokens.ts",
-    "build:css": "cp src/core/styles/reset.css dist/reset.css && cp src/core/styles/components.css dist/components.css && cat src/core/styles/reset.css src/core/styles/tokens.css src/core/styles/components.css > dist/styles.css",
+    "build:css": "mkdir -p dist && cp src/core/styles/reset.css dist/reset.css && cp src/core/styles/components.css dist/components.css && cat src/core/styles/reset.css src/core/styles/tokens.css src/core/styles/components.css > dist/styles.css",
     "build:components": "rollup -c",
     "build:cli": "npx esbuild cli/index.ts --bundle --platform=node --format=esm --outdir=dist/cli --packages=external",
     "build": "npm run build:tokens && npm run build:css && npm run build:components && npm run build:cli",

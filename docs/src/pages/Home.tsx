@@ -35,7 +35,7 @@ export default function Home() {
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
-              <span className="hero-stat-value">33+</span>
+            <span className="hero-stat-value">34+</span>
               <span className="hero-stat-label">Components</span>
             </div>
             <div className="hero-stat-divider"></div>
@@ -149,7 +149,7 @@ import { Button, Card } from "czero/react";`}</code>
       {/* Component Preview Section */}
       <section className="preview">
         <div className="preview-header">
-          <h2 className="preview-title">33+ Beautiful Components</h2>
+          <h2 className="preview-title">34+ Beautiful Components</h2>
           <p className="preview-subtitle">From buttons to dialogs, everything you need</p>
         </div>
         <div className="preview-grid">

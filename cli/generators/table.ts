@@ -18,9 +18,12 @@ export function generateTableCSS(config: TableTokens): string {
 function generateTableVariables(config: TableTokens): string {
   const vars: string[] = [];
   
+  if (config.borderRadius) vars.push(`  --cz-table-border-radius: ${config.borderRadius};`);
+  if (config.borderWidth) vars.push(`  --cz-table-border-width: ${config.borderWidth};`);
   if (config.borderColor) vars.push(`  --cz-table-border-color: ${resolveToken(config.borderColor)};`);
   if (config.headerBg) vars.push(`  --cz-table-header-bg: ${resolveToken(config.headerBg)};`);
   if (config.headerFontWeight) vars.push(`  --cz-table-header-font-weight: ${resolveToken(config.headerFontWeight)};`);
+  if (config.cellPadding) vars.push(`  --cz-table-cell-padding: ${config.cellPadding};`);
   if (config.cellPaddingX) vars.push(`  --cz-table-cell-padding-x: ${config.cellPaddingX};`);
   if (config.cellPaddingY) vars.push(`  --cz-table-cell-padding-y: ${config.cellPaddingY};`);
   if (config.rowHoverBg) vars.push(`  --cz-table-row-hover-bg: ${resolveToken(config.rowHoverBg)};`);
@@ -32,7 +35,8 @@ function generateTableVariables(config: TableTokens): string {
 function generateTableBase(): string {
   return `.cz-table-wrapper {
   width: 100%;
-  overflow: auto;
+  overflow-x: auto;
+  border-radius: var(--cz-table-border-radius);
 }
 
 .cz-table {
@@ -46,11 +50,11 @@ function generateTableBase(): string {
 }
 
 .cz-table-head {
-  padding: var(--cz-table-cell-padding-y) var(--cz-table-cell-padding-x);
+  padding: var(--cz-table-cell-padding, var(--cz-table-cell-padding-y) var(--cz-table-cell-padding-x));
   text-align: left;
   font-weight: var(--cz-table-header-font-weight);
   color: hsl(var(--cz-color-mutedFg));
-  border-bottom: 1px solid var(--cz-table-border-color);
+  border-bottom: var(--cz-table-border-width) solid var(--cz-table-border-color);
   white-space: nowrap;
 }
 
@@ -67,8 +71,8 @@ function generateTableBase(): string {
 }
 
 .cz-table-cell {
-  padding: var(--cz-table-cell-padding-y) var(--cz-table-cell-padding-x);
-  border-bottom: 1px solid var(--cz-table-border-color);
+  padding: var(--cz-table-cell-padding, var(--cz-table-cell-padding-y) var(--cz-table-cell-padding-x));
+  border-bottom: var(--cz-table-border-width) solid var(--cz-table-border-color);
 }
 
 .cz-table-footer {
@@ -78,7 +82,7 @@ function generateTableBase(): string {
 
 .cz-table-footer .cz-table-cell {
   border-bottom: none;
-  border-top: 1px solid var(--cz-table-border-color);
+  border-top: var(--cz-table-border-width) solid var(--cz-table-border-color);
 }
 
 /* Table Striped */

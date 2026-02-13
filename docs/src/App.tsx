@@ -23,6 +23,7 @@ import DialogPage from "./pages/components/DialogPage";
 import SelectPage from "./pages/components/SelectPage";
 import RadioGroupPage from "./pages/components/RadioGroupPage";
 import TablePage from "./pages/components/TablePage";
+import DataTablePage from "./pages/components/DataTablePage";
 import AccordionPage from "./pages/components/AccordionPage";
 import StackPage from "./pages/components/StackPage";
 import SpinnerPage from "./pages/components/SpinnerPage";
@@ -74,6 +75,7 @@ function App() {
             <Route path="components/select" element={<SelectPage />} />
             <Route path="components/radio-group" element={<RadioGroupPage />} />
             <Route path="components/table" element={<TablePage />} />
+            <Route path="components/data-table" element={<DataTablePage />} />
             <Route path="components/accordion" element={<AccordionPage />} />
             <Route path="components/stack" element={<StackPage />} />
             <Route path="components/spinner" element={<SpinnerPage />} />
@@ -97,4 +99,3 @@ function App() {
 }
 
 export default App;
-

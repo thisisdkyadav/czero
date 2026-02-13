@@ -56,6 +56,7 @@ const componentCategories = [
     title: "Data",
     components: [
       { name: "Table", path: "/docs/components/table" },
+      { name: "DataTable", path: "/docs/components/data-table" },
     ],
   },
   {

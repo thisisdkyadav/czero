@@ -396,6 +396,7 @@ export interface TableTokens extends ComponentTokensBase {
   borderColor?: string;
   headerBg?: string;
   headerFontWeight?: string;
+  cellPadding?: string; // Shorthand (e.g. "0.75rem 1rem"), maps to CSS padding directly
   cellPaddingX?: string;
   cellPaddingY?: string;
   rowHoverBg?: string;

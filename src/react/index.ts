@@ -20,6 +20,7 @@ export { Dialog, type DialogProps, type DialogTriggerProps, type DialogContentPr
 export { Select, type SelectProps } from "./components/select";
 export { RadioGroup, type RadioGroupProps, type RadioGroupItemProps } from "./components/radio-group";
 export { Table, type TableProps, type TableHeaderProps, type TableBodyProps, type TableRowProps, type TableHeadProps, type TableCellProps } from "./components/table";
+export { DataTable, type DataTableProps, type DataTableColumn, type DataTableSortDirection, type DataTableAlign } from "./components/data-table";
 export { Accordion, type AccordionProps, type AccordionItemProps, type AccordionTriggerProps, type AccordionContentProps } from "./components/accordion";
 export { Stack, type StackProps } from "./components/stack";
 export { Spinner, type SpinnerProps } from "./components/spinner";
@@ -44,4 +45,3 @@ export {
   type ThemeProviderProps,
   type ThemeContextValue,
 } from "./hooks/use-theme";
-

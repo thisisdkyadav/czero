@@ -1275,9 +1275,16 @@
 
 /* ===== TABLE ===== */
 
+:root {
+  --cz-table-border-radius: var(--cz-radius-md);
+  --cz-table-border-width: 1px;
+  --cz-table-cell-padding: 0.75rem 1rem;
+}
+
 .cz-table-wrapper {
   width: 100%;
   overflow-x: auto;
+  border-radius: var(--cz-table-border-radius);
 }
 
 .cz-table {
@@ -1300,16 +1307,18 @@
 }
 
 .cz-table-head {
-  padding: 0.75rem 1rem;
+  padding: var(--cz-table-cell-padding);
   text-align: left;
   font-weight: var(--cz-font-weight-semibold);
   color: hsl(var(--cz-color-fg));
   white-space: nowrap;
+  border-bottom: var(--cz-table-border-width) solid hsl(var(--cz-color-border));
 }
 
 .cz-table-cell {
-  padding: 0.75rem 1rem;
+  padding: var(--cz-table-cell-padding);
   color: hsl(var(--cz-color-fg));
+  border-bottom: var(--cz-table-border-width) solid hsl(var(--cz-color-border));
 }
 
 /* ===== ACCORDION ===== */
