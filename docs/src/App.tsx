@@ -21,6 +21,7 @@ import ProgressPage from "./pages/components/ProgressPage";
 import SkeletonPage from "./pages/components/SkeletonPage";
 import TabsPage from "./pages/components/TabsPage";
 import DialogPage from "./pages/components/DialogPage";
+import ModalPage from "./pages/components/ModalPage";
 import SelectPage from "./pages/components/SelectPage";
 import RadioGroupPage from "./pages/components/RadioGroupPage";
 import TablePage from "./pages/components/TablePage";
@@ -74,6 +75,7 @@ function App() {
             <Route path="components/skeleton" element={<SkeletonPage />} />
             <Route path="components/tabs" element={<TabsPage />} />
             <Route path="components/dialog" element={<DialogPage />} />
+            <Route path="components/modal" element={<ModalPage />} />
             <Route path="components/select" element={<SelectPage />} />
             <Route path="components/radio-group" element={<RadioGroupPage />} />
             <Route path="components/table" element={<TablePage />} />

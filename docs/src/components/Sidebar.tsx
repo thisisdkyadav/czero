@@ -31,6 +31,7 @@ const componentCategories = [
     title: "Overlay",
     components: [
       { name: "Dialog", path: "/docs/components/dialog" },
+      { name: "Modal", path: "/docs/components/modal" },
       { name: "DropdownMenu", path: "/docs/components/dropdown-menu" },
       { name: "Tooltip", path: "/docs/components/tooltip" },
     ],

@@ -80,7 +80,7 @@ function App() {
 
 ---
 
-## 3. All Components (35 Total)
+## 3. All Components (36 Total)
 
 ### Form Components
 
@@ -113,6 +113,7 @@ function App() {
 | Component | Import | Basic Usage |
 |-----------|--------|-------------|
 | **Dialog** | `Dialog` | `<Dialog><Dialog.Trigger>Open</Dialog.Trigger><Dialog.Content>...</Dialog.Content></Dialog>` |
+| **Modal** | `Modal` | `<Modal title="Title" footer={<Button>Save</Button>}>...</Modal>` |
 | **DropdownMenu** | `DropdownMenu` | `<DropdownMenu><DropdownMenu.Trigger>Menu</DropdownMenu.Trigger><DropdownMenu.Content>...</DropdownMenu.Content></DropdownMenu>` |
 | **Tooltip** | `Tooltip` | `<Tooltip content="Help text"><Button>Hover</Button></Tooltip>` |
 
