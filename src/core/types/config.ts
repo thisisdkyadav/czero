@@ -111,6 +111,7 @@ export interface ButtonTokens extends ComponentTokensBase {
 export interface InputTokens extends ComponentTokensBase {
   height?: SizeVariants<string>;
   paddingX?: SizeVariants<string>;
+  paddingY?: SizeVariants<string>;
   fontSize?: SizeVariants<string> | string;
   borderRadius?: string;
   borderWidth?: string;
@@ -120,18 +121,46 @@ export interface InputTokens extends ComponentTokensBase {
   placeholderColor?: string;
 
   // Icons
-  iconSize?: string;
+  iconSize?: string | SizeVariants<string>;
   iconColor?: string;
-  iconSpacing?: string;
+  iconColorFocus?: string;
+  iconColorError?: string;
+  iconSpacing?: string | SizeVariants<string>;
+  clearHoverBg?: string;
+  clearHoverColor?: string;
+  clearBorderRadius?: string;
+  clearIconSize?: string | SizeVariants<string>;
 
   // States
   states?: {
     focus?: { borderColor?: string; shadow?: string };
     error?: { borderColor?: string; focusShadow?: string };
-    disabled?: { opacity?: string; cursor?: string };
+    disabled?: {
+      opacity?: string;
+      cursor?: string;
+      bg?: string;
+      color?: string;
+    };
+    readOnly?: { bg?: string; color?: string; cursor?: string };
   };
 
+  variants?: Record<string, InputVariantConfig>;
+
   responsive?: ResponsiveConfig;
+}
+
+export interface InputVariantConfig {
+  bg?: string;
+  color?: string;
+  borderColor?: string;
+  placeholderColor?: string;
+  iconColor?: string;
+  iconColorFocus?: string;
+  iconColorError?: string;
+  focusBorderColor?: string;
+  focusShadow?: string;
+  clearHoverBg?: string;
+  clearHoverColor?: string;
 }
 
 // ===== Textarea Tokens =====

@@ -229,6 +229,27 @@
   display: flex;
   align-items: center;
   width: 100%;
+  --cz-input-icon-spacing-current: 2.5rem;
+  --cz-input-icon-size-current: 1rem;
+  --cz-input-clear-icon-size-current: var(--cz-input-icon-size-current);
+}
+
+.cz-input-wrapper-sm {
+  --cz-input-icon-spacing-current: 2rem;
+  --cz-input-icon-size-current: 0.875rem;
+  --cz-input-clear-icon-size-current: var(--cz-input-icon-size-current);
+}
+
+.cz-input-wrapper-md {
+  --cz-input-icon-spacing-current: 2.5rem;
+  --cz-input-icon-size-current: 1rem;
+  --cz-input-clear-icon-size-current: var(--cz-input-icon-size-current);
+}
+
+.cz-input-wrapper-lg {
+  --cz-input-icon-spacing-current: 3rem;
+  --cz-input-icon-size-current: 1.125rem;
+  --cz-input-clear-icon-size-current: var(--cz-input-icon-size-current);
 }
 
 .cz-input {
@@ -253,6 +274,14 @@
 .cz-input:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+  background-color: hsl(var(--cz-color-muted));
+  color: hsl(var(--cz-color-mutedFg));
+}
+
+.cz-input:read-only {
+  cursor: default;
+  background-color: hsl(var(--cz-color-muted));
+  color: hsl(var(--cz-color-mutedFg));
 }
 
 .cz-input-error {
@@ -264,22 +293,34 @@
 }
 
 /* Input with Icons */
-.cz-input-has-left-icon .cz-input { padding-left: 2.5rem; }
-.cz-input-has-right-icon .cz-input { padding-right: 2.5rem; }
+.cz-input-has-left-icon .cz-input { padding-left: var(--cz-input-icon-spacing-current); }
+.cz-input-has-right-icon .cz-input { padding-right: var(--cz-input-icon-spacing-current); }
 
 .cz-input-icon {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
+  width: var(--cz-input-icon-spacing-current);
   height: 100%;
   color: hsl(var(--cz-color-mutedFg));
   pointer-events: none;
+  transition: color var(--cz-transition-fast);
 }
-.cz-input-icon svg { width: 1rem; height: 1rem; }
+.cz-input-icon svg {
+  width: var(--cz-input-icon-size-current);
+  height: var(--cz-input-icon-size-current);
+}
 .cz-input-icon-left { left: 0; }
 .cz-input-icon-right { right: 0; }
+
+.cz-input-wrapper:focus-within .cz-input-icon {
+  color: hsl(var(--cz-color-primary));
+}
+
+.cz-input-wrapper-error .cz-input-icon {
+  color: hsl(var(--cz-color-danger));
+}
 
 /* Input Clear Button */
 .cz-input-clear {
@@ -288,16 +329,50 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
+  width: var(--cz-input-icon-spacing-current);
   height: 100%;
   color: hsl(var(--cz-color-mutedFg));
   background: transparent;
   border: none;
+  border-radius: var(--cz-radius-sm);
   cursor: pointer;
-  transition: color var(--cz-transition-fast);
+  transition: color var(--cz-transition-fast), background-color var(--cz-transition-fast);
 }
-.cz-input-clear:hover { color: hsl(var(--cz-color-fg)); }
-.cz-input-clear svg { width: 0.875rem; height: 0.875rem; }
+.cz-input-clear:hover {
+  color: hsl(var(--cz-color-danger));
+  background-color: hsl(var(--cz-color-muted));
+}
+.cz-input-clear svg {
+  width: var(--cz-input-clear-icon-size-current);
+  height: var(--cz-input-clear-icon-size-current);
+}
+
+/* Input Password Toggle */
+.cz-input-password-toggle {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cz-input-icon-spacing-current);
+  height: 100%;
+  color: hsl(var(--cz-color-mutedFg));
+  background: transparent;
+  border: none;
+  border-radius: var(--cz-radius-sm);
+  cursor: pointer;
+  transition: color var(--cz-transition-fast), background-color var(--cz-transition-fast);
+}
+
+.cz-input-password-toggle:hover {
+  color: hsl(var(--cz-color-primary));
+  background-color: hsl(var(--cz-color-muted));
+}
+
+.cz-input-password-toggle svg {
+  width: var(--cz-input-clear-icon-size-current);
+  height: var(--cz-input-clear-icon-size-current);
+}
 
 /* Input Description */
 .cz-input-description {

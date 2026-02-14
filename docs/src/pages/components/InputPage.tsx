@@ -21,6 +21,13 @@ const inputProps = [
     description: "Size of the input",
   },
   {
+    name: "variant",
+    type: "string",
+    default: '"default"',
+    description:
+      "Input style variant. Configure custom variants in `components.input.variants`.",
+  },
+  {
     name: "disabled",
     type: "boolean",
     default: "false",
@@ -65,6 +72,13 @@ export default function InputPage() {
 />`}
       >
         <Input label="Password" type="password" error="Password is required" />
+      </CodePreview>
+
+      <h2>Variant</h2>
+      <CodePreview
+        code={`<Input variant="search" placeholder="Search students..." leftIcon={<SearchIcon />} />`}
+      >
+        <Input variant="search" placeholder="Search students..." />
       </CodePreview>
 
       <h2>Disabled</h2>

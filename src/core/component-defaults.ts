@@ -70,6 +70,7 @@ export const componentDefaults: ComponentsConfig = {
   input: {
     height: { sm: "2rem", md: "2.5rem", lg: "3rem" },
     paddingX: { sm: "0.5rem", md: "0.75rem", lg: "1rem" },
+    paddingY: { sm: "0", md: "0", lg: "0" },
     fontSize: { sm: "$font-sm", md: "$font-md", lg: "$font-lg" },
     borderRadius: "$radius-md",
     borderWidth: "1px",
@@ -77,19 +78,35 @@ export const componentDefaults: ComponentsConfig = {
     bg: "$color-bg",
     color: "$color-fg",
     placeholderColor: "$color-mutedFg",
-    iconSize: "1rem",
+    iconSize: { sm: "0.875rem", md: "1rem", lg: "1.125rem" },
     iconColor: "$color-mutedFg",
-    iconSpacing: "2.5rem",
+    iconColorFocus: "$color-primary",
+    iconColorError: "$color-danger",
+    iconSpacing: { sm: "2rem", md: "2.5rem", lg: "3rem" },
+    clearHoverBg: "$color-muted",
+    clearHoverColor: "$color-fg",
+    clearBorderRadius: "$radius-sm",
+    clearIconSize: { sm: "0.875rem", md: "1rem", lg: "1.125rem" },
     states: {
       focus: {
         borderColor: "$color-ring",
-        shadow: "0 0 0 2px $color-ring / 0.2",
+        shadow: "0 0 0 2px hsl(var(--cz-color-ring) / 0.2)",
       },
       error: {
         borderColor: "$color-danger",
-        focusShadow: "0 0 0 2px $color-danger / 0.2",
+        focusShadow: "0 0 0 2px hsl(var(--cz-color-danger) / 0.2)",
       },
-      disabled: { opacity: "0.5", cursor: "not-allowed" },
+      disabled: {
+        opacity: "0.5",
+        cursor: "not-allowed",
+        bg: "$color-muted",
+        color: "$color-mutedFg",
+      },
+      readOnly: {
+        bg: "$color-muted",
+        color: "$color-mutedFg",
+        cursor: "default",
+      },
     },
   },
 
