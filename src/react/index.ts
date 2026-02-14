@@ -16,7 +16,17 @@ export { Checkbox, type CheckboxProps } from "./components/checkbox";
 export { Tooltip, TooltipProvider, type TooltipProps } from "./components/tooltip";
 export { Progress, type ProgressProps } from "./components/progress";
 export { Skeleton, type SkeletonProps } from "./components/skeleton";
-export { Tabs, type TabsProps, type TabsListProps, type TabsTriggerProps, type TabsContentProps } from "./components/tabs";
+export {
+  Tabs,
+  type TabsProps,
+  type TabsListProps,
+  type TabsTriggerProps,
+  type TabsContentProps,
+  type TabsItem,
+  type TabsValue,
+  type TabsVariant,
+  type TabsSize,
+} from "./components/tabs";
 export { Dialog, type DialogProps, type DialogTriggerProps, type DialogContentProps, type DialogHeaderProps, type DialogFooterProps } from "./components/dialog";
 export { Modal, type ModalProps, type ModalSize, type ModalCloseButtonVariant } from "./components/modal";
 export { Select, type SelectProps } from "./components/select";

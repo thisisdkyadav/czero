@@ -357,13 +357,57 @@ export interface SpinnerTokens extends ComponentTokensBase {
 export interface TabsTokens extends ComponentTokensBase {
   listBorderWidth?: string;
   listBorderColor?: string;
+  listGap?: string;
   triggerPaddingX?: string;
   triggerPaddingY?: string;
+  triggerPaddingXSm?: string;
+  triggerPaddingYSm?: string;
+  triggerPaddingXLg?: string;
+  triggerPaddingYLg?: string;
   triggerFontSize?: string;
+  triggerFontSizeSm?: string;
+  triggerFontSizeLg?: string;
   triggerFontWeight?: string;
   triggerColor?: string;
   triggerActiveColor?: string;
   triggerActiveBorderColor?: string;
+  triggerGap?: string;
+  triggerRadius?: string;
+  triggerBorderWidth?: string;
+  triggerTransition?: string;
+
+  iconSize?: string;
+  countPaddingX?: string;
+  countMinWidth?: string;
+  countHeight?: string;
+  countFontSize?: string;
+  countFontWeight?: string;
+  countRadius?: string;
+  countBg?: string;
+  countColor?: string;
+  countActiveBg?: string;
+  countActiveColor?: string;
+
+  pillsListGap?: string;
+  pillsTriggerBg?: string;
+  pillsTriggerColor?: string;
+  pillsTriggerBorderColor?: string;
+  pillsTriggerHoverBg?: string;
+  pillsTriggerHoverColor?: string;
+  pillsTriggerActiveBg?: string;
+  pillsTriggerActiveColor?: string;
+  pillsTriggerActiveBorderColor?: string;
+  pillsTriggerRadius?: string;
+
+  enclosedListBg?: string;
+  enclosedListPadding?: string;
+  enclosedListRadius?: string;
+  enclosedTriggerColor?: string;
+  enclosedTriggerActiveBg?: string;
+  enclosedTriggerActiveColor?: string;
+  enclosedTriggerRadius?: string;
+  enclosedTriggerActiveShadow?: string;
+
   contentPadding?: string;
   states?: StatesConfig;
   responsive?: ResponsiveConfig;

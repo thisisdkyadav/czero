@@ -131,7 +131,7 @@ function App() {
 
 | Component | Import | Basic Usage |
 |-----------|--------|-------------|
-| **Tabs** | `Tabs` | `<Tabs defaultValue="tab1"><Tabs.List><Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger></Tabs.List><Tabs.Content value="tab1">...</Tabs.Content></Tabs>` |
+| **Tabs** | `Tabs` | `<Tabs tabs={[{ value: "all", label: "All", count: 12 }]} variant="pills" />` |
 | **Accordion** | `Accordion` | `<Accordion type="single"><Accordion.Item value="a"><Accordion.Trigger>Q</Accordion.Trigger><Accordion.Content>A</Accordion.Content></Accordion.Item></Accordion>` |
 | **Breadcrumb** | `Breadcrumb` | `<Breadcrumb><Breadcrumb.Item href="/">Home</Breadcrumb.Item></Breadcrumb>` |
 
@@ -251,6 +251,18 @@ interface InputProps {
 ### Tabs
 
 ```tsx
+// Convenience mode
+<Tabs
+  tabs={[
+    { value: "all", label: "All", count: 24 },
+    { value: "open", label: "Open", count: 8 },
+  ]}
+  value={tab}
+  onChange={setTab}
+  variant="pills"
+/>
+
+// Primitive mode
 <Tabs defaultValue="tab1">
   <Tabs.List>
     <Tabs.Trigger value="tab1">Account</Tabs.Trigger>
