@@ -161,6 +161,31 @@ export const componentDefaults: ComponentsConfig = {
     },
   },
 
+  // ===== STATUS BADGE =====
+  statusBadge: {
+    paddingX: "0.625rem",
+    paddingY: "0.25rem",
+    fontSize: "$font-xs",
+    fontWeight: "$font-medium",
+    lineHeight: "1rem",
+    borderRadius: "$radius-full",
+    dotSize: "0.5rem",
+    dotGap: "0.375rem",
+
+    successBg: "$color-success / 0.12",
+    successText: "$color-success",
+    successDot: "$color-success",
+    dangerBg: "$color-danger / 0.12",
+    dangerText: "$color-danger",
+    dangerDot: "$color-danger",
+    warningBg: "$color-warning / 0.12",
+    warningText: "$color-warning",
+    warningDot: "$color-warning",
+    primaryBg: "$color-primary / 0.12",
+    primaryText: "$color-primary",
+    primaryDot: "$color-primary",
+  },
+
   // ===== SWITCH =====
   switch: {
     width: { sm: "2rem", md: "2.75rem", lg: "3.5rem" },
@@ -346,6 +371,36 @@ export const componentDefaults: ComponentsConfig = {
     descriptionColor: "$color-mutedFg",
   },
 
+  // ===== MODAL =====
+  modal: {
+    overlayBg: "rgba(15, 23, 42, 0.55)",
+    contentBg: "$color-bg",
+    contentBorderRadius: "$radius-lg",
+    contentBorderColor: "$color-border",
+    contentShadow: "$shadow-lg",
+
+    headerPadding: "1rem 1rem 0.75rem",
+    bodyPadding: "0.75rem 1rem 1rem",
+    footerPadding: "0.75rem 1rem",
+    footerGap: "$spacing-md",
+
+    closeIconSize: "2rem",
+    closeIconPadding: "0.5rem",
+    closeIconRadius: "$radius-md",
+    closeIconBg: "transparent",
+    closeIconColor: "$color-mutedFg",
+    closeIconHoverBg: "$color-muted",
+    closeIconHoverColor: "$color-primary",
+    closeIconTransition: "$transition-fast",
+    closeIconFocusRing: "none",
+
+    tabFontSize: "13px",
+    tabFontWeight: "$font-medium",
+    tabColor: "$color-mutedFg",
+    tabActiveColor: "$color-primary",
+    tabActiveBorderColor: "$color-primary",
+  },
+
   // ===== DROPDOWN MENU =====
   dropdownMenu: {
     contentBg: "$color-bg",
@@ -389,6 +444,52 @@ export const componentDefaults: ComponentsConfig = {
     cellPaddingY: "0.5rem",
     rowHoverBg: "$color-muted / 0.5",
     stripedBg: "$color-muted / 0.3",
+  },
+
+  // ===== DATA TABLE =====
+  dataTable: {
+    containerBg: "$color-bg",
+    containerBorderRadius: "$radius-lg",
+    containerBorderColor: "$color-border",
+    containerShadow: "$shadow-sm",
+
+    headerCellPadding: "0.75rem 1rem",
+    headerFontSize: "$font-xs",
+    headerFontWeight: "$font-medium",
+    headerColor: "$color-mutedFg",
+    headerTextTransform: "uppercase",
+    headerLetterSpacing: "0.02em",
+
+    bodyCellPadding: "0.875rem 1rem",
+    bodyFontSize: "$font-sm",
+    bodyColor: "$color-fg",
+    rowBorderColor: "$color-border",
+    rowHoverBg: "$color-muted / 0.5",
+    stripedRowBg: "$color-muted / 0.3",
+    selectedRowBg: "$color-primary / 0.12",
+
+    sortIconOpacity: "0.3",
+    sortActiveColor: "$color-primary",
+
+    paginationPadding: "0.75rem 1rem",
+    paginationGap: "0.5rem",
+    paginationBorderColor: "$color-border",
+    paginationTextColor: "$color-mutedFg",
+    paginationTextStrongColor: "$color-fg",
+    paginationButtonSize: "32px",
+    paginationButtonRadius: "$radius-md",
+    paginationButtonHoverBg: "$color-muted / 0.4",
+    paginationButtonBorderColor: "transparent",
+    paginationButtonColor: "$color-fg",
+    paginationButtonDisabledColor: "$color-mutedFg",
+
+    emptyStateColor: "$color-mutedFg",
+    emptyStateTitleColor: "$color-fg",
+    emptyStateIconBg: "$color-muted",
+    emptyStateIconColor: "$color-mutedFg",
+
+    loadingShimmerBase: "$color-muted",
+    loadingShimmerHighlight: "$color-muted / 0.5",
   },
 
   // ===== AVATAR =====

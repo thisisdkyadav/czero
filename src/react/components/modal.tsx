@@ -138,7 +138,7 @@ export const Modal = React.forwardRef<
       position: "fixed",
       inset: 0,
       zIndex: 60,
-      backgroundColor: "var(--color-bg-modal-overlay, rgba(15, 23, 42, 0.55))",
+      backgroundColor: "var(--cz-modal-overlay-bg, var(--color-bg-modal-overlay, rgba(15, 23, 42, 0.55)))",
       backdropFilter: "blur(2px)",
     };
 
@@ -148,10 +148,10 @@ export const Modal = React.forwardRef<
       top: "50%",
       transform: "translate(-50%, -50%)",
       zIndex: 61,
-      backgroundColor: "var(--color-bg-primary, hsl(var(--cz-color-bg)))",
-      borderRadius: "var(--radius-modal, var(--cz-radius-lg))",
-      border: "1px solid hsl(var(--cz-color-border))",
-      boxShadow: "var(--shadow-modal, var(--cz-shadow-lg))",
+      backgroundColor: "var(--cz-modal-content-bg, var(--color-bg-primary, hsl(var(--cz-color-bg))))",
+      borderRadius: "var(--cz-modal-content-border-radius, var(--radius-modal, var(--cz-radius-lg)))",
+      border: "1px solid var(--cz-modal-content-border-color, hsl(var(--cz-color-border)))",
+      boxShadow: "var(--cz-modal-content-shadow, var(--shadow-modal, var(--cz-shadow-lg)))",
       display: "flex",
       flexDirection: "column",
       overflow: "hidden",
@@ -168,7 +168,7 @@ export const Modal = React.forwardRef<
       alignItems: "flex-start",
       justifyContent: "space-between",
       gap: "var(--cz-spacing-md, 0.75rem)",
-      padding: "var(--cz-spacing-lg, 1rem) var(--cz-spacing-lg, 1rem) var(--cz-spacing-md, 0.75rem)",
+      padding: "var(--cz-modal-header-padding, var(--cz-spacing-lg, 1rem) var(--cz-spacing-lg, 1rem) var(--cz-spacing-md, 0.75rem))",
       borderBottom: "1px solid hsl(var(--cz-color-border))",
       flexShrink: 0,
     };
@@ -195,7 +195,7 @@ export const Modal = React.forwardRef<
     };
 
     const bodyStyles: React.CSSProperties = {
-      padding: "var(--cz-spacing-md, 0.75rem) var(--cz-spacing-lg, 1rem) var(--cz-spacing-lg, 1rem)",
+      padding: "var(--cz-modal-body-padding, var(--cz-spacing-md, 0.75rem) var(--cz-spacing-lg, 1rem) var(--cz-spacing-lg, 1rem))",
       overflowY: "auto",
       flex: 1,
     };
@@ -205,7 +205,7 @@ export const Modal = React.forwardRef<
       alignItems: "center",
       justifyContent: "flex-end",
       gap: "var(--cz-modal-footer-gap, var(--cz-spacing-md, 0.75rem))",
-      padding: "var(--cz-spacing-md, 0.75rem) var(--cz-spacing-lg, 1rem)",
+      padding: "var(--cz-modal-footer-padding, var(--cz-spacing-md, 0.75rem) var(--cz-spacing-lg, 1rem))",
       borderTop: "1px solid hsl(var(--cz-color-border))",
       flexShrink: 0,
     };
@@ -259,17 +259,17 @@ export const Modal = React.forwardRef<
       justifyContent: "center",
       gap: "0.375rem",
       padding: "0.5rem 0.75rem",
-      fontSize: "13px",
+      fontSize: "var(--cz-modal-tab-font-size, 13px)",
       fontWeight: isActive
         ? "var(--cz-font-weight-semibold)"
-        : "var(--cz-font-weight-medium)",
+        : "var(--cz-modal-tab-font-weight, var(--cz-font-weight-medium))",
       color: isActive
-        ? "var(--color-primary, hsl(var(--cz-color-primary)))"
-        : "var(--color-text-muted, hsl(var(--cz-color-mutedFg)))",
+        ? "var(--cz-modal-tab-active-color, var(--color-primary, hsl(var(--cz-color-primary))))"
+        : "var(--cz-modal-tab-color, var(--color-text-muted, hsl(var(--cz-color-mutedFg))))",
       backgroundColor: "transparent",
       border: 0,
       borderBottom: isActive
-        ? "2px solid var(--color-primary, hsl(var(--cz-color-primary)))"
+        ? "2px solid var(--cz-modal-tab-active-border-color, var(--color-primary, hsl(var(--cz-color-primary))))"
         : "2px solid transparent",
       marginBottom: "-1px",
       whiteSpace: "nowrap",

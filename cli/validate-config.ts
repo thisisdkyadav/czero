@@ -93,10 +93,10 @@ function validateComponents(components: unknown): { warnings: string[]; errors: 
 
   const validComponents = [
     "button", "input", "textarea", "card", "badge", "switch", "checkbox",
-    "radio", "select", "label", "alert", "tooltip", "progress", "skeleton",
-    "spinner", "tabs", "dialog", "dropdownMenu", "accordion", "table",
-    "avatar", "separator", "breadcrumb", "code", "kbd", "tag", "toast",
-    "scrollArea", "container", "stack", "grid"
+    "statusBadge", "radio", "select", "label", "alert", "tooltip", "progress",
+    "skeleton", "spinner", "tabs", "dialog", "modal", "dropdownMenu",
+    "accordion", "table", "dataTable", "avatar", "separator", "breadcrumb",
+    "code", "kbd", "tag", "toast", "scrollArea", "container", "stack", "grid"
   ];
 
   for (const key of Object.keys(components as Record<string, unknown>)) {

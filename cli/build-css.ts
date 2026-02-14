@@ -17,8 +17,10 @@ import {
   generateRadioCSS,
   generateLabelCSS,
   generateBadgeCSS,
+  generateStatusBadgeCSS,
   generateAvatarCSS,
   generateTableCSS,
+  generateDataTableCSS,
   generateCodeCSS,
   generateKbdCSS,
   generateTagCSS,
@@ -32,6 +34,7 @@ import {
   generateBreadcrumbCSS,
   generateAccordionCSS,
   generateDialogCSS,
+  generateModalCSS,
   generateDropdownMenuCSS,
   generateSeparatorCSS,
   generateScrollAreaCSS,
@@ -63,8 +66,10 @@ export function buildComponentsCSS(config: CZeroConfig): string {
   if (components.radio) { css += generateRadioCSS(components.radio) + "\n"; }
   if (components.label) { css += generateLabelCSS(components.label) + "\n"; }
   if (components.badge) { css += generateBadgeCSS(components.badge) + "\n"; }
+  if (components.statusBadge) { css += generateStatusBadgeCSS(components.statusBadge) + "\n"; }
   if (components.avatar) { css += generateAvatarCSS(components.avatar) + "\n"; }
   if (components.table) { css += generateTableCSS(components.table) + "\n"; }
+  if (components.dataTable) { css += generateDataTableCSS(components.dataTable) + "\n"; }
   if (components.code) { css += generateCodeCSS(components.code) + "\n"; }
   if (components.kbd) { css += generateKbdCSS(components.kbd) + "\n"; }
   if (components.tag) { css += generateTagCSS(components.tag) + "\n"; }
@@ -78,6 +83,7 @@ export function buildComponentsCSS(config: CZeroConfig): string {
   if (components.breadcrumb) { css += generateBreadcrumbCSS(components.breadcrumb) + "\n"; }
   if (components.accordion) { css += generateAccordionCSS(components.accordion) + "\n"; }
   if (components.dialog) { css += generateDialogCSS(components.dialog) + "\n"; }
+  if (components.modal) { css += generateModalCSS(components.modal) + "\n"; }
   if (components.dropdownMenu) { css += generateDropdownMenuCSS(components.dropdownMenu) + "\n"; }
   if (components.separator) { css += generateSeparatorCSS(components.separator) + "\n"; }
   if (components.scrollArea) { css += generateScrollAreaCSS(components.scrollArea) + "\n"; }

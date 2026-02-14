@@ -194,6 +194,32 @@ export interface BadgeTokens extends ComponentTokensBase {
   responsive?: ResponsiveConfig;
 }
 
+// ===== Status Badge Tokens =====
+export interface StatusBadgeTokens extends ComponentTokensBase {
+  paddingX?: string;
+  paddingY?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  borderRadius?: string;
+
+  dotSize?: string;
+  dotGap?: string;
+
+  successBg?: string;
+  successText?: string;
+  successDot?: string;
+  dangerBg?: string;
+  dangerText?: string;
+  dangerDot?: string;
+  warningBg?: string;
+  warningText?: string;
+  warningDot?: string;
+  primaryBg?: string;
+  primaryText?: string;
+  primaryDot?: string;
+}
+
 // ===== Switch Tokens =====
 export interface SwitchTokens extends ComponentTokensBase {
   width?: SizeVariants<string>;
@@ -359,6 +385,36 @@ export interface DialogTokens extends ComponentTokensBase {
   responsive?: ResponsiveConfig;
 }
 
+// ===== Modal Tokens =====
+export interface ModalTokens extends ComponentTokensBase {
+  overlayBg?: string;
+  contentBg?: string;
+  contentBorderRadius?: string;
+  contentBorderColor?: string;
+  contentShadow?: string;
+
+  headerPadding?: string;
+  bodyPadding?: string;
+  footerPadding?: string;
+  footerGap?: string;
+
+  closeIconSize?: string;
+  closeIconPadding?: string;
+  closeIconRadius?: string;
+  closeIconBg?: string;
+  closeIconColor?: string;
+  closeIconHoverBg?: string;
+  closeIconHoverColor?: string;
+  closeIconTransition?: string;
+  closeIconFocusRing?: string;
+
+  tabFontSize?: string;
+  tabFontWeight?: string;
+  tabColor?: string;
+  tabActiveColor?: string;
+  tabActiveBorderColor?: string;
+}
+
 // ===== Dropdown Menu Tokens =====
 export interface DropdownMenuTokens extends ComponentTokensBase {
   contentBg?: string;
@@ -401,6 +457,52 @@ export interface TableTokens extends ComponentTokensBase {
   cellPaddingY?: string;
   rowHoverBg?: string;
   stripedBg?: string;
+}
+
+// ===== Data Table Tokens =====
+export interface DataTableTokens extends ComponentTokensBase {
+  containerBg?: string;
+  containerBorderRadius?: string;
+  containerBorderColor?: string;
+  containerShadow?: string;
+
+  headerCellPadding?: string;
+  headerFontSize?: string;
+  headerFontWeight?: string;
+  headerColor?: string;
+  headerTextTransform?: string;
+  headerLetterSpacing?: string;
+
+  bodyCellPadding?: string;
+  bodyFontSize?: string;
+  bodyColor?: string;
+  rowBorderColor?: string;
+  rowHoverBg?: string;
+  stripedRowBg?: string;
+  selectedRowBg?: string;
+
+  sortIconOpacity?: string;
+  sortActiveColor?: string;
+
+  paginationPadding?: string;
+  paginationGap?: string;
+  paginationBorderColor?: string;
+  paginationTextColor?: string;
+  paginationTextStrongColor?: string;
+  paginationButtonSize?: string;
+  paginationButtonRadius?: string;
+  paginationButtonHoverBg?: string;
+  paginationButtonBorderColor?: string;
+  paginationButtonColor?: string;
+  paginationButtonDisabledColor?: string;
+
+  emptyStateColor?: string;
+  emptyStateTitleColor?: string;
+  emptyStateIconBg?: string;
+  emptyStateIconColor?: string;
+
+  loadingShimmerBase?: string;
+  loadingShimmerHighlight?: string;
 }
 
 // ===== Avatar Tokens =====
@@ -504,6 +606,7 @@ export interface ComponentsConfig {
   textarea?: TextareaTokens;
   card?: CardTokens;
   badge?: BadgeTokens;
+  statusBadge?: StatusBadgeTokens;
   switch?: SwitchTokens;
   checkbox?: CheckboxTokens;
   radio?: RadioTokens;
@@ -516,9 +619,11 @@ export interface ComponentsConfig {
   spinner?: SpinnerTokens;
   tabs?: TabsTokens;
   dialog?: DialogTokens;
+  modal?: ModalTokens;
   dropdownMenu?: DropdownMenuTokens;
   accordion?: AccordionTokens;
   table?: TableTokens;
+  dataTable?: DataTableTokens;
   avatar?: AvatarTokens;
   separator?: SeparatorTokens;
   breadcrumb?: BreadcrumbTokens;

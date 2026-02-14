@@ -18,8 +18,10 @@ export { generateLabelCSS } from "./label";
 
 // Data display
 export { generateBadgeCSS } from "./badge";
+export { generateStatusBadgeCSS } from "./status-badge";
 export { generateAvatarCSS } from "./avatar";
 export { generateTableCSS } from "./table";
+export { generateDataTableCSS } from "./data-table";
 export { generateCodeCSS } from "./code";
 export { generateKbdCSS } from "./kbd";
 export { generateTagCSS } from "./tag";
@@ -39,6 +41,7 @@ export { generateAccordionCSS } from "./accordion";
 
 // Overlay
 export { generateDialogCSS } from "./dialog";
+export { generateModalCSS } from "./modal";
 export { generateDropdownMenuCSS } from "./dropdown-menu";
 
 // Layout
@@ -47,4 +50,3 @@ export { generateScrollAreaCSS } from "./scroll-area";
 
 // Utilities
 export { generateUtilitiesCSS } from "./utilities";
-
