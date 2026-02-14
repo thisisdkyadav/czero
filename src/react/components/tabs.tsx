@@ -97,7 +97,7 @@ const TabsRoot = React.forwardRef<
       tabs,
       renderItem,
       renderContent,
-      variant = "underline",
+      variant,
       size = "md",
       fullWidth = false,
       showBorder = true,
@@ -110,8 +110,6 @@ const TabsRoot = React.forwardRef<
     },
     ref
   ) => {
-    const resolvedVariant = normalizeVariant(variant);
-    const resolvedSize = normalizeSize(size);
     const dataItems = React.useMemo(() => {
       if (Array.isArray(items)) return items;
       if (Array.isArray(tabs)) return tabs;
@@ -119,6 +117,10 @@ const TabsRoot = React.forwardRef<
     }, [items, tabs]);
 
     const hasItems = Boolean(dataItems && dataItems.length > 0);
+    const resolvedVariant = normalizeVariant(
+      variant ?? (hasItems ? "pills" : "underline")
+    );
+    const resolvedSize = normalizeSize(size);
     const controlledValue = value !== undefined ? value : activeTab;
     const resolvedDefaultValue =
       defaultValue !== undefined
