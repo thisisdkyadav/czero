@@ -19,6 +19,10 @@ const SIZE_WIDTH_MAP: Record<ModalSize, string> = {
   full: "min(96vw, 96rem)",
 };
 
+const MODAL_BASE_Z_INDEX = 60;
+const MODAL_LAYER_STEP = 2;
+let nextModalLayer = 0;
+
 function toCssDimension(value?: number | string): string | undefined {
   if (value === undefined || value === null) return undefined;
   return typeof value === "number" ? `${value}px` : value;
@@ -119,9 +123,40 @@ export const Modal = React.forwardRef<
     const isControlled = resolvedOpen !== undefined;
     const resolvedDefaultOpen =
       defaultOpen ?? (!isControlled && !trigger ? true : undefined);
+    const [isOpenState, setIsOpenState] = React.useState<boolean>(() => {
+      if (resolvedOpen !== undefined) return resolvedOpen;
+      if (resolvedDefaultOpen !== undefined) return resolvedDefaultOpen;
+      return false;
+    });
+    const [layerIndex, setLayerIndex] = React.useState(0);
+    const assignedLayerRef = React.useRef<number | null>(null);
+
+    React.useEffect(() => {
+      if (resolvedOpen !== undefined) {
+        setIsOpenState(resolvedOpen);
+      }
+    }, [resolvedOpen]);
+
+    React.useEffect(() => {
+      if (!isOpenState) {
+        assignedLayerRef.current = null;
+        setLayerIndex(0);
+        return;
+      }
+
+      if (assignedLayerRef.current === null) {
+        assignedLayerRef.current = nextModalLayer++;
+      }
+
+      setLayerIndex(assignedLayerRef.current);
+    }, [isOpenState]);
 
     const handleOpenChange = React.useCallback(
       (nextOpen: boolean) => {
+        setIsOpenState(nextOpen);
+        if (!nextOpen) {
+          assignedLayerRef.current = null;
+        }
         onOpenChange?.(nextOpen);
         if (!nextOpen) {
           onClose?.();
@@ -137,7 +172,7 @@ export const Modal = React.forwardRef<
     const overlayStyles: React.CSSProperties = {
       position: "fixed",
       inset: 0,
-      zIndex: 60,
+      zIndex: MODAL_BASE_Z_INDEX + layerIndex * MODAL_LAYER_STEP,
       backgroundColor: "var(--cz-modal-overlay-bg, var(--color-bg-modal-overlay, rgba(15, 23, 42, 0.55)))",
       backdropFilter: "blur(2px)",
     };
@@ -147,7 +182,7 @@ export const Modal = React.forwardRef<
       left: "50%",
       top: "50%",
       transform: "translate(-50%, -50%)",
-      zIndex: 61,
+      zIndex: MODAL_BASE_Z_INDEX + layerIndex * MODAL_LAYER_STEP + 1,
       backgroundColor: "var(--cz-modal-content-bg, var(--color-bg-primary, hsl(var(--cz-color-bg))))",
       borderRadius: "var(--cz-modal-content-border-radius, var(--radius-modal, var(--cz-radius-lg)))",
       border: "1px solid var(--cz-modal-content-border-color, hsl(var(--cz-color-border)))",
