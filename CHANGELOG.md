@@ -4,6 +4,15 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.2.5] - 2026-02-15
+
+### 🐛 Fixes
+
+- Fixed nested modal stacking so each newly opened modal places its overlay between the previous modal content and the new modal content.
+- Resolved the issue where second-level modal backdrops could render behind the first modal content.
+
+---
+
 ## [0.2.0] - 2026-01-18
 
 ### 🎉 Initial Public Release
