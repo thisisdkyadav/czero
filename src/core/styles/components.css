@@ -558,28 +558,26 @@
 .cz-switch {
   all: unset;
   box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
   position: relative;
-  width: 2.75rem;
-  height: 1.5rem;
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  width: var(--cz-switch-width, 2.75rem);
+  height: var(--cz-switch-height, 1.5rem);
   border-radius: var(--cz-radius-full);
-  background-color: hsl(var(--cz-color-muted));
-  transition: all var(--cz-transition-fast);
+  background-color: var(--cz-switch-bg, hsl(var(--cz-color-muted)));
+  transition: background-color 160ms ease;
   cursor: pointer;
 }
 
 .cz-switch:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring));
+  box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring) / 0.6);
 }
 
-.cz-switch[data-state="checked"] {
-  background-color: hsl(var(--cz-color-primary));
-}
-
+.cz-switch[data-state="checked"],
 .cz-switch.cz-switch-checked {
-  background-color: hsl(var(--cz-color-primary));
+  background-color: var(--cz-switch-bg-checked, hsl(var(--cz-color-primary)));
 }
 
 .cz-switch.cz-disabled,
@@ -588,37 +586,35 @@
   cursor: not-allowed;
 }
 
+/* The thumb is sized from the track height (height - 2*padding) so it can
+   never overflow vertically, and the checked offset is exactly width - height
+   so it can never overflow horizontally — regardless of the configured size. */
 .cz-switch-thumb {
-  display: block;
-  width: 1.25rem;
-  height: 1.25rem;
+  position: absolute;
+  top: var(--cz-switch-padding, 0.125rem);
+  left: var(--cz-switch-padding, 0.125rem);
+  width: calc(var(--cz-switch-height, 1.5rem) - 2 * var(--cz-switch-padding, 0.125rem));
+  height: calc(var(--cz-switch-height, 1.5rem) - 2 * var(--cz-switch-padding, 0.125rem));
   border-radius: var(--cz-radius-full);
-  background-color: hsl(var(--cz-color-bg));
-  box-shadow: var(--cz-shadow-sm);
-  transition: transform var(--cz-transition-fast);
-  transform: translateX(0.125rem);
+  background-color: var(--cz-switch-thumb-bg, hsl(var(--cz-color-bg)));
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.2), 0 0 0 0.5px rgb(0 0 0 / 0.04);
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(0);
 }
 
 .cz-switch[data-state="checked"] .cz-switch-thumb,
 .cz-switch.cz-switch-checked .cz-switch-thumb {
-  transform: translateX(calc(2.75rem - 1.25rem - 0.125rem));
+  transform: translateX(calc(var(--cz-switch-width, 2.75rem) - var(--cz-switch-height, 1.5rem)));
 }
 
-/* Switch Sizes */
-.cz-switch-sm { width: 2rem; height: 1.125rem; }
-.cz-switch-sm .cz-switch-thumb { width: 0.875rem; height: 0.875rem; transform: translateX(0.125rem); }
-.cz-switch-sm[data-state="checked"] .cz-switch-thumb,
-.cz-switch-sm.cz-switch-checked .cz-switch-thumb { transform: translateX(calc(2rem - 0.875rem - 0.125rem)); }
+/* Sizes set only the track dimensions; the thumb size and offset derive from them. */
+.cz-switch-sm { --cz-switch-width: 2rem; --cz-switch-height: 1.125rem; }
+.cz-switch-md { --cz-switch-width: 2.75rem; --cz-switch-height: 1.5rem; }
+.cz-switch-lg { --cz-switch-width: 3.5rem; --cz-switch-height: 1.875rem; }
 
-.cz-switch-md { width: 2.75rem; height: 1.5rem; }
-.cz-switch-md .cz-switch-thumb { width: 1.25rem; height: 1.25rem; transform: translateX(0.125rem); }
-.cz-switch-md[data-state="checked"] .cz-switch-thumb,
-.cz-switch-md.cz-switch-checked .cz-switch-thumb { transform: translateX(calc(2.75rem - 1.25rem - 0.125rem)); }
-
-.cz-switch-lg { width: 3.5rem; height: 1.875rem; }
-.cz-switch-lg .cz-switch-thumb { width: 1.625rem; height: 1.625rem; transform: translateX(0.125rem); }
-.cz-switch-lg[data-state="checked"] .cz-switch-thumb,
-.cz-switch-lg.cz-switch-checked .cz-switch-thumb { transform: translateX(calc(3.5rem - 1.625rem - 0.125rem)); }
+@media (prefers-reduced-motion: reduce) {
+  .cz-switch-thumb { transition: none; }
+}
 
 /* Switch with Label */
 .cz-switch-container {

@@ -4,6 +4,28 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.4.2] - 2026-06-14
+
+### Switch — overflow fix + matured
+
+**Fixed**
+- Thumb could overflow the track ("dot outside the box"), especially when the
+  switch was squished inside a flex row. The thumb is now sized from the track
+  height (`height − 2·padding`) so it can't overflow vertically, and the checked
+  offset is exactly `width − height` so it can't overflow horizontally — for any
+  configured size. Added `flex-shrink: 0` so the track never gets squished.
+
+**Changed**
+- Smoother thumb motion (ease-out, no overshoot), refined thumb shadow, softer
+  focus ring, `vertical-align: middle` for inline alignment, and
+  `prefers-reduced-motion` support.
+- Sizes now set only the track dimensions (`--cz-switch-width` / `-height`);
+  the thumb size and travel derive automatically. New hooks:
+  `--cz-switch-bg`, `--cz-switch-bg-checked`, `--cz-switch-thumb-bg`,
+  `--cz-switch-padding`.
+
+---
+
 ## [0.4.0] - 2026-06-14
 
 ### Modal — matured design + new options
