@@ -4,19 +4,6 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
-## [0.4.1] - 2026-06-14
-
-### Fixed
-
-- Modal exit animation now plays even when the parent unmounts the modal on
-  close (the common `{open && <SomeModal onClose />}` pattern). The Modal now
-  drives Radix's open state internally and defers `onClose` / `onOpenChange(false)`
-  until the close animation finishes (~180ms), so the content animates out
-  instead of disappearing instantly. Controlled closes (parent toggling
-  `isOpen`/`open`) are unaffected and immediate.
-
----
-
 ## [0.4.0] - 2026-06-14
 
 ### Modal — matured design + new options
