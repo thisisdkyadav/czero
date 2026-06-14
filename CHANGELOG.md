@@ -4,6 +4,34 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.4.0] - 2026-06-14
+
+### Modal — matured design + new options
+
+**Added**
+- `size="xs"` (~22rem) for compact confirm dialogs.
+- `centered` prop (default `true`); set `false` for a top-aligned modal.
+- Exit animations (overlay fade-out + content scale-down) via Radix `data-state`,
+  plus refined enter easing and `prefers-reduced-motion` support.
+
+**Changed**
+- Larger default corner radius (`--cz-radius-xl`, 16px) and a richer, layered
+  elevation shadow for a more modern, mature look.
+- Neutral title color (`--cz-color-fg`) instead of brand-primary; refined title
+  size and letter-spacing.
+- More comfortable, consistent padding (1.5rem horizontal); tighter footer
+  button gap; sane default body text color/size.
+- Stronger backdrop blur (4px), `dvh`-based max-heights for mobile.
+
+**Internal**
+- Modal styling moved out of inline styles into `components.css` (`.cz-modal-*`);
+  only dynamic values (z-index layering, custom width/min-height) remain inline.
+  This removes the duplicate styling path and is what enables the CSS animations.
+- New override hooks: `--cz-modal-overlay-blur`, `--cz-modal-title-color`,
+  `--cz-modal-title-font-size`.
+
+---
+
 ## [0.3.1] - 2026-06-14
 
 ### Fixed

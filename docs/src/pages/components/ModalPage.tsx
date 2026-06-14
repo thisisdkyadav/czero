@@ -37,9 +37,15 @@ const modalProps = [
   },
   {
     name: "size",
-    type: '"sm" | "md" | "lg" | "xl" | "full"',
+    type: '"xs" | "sm" | "md" | "lg" | "xl" | "full"',
     default: '"md"',
-    description: "Preset modal width",
+    description: "Preset modal width (xs ~22rem for compact confirms)",
+  },
+  {
+    name: "centered",
+    type: "boolean",
+    default: "true",
+    description: "Vertically center the modal; set false for a top-aligned modal",
   },
   {
     name: "width",
@@ -156,6 +162,41 @@ export default function ModalPage() {
           footer={<Button variant="danger">I Understand</Button>}
         >
           <p>This modal requires an explicit action to close.</p>
+        </Modal>
+      </CodePreview>
+
+      <h2>Compact Confirm (size="xs", top-aligned)</h2>
+      <CodePreview
+        code={`<Modal
+  trigger={<Button variant="outline">Delete Item</Button>}
+  title="Delete this item?"
+  description="This action cannot be undone."
+  size="xs"
+  centered={false}
+  footer={
+    <>
+      <Button variant="ghost">Cancel</Button>
+      <Button variant="danger">Delete</Button>
+    </>
+  }
+>
+  <p>The item will be permanently removed.</p>
+</Modal>`}
+      >
+        <Modal
+          trigger={<Button variant="outline">Delete Item</Button>}
+          title="Delete this item?"
+          description="This action cannot be undone."
+          size="xs"
+          centered={false}
+          footer={
+            <>
+              <Button variant="ghost">Cancel</Button>
+              <Button variant="danger">Delete</Button>
+            </>
+          }
+        >
+          <p>The item will be permanently removed.</p>
         </Modal>
       </CodePreview>
 

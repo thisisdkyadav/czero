@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-export type ModalSize = "sm" | "md" | "lg" | "xl" | "full";
+export type ModalSize = "xs" | "sm" | "md" | "lg" | "xl" | "full";
 export type ModalCloseButtonVariant = "icon" | "button";
 export interface ModalTabItem {
   id: string;
@@ -10,14 +10,6 @@ export interface ModalTabItem {
   icon?: React.ReactNode;
   disabled?: boolean;
 }
-
-const SIZE_WIDTH_MAP: Record<ModalSize, string> = {
-  sm: "28rem",
-  md: "36rem",
-  lg: "48rem",
-  xl: "64rem",
-  full: "min(96vw, 96rem)",
-};
 
 const MODAL_BASE_Z_INDEX = 60;
 const MODAL_LAYER_STEP = 2;
@@ -62,6 +54,8 @@ export interface ModalProps
   width?: number | string;
   minHeight?: number | string;
   fullHeight?: boolean;
+  /** Vertically center the modal (default). Set false for a top-aligned modal. */
+  centered?: boolean;
 
   showCloseButton?: boolean;
   closeButtonVariant?: ModalCloseButtonVariant;
@@ -101,6 +95,7 @@ export const Modal = React.forwardRef<
       width,
       minHeight,
       fullHeight = false,
+      centered = true,
       showCloseButton = true,
       closeButtonVariant = "icon",
       closeButtonText = "Close",
@@ -166,83 +161,19 @@ export const Modal = React.forwardRef<
     );
 
     const hasOpenHandler = Boolean(onOpenChange || onClose);
-    const resolvedWidth = toCssDimension(width) ?? SIZE_WIDTH_MAP[size];
     const resolvedMinHeight = toCssDimension(minHeight);
 
+    // Only dynamic, instance-specific values stay inline. All visual styling
+    // lives in components.css (.cz-modal-*) so it stays themeable and animates.
     const overlayStyles: React.CSSProperties = {
-      position: "fixed",
-      inset: 0,
       zIndex: MODAL_BASE_Z_INDEX + layerIndex * MODAL_LAYER_STEP,
-      backgroundColor: "var(--cz-modal-overlay-bg, rgba(15, 23, 42, 0.55))",
-      backdropFilter: "blur(2px)",
     };
 
     const contentStyles: React.CSSProperties = {
-      position: "fixed",
-      left: "50%",
-      top: "50%",
-      transform: "translate(-50%, -50%)",
       zIndex: MODAL_BASE_Z_INDEX + layerIndex * MODAL_LAYER_STEP + 1,
-      backgroundColor: "var(--cz-modal-content-bg, hsl(var(--cz-color-bg)))",
-      borderRadius: "var(--cz-modal-content-border-radius, var(--cz-radius-lg))",
-      border: "1px solid var(--cz-modal-content-border-color, hsl(var(--cz-color-border)))",
-      boxShadow: "var(--cz-modal-content-shadow, var(--cz-shadow-lg))",
-      display: "flex",
-      flexDirection: "column",
-      overflow: "hidden",
-      width: resolvedWidth,
-      maxWidth: "calc(100% - 2rem)",
-      maxHeight: "calc(100vh - 2rem)",
-      minHeight: resolvedMinHeight,
-      ...(fullHeight ? { height: "calc(100vh - 2rem)" } : null),
+      ...(width !== undefined ? { width: toCssDimension(width) } : null),
+      ...(resolvedMinHeight ? { minHeight: resolvedMinHeight } : null),
       ...style,
-    };
-
-    const headerStyles: React.CSSProperties = {
-      display: "flex",
-      alignItems: "flex-start",
-      justifyContent: "space-between",
-      gap: "var(--cz-spacing-md, 0.75rem)",
-      padding: "var(--cz-modal-header-padding, var(--cz-spacing-lg, 1rem) var(--cz-spacing-lg, 1rem) var(--cz-spacing-md, 0.75rem))",
-      borderBottom: "1px solid hsl(var(--cz-color-border))",
-      flexShrink: 0,
-    };
-
-    const headerTextStyles: React.CSSProperties = {
-      minWidth: 0,
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.25rem",
-    };
-
-    const titleStyles: React.CSSProperties = {
-      margin: 0,
-      fontSize: "var(--cz-font-size-xl)",
-      fontWeight: "var(--cz-font-weight-semibold)",
-      color: "hsl(var(--cz-color-primary))",
-      lineHeight: "var(--cz-font-lineHeight-tight)",
-    };
-
-    const descriptionStyles: React.CSSProperties = {
-      margin: 0,
-      fontSize: "var(--cz-font-size-sm)",
-      color: "hsl(var(--cz-color-mutedFg))",
-    };
-
-    const bodyStyles: React.CSSProperties = {
-      padding: "var(--cz-modal-body-padding, var(--cz-spacing-md, 0.75rem) var(--cz-spacing-lg, 1rem) var(--cz-spacing-lg, 1rem))",
-      overflowY: "auto",
-      flex: 1,
-    };
-
-    const footerStyles: React.CSSProperties = {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
-      gap: "var(--cz-modal-footer-gap, var(--cz-spacing-md, 0.75rem))",
-      padding: "var(--cz-modal-footer-padding, var(--cz-spacing-md, 0.75rem) var(--cz-spacing-lg, 1rem))",
-      borderTop: "1px solid hsl(var(--cz-color-border))",
-      flexShrink: 0,
     };
 
     const hasTabs = Boolean(tabs && tabs.length > 0);
@@ -415,7 +346,7 @@ export const Modal = React.forwardRef<
           />
           <DialogPrimitive.Content
             ref={ref}
-            className={`cz-modal-content cz-modal-size-${size} ${fullHeight ? "cz-modal-full-height" : ""} ${className}`.trim()}
+            className={`cz-modal-content cz-modal-size-${size} ${centered ? "" : "cz-modal-top"} ${fullHeight ? "cz-modal-full-height" : ""} ${className}`.replace(/\s+/g, " ").trim()}
             style={contentStyles}
             onInteractOutside={handleInteractOutside}
             onEscapeKeyDown={handleEscapeKeyDown}
@@ -430,7 +361,7 @@ export const Modal = React.forwardRef<
               closeButton) && (
               <div
                 className={`cz-modal-header ${headerClassName}`.trim()}
-                style={headerStyles}
+               
               >
                 {hasTabs ? (
                   <div className="cz-modal-tabs-layout" style={tabsLayoutStyles}>
@@ -445,12 +376,12 @@ export const Modal = React.forwardRef<
                           {(shouldRenderTitle || shouldRenderDescription) && (
                             <div
                               className="cz-modal-header-text"
-                              style={headerTextStyles}
+                             
                             >
                               {shouldRenderTitle ? (
                                 <DialogPrimitive.Title
                                   className="cz-modal-title"
-                                  style={titleStyles}
+                                 
                                 >
                                   {title}
                                 </DialogPrimitive.Title>
@@ -458,7 +389,7 @@ export const Modal = React.forwardRef<
                               {shouldRenderDescription ? (
                                 <DialogPrimitive.Description
                                   className="cz-modal-description"
-                                  style={descriptionStyles}
+                                 
                                 >
                                   {description}
                                 </DialogPrimitive.Description>
@@ -517,16 +448,16 @@ export const Modal = React.forwardRef<
                 ) : (
                   <>
                     {(shouldRenderTitle || shouldRenderDescription) && (
-                      <div className="cz-modal-header-text" style={headerTextStyles}>
+                      <div className="cz-modal-header-text">
                         {shouldRenderTitle ? (
-                          <DialogPrimitive.Title className="cz-modal-title" style={titleStyles}>
+                          <DialogPrimitive.Title className="cz-modal-title">
                             {title}
                           </DialogPrimitive.Title>
                         ) : null}
                         {shouldRenderDescription ? (
                           <DialogPrimitive.Description
                             className="cz-modal-description"
-                            style={descriptionStyles}
+                           
                           >
                             {description}
                           </DialogPrimitive.Description>
@@ -539,14 +470,14 @@ export const Modal = React.forwardRef<
               </div>
             )}
 
-            <div className={`cz-modal-body ${bodyClassName}`.trim()} style={bodyStyles}>
+            <div className={`cz-modal-body ${bodyClassName}`.trim()}>
               {children}
             </div>
 
             {footer !== undefined && footer !== null ? (
               <div
                 className={`cz-modal-footer ${footerClassName}`.trim()}
-                style={footerStyles}
+               
               >
                 {normalizedFooter}
               </div>
