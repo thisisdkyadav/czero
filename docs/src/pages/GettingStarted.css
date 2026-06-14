@@ -67,3 +67,25 @@
   color: inherit;
   padding: 0;
 }
+
+.docs-page .token-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+}
+.docs-page .token-table th,
+.docs-page .token-table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--cz-color-border, #e5e7eb);
+  vertical-align: top;
+}
+.docs-page .token-table th {
+  font-weight: 600;
+  color: hsl(var(--cz-color-fg));
+}
+.docs-page .token-table td:first-child {
+  white-space: nowrap;
+  font-weight: 500;
+}

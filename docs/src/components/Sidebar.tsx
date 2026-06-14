@@ -80,7 +80,6 @@ export default function Sidebar() {
         <div className="sidebar-title">Getting Started</div>
         <div className="sidebar-links">
           <NavLink to="/docs" end>Introduction</NavLink>
-          <NavLink to="/docs/presets">Presets</NavLink>
         </div>
       </div>
       {componentCategories.map((category) => (

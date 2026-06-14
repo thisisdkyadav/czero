@@ -319,3 +319,10 @@
     right: 1rem;
   }
 }
+
+.customizer-subtitle {
+  font-size: 0.7rem;
+  color: hsl(var(--cz-color-mutedFg));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

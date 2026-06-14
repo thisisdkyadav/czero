@@ -1,30 +1,19 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import "./ThemeCustomizer.css";
 
-// ===== FULL CONFIG SCHEMA FROM AGENT_GUIDE.md =====
-interface FullConfig {
-  // Global Tokens
-  color: Record<string, string>;
+// A live editor for CZero's global design tokens. Everything here works by
+// setting --cz-* CSS variables on :root — exactly how theming works in a real
+// app. "Copy CSS" hands you the same variables to paste into your project.
+
+interface TokenConfig {
+  color: Record<string, string>; // stored as hex for the color picker
   radius: Record<string, string>;
   shadow: Record<string, string>;
   spacing: Record<string, string>;
-  typography: {
-    fontFamily: string;
-    size: Record<string, string>;
-    weight: Record<string, string>;
-    lineHeight: Record<string, string>;
-  };
-  transition: Record<string, string>;
-  // Component Tokens
-  components: {
-    button: { height: Record<string, string>; paddingX: Record<string, string>; borderRadius: string };
-    input: { height: Record<string, string>; borderRadius: string };
-    card: { padding: string; borderRadius: string; shadow: string };
-  };
+  typography: { fontFamily: string; size: Record<string, string> };
 }
 
-const defaultConfig: FullConfig = {
+const defaultConfig: TokenConfig = {
   color: {
     bg: "#ffffff",
     fg: "#1a1a2e",
@@ -43,43 +32,22 @@ const defaultConfig: FullConfig = {
     border: "#e5e7eb",
     ring: "#3b5998",
   },
-  radius: {
-    none: "0",
-    sm: "0.25rem",
-    md: "0.5rem",
-    lg: "0.75rem",
-    xl: "1rem",
-    full: "9999px",
-  },
+  radius: { none: "0", sm: "0.25rem", md: "0.5rem", lg: "0.75rem", xl: "1rem", full: "9999px" },
   shadow: {
     none: "none",
     sm: "0 1px 2px rgb(0 0 0 / 0.05)",
     md: "0 2px 4px rgb(0 0 0 / 0.08)",
     lg: "0 4px 12px rgb(0 0 0 / 0.12)",
   },
-  spacing: {
-    xs: "0.25rem",
-    sm: "0.5rem",
-    md: "0.75rem",
-    lg: "1rem",
-    xl: "1.5rem",
-    "2xl": "2rem",
-  },
+  spacing: { xs: "0.25rem", sm: "0.5rem", md: "0.75rem", lg: "1rem", xl: "1.5rem", "2xl": "2rem" },
   typography: {
     fontFamily: "Inter, system-ui, sans-serif",
     size: { xs: "0.75rem", sm: "0.875rem", md: "1rem", lg: "1.125rem", xl: "1.25rem" },
-    weight: { normal: "400", medium: "500", semibold: "600", bold: "700" },
-    lineHeight: { tight: "1.25", normal: "1.5", relaxed: "1.75" },
-  },
-  transition: { fast: "150ms ease", normal: "200ms ease", slow: "300ms ease" },
-  components: {
-    button: { height: { sm: "2rem", md: "2.5rem", lg: "3rem" }, paddingX: { sm: "0.75rem", md: "1rem", lg: "1.5rem" }, borderRadius: "0.5rem" },
-    input: { height: { sm: "2rem", md: "2.5rem", lg: "3rem" }, borderRadius: "0.5rem" },
-    card: { padding: "1rem", borderRadius: "0.75rem", shadow: "0 1px 2px rgb(0 0 0 / 0.05)" },
   },
 };
 
-// ===== HELPERS =====
+const colorKeys = Object.keys(defaultConfig.color);
+
 function hexToHsl(hex: string): string {
   if (!hex.startsWith("#") || hex.length < 7) return "0 0% 50%";
   const r = parseInt(hex.slice(1, 3), 16) / 255;
@@ -100,323 +68,178 @@ function hexToHsl(hex: string): string {
   return `${Math.round(h * 360)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
 }
 
-// ===== COMPONENT =====
+const RADIUS_PRESETS: Record<string, TokenConfig["radius"]> = {
+  none: { none: "0", sm: "0", md: "0", lg: "0", xl: "0", full: "0" },
+  sm: { none: "0", sm: "0.125rem", md: "0.25rem", lg: "0.375rem", xl: "0.5rem", full: "9999px" },
+  md: { none: "0", sm: "0.25rem", md: "0.5rem", lg: "0.75rem", xl: "1rem", full: "9999px" },
+  lg: { none: "0", sm: "0.375rem", md: "0.75rem", lg: "1rem", xl: "1.5rem", full: "9999px" },
+  xl: { none: "0", sm: "0.5rem", md: "1rem", lg: "1.5rem", xl: "2rem", full: "9999px" },
+};
+
+const SHADOW_PRESETS: Record<string, TokenConfig["shadow"]> = {
+  none: { none: "none", sm: "none", md: "none", lg: "none" },
+  sm: { none: "none", sm: "0 1px 1px rgb(0 0 0 / 0.03)", md: "0 1px 2px rgb(0 0 0 / 0.05)", lg: "0 2px 4px rgb(0 0 0 / 0.08)" },
+  md: { none: "none", sm: "0 1px 2px rgb(0 0 0 / 0.05)", md: "0 2px 4px rgb(0 0 0 / 0.08)", lg: "0 4px 8px rgb(0 0 0 / 0.12)" },
+  lg: { none: "none", sm: "0 2px 4px rgb(0 0 0 / 0.08)", md: "0 4px 12px rgb(0 0 0 / 0.12)", lg: "0 8px 24px rgb(0 0 0 / 0.16)" },
+};
+
 export default function ThemeCustomizer() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<"basic" | "advanced">("basic");
-  const [config, setConfig] = useState<FullConfig>(defaultConfig);
+  const [config, setConfig] = useState<TokenConfig>(defaultConfig);
   const [copied, setCopied] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["colors"]));
-  
-  const location = useLocation();
-  const currentComponent = location.pathname.split("/").pop() || "";
+  const [expanded, setExpanded] = useState<Set<string>>(new Set(["colors"]));
 
-  // Apply CSS variables
+  // Apply tokens live by writing --cz-* variables onto :root.
   useEffect(() => {
     const root = document.documentElement;
-    
-    // Colors
-    Object.entries(config.color).forEach(([name, hex]) => {
-      try { root.style.setProperty(`--cz-color-${name}`, hexToHsl(hex)); } catch {}
-    });
-    
-    // Radius
-    Object.entries(config.radius).forEach(([name, val]) => {
-      root.style.setProperty(`--cz-radius-${name}`, val);
-    });
-    
-    // Spacing
-    Object.entries(config.spacing).forEach(([name, val]) => {
-      root.style.setProperty(`--cz-spacing-${name}`, val);
-    });
-    
-    // Shadow
-    Object.entries(config.shadow).forEach(([name, val]) => {
-      root.style.setProperty(`--cz-shadow-${name}`, val);
-    });
-    
-    // Typography
-    root.style.setProperty("--cz-font-family", config.typography.fontFamily);
-    Object.entries(config.typography.size).forEach(([name, val]) => {
-      root.style.setProperty(`--cz-font-size-${name}`, val);
-    });
+    Object.entries(config.color).forEach(([name, hex]) =>
+      root.style.setProperty(`--cz-color-${name}`, hexToHsl(hex))
+    );
+    Object.entries(config.radius).forEach(([name, val]) =>
+      root.style.setProperty(`--cz-radius-${name}`, val)
+    );
+    Object.entries(config.shadow).forEach(([name, val]) =>
+      root.style.setProperty(`--cz-shadow-${name}`, val)
+    );
+    Object.entries(config.spacing).forEach(([name, val]) =>
+      root.style.setProperty(`--cz-spacing-${name}`, val)
+    );
+    root.style.setProperty("--cz-font-fontFamily", config.typography.fontFamily);
+    Object.entries(config.typography.size).forEach(([name, val]) =>
+      root.style.setProperty(`--cz-font-size-${name}`, val)
+    );
   }, [config]);
 
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => {
+  const toggleSection = (s: string) =>
+    setExpanded((prev) => {
       const next = new Set(prev);
-      if (next.has(section)) next.delete(section);
-      else next.add(section);
+      next.has(s) ? next.delete(s) : next.add(s);
       return next;
     });
-  };
 
-  const updateColor = (name: string, value: string) => {
-    setConfig(prev => ({ ...prev, color: { ...prev.color, [name]: value } }));
-  };
+  const updateColor = (name: string, value: string) =>
+    setConfig((p) => ({ ...p, color: { ...p.color, [name]: value } }));
+  const updateValue = (cat: "radius" | "shadow" | "spacing", key: string, value: string) =>
+    setConfig((p) => ({ ...p, [cat]: { ...p[cat], [key]: value } }));
 
-  const updateValue = (category: keyof FullConfig, key: string, value: string) => {
-    setConfig(prev => ({ ...prev, [category]: { ...(prev[category] as Record<string, string>), [key]: value } }));
-  };
-
-  const resetAll = () => {
-    setConfig(defaultConfig);
-  };
-
-  const generateConfig = () => {
-    const colorEntries = Object.entries(config.color).map(([k, v]) => 
-      `    ${k}: { light: "${hexToHsl(v)}", dark: "${hexToHsl(v)}" }`
-    ).join(",\n");
-    
-    const configStr = `// czero.config.js
-export default {
-  color: {
-${colorEntries}
-  },
-  radius: ${JSON.stringify(config.radius, null, 4).replace(/"/g, '"')},
-  shadow: ${JSON.stringify(config.shadow, null, 4).replace(/"/g, '"')},
-  spacing: ${JSON.stringify(config.spacing, null, 4).replace(/"/g, '"')},
-  typography: {
-    fontFamily: "${config.typography.fontFamily}",
-    size: ${JSON.stringify(config.typography.size, null, 6)},
-    weight: ${JSON.stringify(config.typography.weight, null, 6)},
-    lineHeight: ${JSON.stringify(config.typography.lineHeight, null, 6)},
-  },
-  transition: ${JSON.stringify(config.transition, null, 4)},
-  components: {
-    button: {
-      height: ${JSON.stringify(config.components.button.height)},
-      paddingX: ${JSON.stringify(config.components.button.paddingX)},
-      borderRadius: "${config.components.button.borderRadius}",
-    },
-    input: {
-      height: ${JSON.stringify(config.components.input.height)},
-      borderRadius: "${config.components.input.borderRadius}",
-    },
-    card: {
-      padding: "${config.components.card.padding}",
-      borderRadius: "${config.components.card.borderRadius}",
-      shadow: "${config.components.card.shadow}",
-    },
-  },
-};`;
-    navigator.clipboard.writeText(configStr);
+  const copyCss = () => {
+    const lines = [
+      ...colorKeys.map((k) => `  --cz-color-${k}: ${hexToHsl(config.color[k])};`),
+      ...Object.entries(config.radius).map(([k, v]) => `  --cz-radius-${k}: ${v};`),
+      ...Object.entries(config.shadow).map(([k, v]) => `  --cz-shadow-${k}: ${v};`),
+      ...Object.entries(config.spacing).map(([k, v]) => `  --cz-spacing-${k}: ${v};`),
+      `  --cz-font-fontFamily: ${config.typography.fontFamily};`,
+      ...Object.entries(config.typography.size).map(([k, v]) => `  --cz-font-size-${k}: ${v};`),
+    ];
+    navigator.clipboard.writeText(`:root {\n${lines.join("\n")}\n}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const colorKeys = ["bg", "fg", "primary", "primaryFg", "secondary", "secondaryFg", "muted", "mutedFg", "danger", "dangerFg", "success", "successFg", "warning", "warningFg", "border", "ring"];
-
   return (
     <>
-      <button className={`customizer-toggle ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)} title="Theme Customizer">
+      <button
+        className={`customizer-toggle ${isOpen ? "open" : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+        title="Theme Customizer"
+      >
         {isOpen ? "✕" : "🎨"}
       </button>
 
       <aside className={`customizer-sidebar ${isOpen ? "open" : ""}`}>
         <div className="customizer-header">
           <h3>Theme Customizer</h3>
-          <select value={mode} onChange={(e) => setMode(e.target.value as "basic" | "advanced")} className="mode-select">
-            <option value="basic">Basic</option>
-            <option value="advanced">Advanced</option>
-          </select>
+          <span className="customizer-subtitle">Live · global tokens</span>
         </div>
 
         <div className="customizer-body">
-          {/* ===== BASIC MODE ===== */}
-          {mode === "basic" && (
-            <>
-              <Section title="🎨 Colors" expanded={expandedSections.has("colors")} onToggle={() => toggleSection("colors")}>
-                <div className="color-grid">
-                  {["primary", "secondary", "danger", "success", "warning", "border"].map((name) => (
-                    <div key={name} className="color-item">
-                      <input type="color" value={config.color[name]} onChange={(e) => updateColor(name, e.target.value)} />
-                      <span>{name}</span>
-                    </div>
-                  ))}
+          <Section title="🎨 Colors" expanded={expanded.has("colors")} onToggle={() => toggleSection("colors")}>
+            <div className="adv-rows">
+              {colorKeys.map((name) => (
+                <div key={name} className="adv-row">
+                  <input
+                    type="color"
+                    value={config.color[name]}
+                    onChange={(e) => updateColor(name, e.target.value)}
+                    className="adv-color"
+                  />
+                  <label>{name}</label>
+                  <input
+                    type="text"
+                    value={config.color[name]}
+                    onChange={(e) => updateColor(name, e.target.value)}
+                    className="adv-input"
+                  />
                 </div>
-              </Section>
+              ))}
+            </div>
+          </Section>
 
-              <Section title="📐 Radius" expanded={expandedSections.has("radius")} onToggle={() => toggleSection("radius")}>
-                <div className="preset-row">
-                  {[
-                    { key: "none", values: { none: "0", sm: "0", md: "0", lg: "0", xl: "0", full: "0" } },
-                    { key: "sm", values: { none: "0", sm: "0.125rem", md: "0.25rem", lg: "0.375rem", xl: "0.5rem", full: "9999px" } },
-                    { key: "md", values: { none: "0", sm: "0.25rem", md: "0.5rem", lg: "0.75rem", xl: "1rem", full: "9999px" } },
-                    { key: "lg", values: { none: "0", sm: "0.375rem", md: "0.75rem", lg: "1rem", xl: "1.5rem", full: "9999px" } },
-                    { key: "xl", values: { none: "0", sm: "0.5rem", md: "1rem", lg: "1.5rem", xl: "2rem", full: "9999px" } },
-                    { key: "full", values: { none: "0", sm: "9999px", md: "9999px", lg: "9999px", xl: "9999px", full: "9999px" } },
-                  ].map((preset) => (
-                    <button key={preset.key} 
-                      className={`preset-chip ${config.radius.md === preset.values.md ? "active" : ""}`}
-                      onClick={() => setConfig(prev => ({ ...prev, radius: preset.values }))}>{preset.key}</button>
-                  ))}
-                </div>
-              </Section>
+          <Section title="📐 Radius" expanded={expanded.has("radius")} onToggle={() => toggleSection("radius")}>
+            <div className="preset-row">
+              {Object.entries(RADIUS_PRESETS).map(([key, values]) => (
+                <button
+                  key={key}
+                  className={`preset-chip ${config.radius.md === values.md ? "active" : ""}`}
+                  onClick={() => setConfig((p) => ({ ...p, radius: values }))}
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+          </Section>
 
-              <Section title="🌑 Shadows" expanded={expandedSections.has("shadows")} onToggle={() => toggleSection("shadows")}>
-                <div className="preset-row">
-                  {[
-                    { key: "none", values: { none: "none", sm: "none", md: "none", lg: "none" } },
-                    { key: "sm", values: { none: "none", sm: "0 1px 1px rgb(0 0 0 / 0.03)", md: "0 1px 2px rgb(0 0 0 / 0.05)", lg: "0 2px 4px rgb(0 0 0 / 0.08)" } },
-                    { key: "md", values: { none: "none", sm: "0 1px 2px rgb(0 0 0 / 0.05)", md: "0 2px 4px rgb(0 0 0 / 0.08)", lg: "0 4px 8px rgb(0 0 0 / 0.12)" } },
-                    { key: "lg", values: { none: "none", sm: "0 2px 4px rgb(0 0 0 / 0.08)", md: "0 4px 12px rgb(0 0 0 / 0.12)", lg: "0 8px 24px rgb(0 0 0 / 0.16)" } },
-                  ].map((preset) => (
-                    <button key={preset.key} 
-                      className={`preset-chip ${config.shadow.md === preset.values.md ? "active" : ""}`}
-                      onClick={() => setConfig(prev => ({ ...prev, shadow: preset.values }))}>{preset.key}</button>
-                  ))}
-                </div>
-              </Section>
-            </>
-          )}
+          <Section title="🌑 Shadows" expanded={expanded.has("shadows")} onToggle={() => toggleSection("shadows")}>
+            <div className="preset-row">
+              {Object.entries(SHADOW_PRESETS).map(([key, values]) => (
+                <button
+                  key={key}
+                  className={`preset-chip ${config.shadow.md === values.md ? "active" : ""}`}
+                  onClick={() => setConfig((p) => ({ ...p, shadow: values }))}
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+          </Section>
 
-          {/* ===== ADVANCED MODE ===== */}
-          {mode === "advanced" && (
-            <>
-              <Section title="🎨 Colors (16)" expanded={expandedSections.has("colors")} onToggle={() => toggleSection("colors")}>
-                {colorKeys.map((name) => (
-                  <div key={name} className="adv-row">
-                    <input type="color" value={config.color[name]} onChange={(e) => updateColor(name, e.target.value)} className="adv-color" />
-                    <label>{name}</label>
-                    <input type="text" value={config.color[name]} onChange={(e) => updateColor(name, e.target.value)} className="adv-input" />
-                  </div>
-                ))}
-              </Section>
+          <Section title="📏 Spacing" expanded={expanded.has("spacing")} onToggle={() => toggleSection("spacing")}>
+            {Object.entries(config.spacing).map(([name, val]) => (
+              <div key={name} className="adv-row">
+                <label>{name}</label>
+                <input type="text" value={val} onChange={(e) => updateValue("spacing", name, e.target.value)} className="adv-input full" />
+              </div>
+            ))}
+          </Section>
 
-              <Section title="📐 Radius" expanded={expandedSections.has("radius")} onToggle={() => toggleSection("radius")}>
-                {Object.entries(config.radius).map(([name, val]) => (
-                  <div key={name} className="adv-row">
-                    <label>{name}</label>
-                    <input type="text" value={val} onChange={(e) => updateValue("radius", name, e.target.value)} className="adv-input full" />
-                  </div>
-                ))}
-              </Section>
-
-              <Section title="📏 Spacing" expanded={expandedSections.has("spacing")} onToggle={() => toggleSection("spacing")}>
-                {Object.entries(config.spacing).map(([name, val]) => (
-                  <div key={name} className="adv-row">
-                    <label>{name}</label>
-                    <input type="text" value={val} onChange={(e) => updateValue("spacing", name, e.target.value)} className="adv-input full" />
-                  </div>
-                ))}
-              </Section>
-
-              <Section title="🌑 Shadows" expanded={expandedSections.has("shadow")} onToggle={() => toggleSection("shadow")}>
-                {Object.entries(config.shadow).map(([name, val]) => (
-                  <div key={name} className="adv-row">
-                    <label>{name}</label>
-                    <input type="text" value={val} onChange={(e) => updateValue("shadow", name, e.target.value)} className="adv-input full" />
-                  </div>
-                ))}
-              </Section>
-
-              <Section title="🔤 Typography" expanded={expandedSections.has("typography")} onToggle={() => toggleSection("typography")}>
-                <div className="adv-row">
-                  <label>fontFamily</label>
-                  <input type="text" value={config.typography.fontFamily} 
-                    onChange={(e) => setConfig(prev => ({ ...prev, typography: { ...prev.typography, fontFamily: e.target.value } }))} 
-                    className="adv-input full" />
-                </div>
-                <div className="sub-section">Font Sizes</div>
-                {Object.entries(config.typography.size).map(([name, val]) => (
-                  <div key={name} className="adv-row">
-                    <label>{name}</label>
-                    <input type="text" value={val} 
-                      onChange={(e) => setConfig(prev => ({ ...prev, typography: { ...prev.typography, size: { ...prev.typography.size, [name]: e.target.value } } }))} 
-                      className="adv-input full" />
-                  </div>
-                ))}
-                <div className="sub-section">Font Weights</div>
-                {Object.entries(config.typography.weight).map(([name, val]) => (
-                  <div key={name} className="adv-row">
-                    <label>{name}</label>
-                    <input type="text" value={val} 
-                      onChange={(e) => setConfig(prev => ({ ...prev, typography: { ...prev.typography, weight: { ...prev.typography.weight, [name]: e.target.value } } }))} 
-                      className="adv-input full" />
-                  </div>
-                ))}
-              </Section>
-
-              <Section title="⏱️ Transitions" expanded={expandedSections.has("transition")} onToggle={() => toggleSection("transition")}>
-                {Object.entries(config.transition).map(([name, val]) => (
-                  <div key={name} className="adv-row">
-                    <label>{name}</label>
-                    <input type="text" value={val} onChange={(e) => updateValue("transition", name, e.target.value)} className="adv-input full" />
-                  </div>
-                ))}
-              </Section>
-
-              {/* Component: Button */}
-              {(currentComponent === "button" || currentComponent === "components") && (
-                <Section title="🔘 Button Component" expanded={expandedSections.has("button")} onToggle={() => toggleSection("button")}>
-                  <div className="sub-section">Heights</div>
-                  {Object.entries(config.components.button.height).map(([name, val]) => (
-                    <div key={name} className="adv-row">
-                      <label>{name}</label>
-                      <input type="text" value={val} 
-                        onChange={(e) => setConfig(prev => ({ ...prev, components: { ...prev.components, button: { ...prev.components.button, height: { ...prev.components.button.height, [name]: e.target.value } } } }))} 
-                        className="adv-input full" />
-                    </div>
-                  ))}
-                  <div className="sub-section">Padding X</div>
-                  {Object.entries(config.components.button.paddingX).map(([name, val]) => (
-                    <div key={name} className="adv-row">
-                      <label>{name}</label>
-                      <input type="text" value={val} 
-                        onChange={(e) => setConfig(prev => ({ ...prev, components: { ...prev.components, button: { ...prev.components.button, paddingX: { ...prev.components.button.paddingX, [name]: e.target.value } } } }))} 
-                        className="adv-input full" />
-                    </div>
-                  ))}
-                  <div className="adv-row">
-                    <label>borderRadius</label>
-                    <input type="text" value={config.components.button.borderRadius} 
-                      onChange={(e) => setConfig(prev => ({ ...prev, components: { ...prev.components, button: { ...prev.components.button, borderRadius: e.target.value } } }))} 
-                      className="adv-input full" />
-                  </div>
-                </Section>
-              )}
-
-              {/* Component: Card */}
-              {currentComponent === "card" && (
-                <Section title="🃏 Card Component" expanded={expandedSections.has("card")} onToggle={() => toggleSection("card")}>
-                  <div className="adv-row">
-                    <label>padding</label>
-                    <input type="text" value={config.components.card.padding} 
-                      onChange={(e) => setConfig(prev => ({ ...prev, components: { ...prev.components, card: { ...prev.components.card, padding: e.target.value } } }))} 
-                      className="adv-input full" />
-                  </div>
-                  <div className="adv-row">
-                    <label>borderRadius</label>
-                    <input type="text" value={config.components.card.borderRadius} 
-                      onChange={(e) => setConfig(prev => ({ ...prev, components: { ...prev.components, card: { ...prev.components.card, borderRadius: e.target.value } } }))} 
-                      className="adv-input full" />
-                  </div>
-                </Section>
-              )}
-
-              {/* Component: Input */}
-              {currentComponent === "input" && (
-                <Section title="📝 Input Component" expanded={expandedSections.has("input")} onToggle={() => toggleSection("input")}>
-                  <div className="sub-section">Heights</div>
-                  {Object.entries(config.components.input.height).map(([name, val]) => (
-                    <div key={name} className="adv-row">
-                      <label>{name}</label>
-                      <input type="text" value={val} 
-                        onChange={(e) => setConfig(prev => ({ ...prev, components: { ...prev.components, input: { ...prev.components.input, height: { ...prev.components.input.height, [name]: e.target.value } } } }))} 
-                        className="adv-input full" />
-                    </div>
-                  ))}
-                </Section>
-              )}
-            </>
-          )}
+          <Section title="🔤 Typography" expanded={expanded.has("typography")} onToggle={() => toggleSection("typography")}>
+            <div className="adv-row">
+              <label>family</label>
+              <input
+                type="text"
+                value={config.typography.fontFamily}
+                onChange={(e) => setConfig((p) => ({ ...p, typography: { ...p.typography, fontFamily: e.target.value } }))}
+                className="adv-input full"
+              />
+            </div>
+            {Object.entries(config.typography.size).map(([name, val]) => (
+              <div key={name} className="adv-row">
+                <label>size {name}</label>
+                <input
+                  type="text"
+                  value={val}
+                  onChange={(e) => setConfig((p) => ({ ...p, typography: { ...p.typography, size: { ...p.typography.size, [name]: e.target.value } } }))}
+                  className="adv-input full"
+                />
+              </div>
+            ))}
+          </Section>
         </div>
 
         <div className="customizer-footer">
-          <button className="action-btn" onClick={resetAll}>Reset</button>
-          <button className="action-btn primary" onClick={generateConfig}>
-            {copied ? "✓ Copied!" : "Copy Config"}
+          <button className="action-btn" onClick={() => setConfig(defaultConfig)}>Reset</button>
+          <button className="action-btn primary" onClick={copyCss}>
+            {copied ? "✓ Copied!" : "Copy CSS"}
           </button>
         </div>
       </aside>
@@ -426,8 +249,17 @@ ${colorEntries}
   );
 }
 
-// ===== Collapsible Section Component =====
-function Section({ title, expanded, onToggle, children }: { title: string; expanded: boolean; onToggle: () => void; children: React.ReactNode }) {
+function Section({
+  title,
+  expanded,
+  onToggle,
+  children,
+}: {
+  title: string;
+  expanded: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <div className="cfg-section">
       <button className="cfg-section-header" onClick={onToggle}>
