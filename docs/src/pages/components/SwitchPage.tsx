@@ -24,8 +24,8 @@ const switchProps = [
     description: "Disables the switch",
   },
   {
-    name: "onChange",
-    type: "(e: ChangeEvent) => void",
+    name: "onCheckedChange",
+    type: "(checked: boolean) => void",
     default: "undefined",
     description: "Callback when switch value changes",
   },
@@ -36,7 +36,7 @@ function SwitchDemo() {
   return (
     <Switch
       checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
+      onCheckedChange={setChecked}
     />
   );
 }
@@ -47,9 +47,9 @@ function SwitchSizesDemo() {
   const [lg, setLg] = useState(true);
   return (
     <>
-      <Switch size="sm" checked={sm} onChange={(e) => setSm(e.target.checked)} />
-      <Switch size="md" checked={md} onChange={(e) => setMd(e.target.checked)} />
-      <Switch size="lg" checked={lg} onChange={(e) => setLg(e.target.checked)} />
+      <Switch size="sm" checked={sm} onCheckedChange={setSm} />
+      <Switch size="md" checked={md} onCheckedChange={setMd} />
+      <Switch size="lg" checked={lg} onCheckedChange={setLg} />
     </>
   );
 }
@@ -65,7 +65,7 @@ export default function SwitchPage() {
       <h2>Basic Usage</h2>
       <CodePreview
         code={`const [checked, setChecked] = useState(false);
-<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />`}
+<Switch checked={checked} onCheckedChange={setChecked} />`}
       >
         <SwitchDemo />
       </CodePreview>

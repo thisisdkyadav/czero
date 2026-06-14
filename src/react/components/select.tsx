@@ -8,7 +8,7 @@ export interface SelectProps {
   onValueChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** @deprecated Use SelectItem children instead */
   options?: Array<{ value: string; label: string; disabled?: boolean }>;
   label?: string;

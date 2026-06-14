@@ -29,19 +29,14 @@ const selectProps = [
     description: "Placeholder option text",
   },
   {
-    name: "options",
-    type: "Array<{ value, label, disabled? }>",
-    default: "required",
-    description: "Array of options to display",
+    name: "children",
+    type: "ReactNode",
+    default: "undefined",
+    description: "Select.Item options to display",
   },
 ];
 
-const fruitOptions = [
-  { value: "apple", label: "Apple" },
-  { value: "banana", label: "Banana" },
-  { value: "orange", label: "Orange" },
-  { value: "grape", label: "Grape" },
-];
+const fruits = ["Apple", "Banana", "Orange", "Grape"];
 
 export default function SelectPage() {
   return (
@@ -53,47 +48,48 @@ export default function SelectPage() {
 
       <h2>Basic Usage</h2>
       <CodePreview
-        code={`<Select 
-  label="Favorite Fruit"
-  placeholder="Select a fruit"
-  options={[
-    { value: "apple", label: "Apple" },
-    { value: "banana", label: "Banana" },
-  ]}
-/>`}
+        code={`<Select label="Favorite Fruit" placeholder="Select a fruit">
+  <Select.Item value="apple">Apple</Select.Item>
+  <Select.Item value="banana">Banana</Select.Item>
+</Select>`}
       >
-        <Select
-          label="Favorite Fruit"
-          placeholder="Select a fruit"
-          options={fruitOptions}
-        />
+        <Select label="Favorite Fruit" placeholder="Select a fruit">
+          {fruits.map((f) => (
+            <Select.Item key={f} value={f.toLowerCase()}>{f}</Select.Item>
+          ))}
+        </Select>
       </CodePreview>
 
       <h2>Sizes</h2>
       <CodePreview
-        code={`<Select size="sm" options={options} placeholder="Small" />
-<Select size="md" options={options} placeholder="Medium" />
-<Select size="lg" options={options} placeholder="Large" />`}
+        code={`<Select size="sm" placeholder="Small">...</Select>
+<Select size="md" placeholder="Medium">...</Select>
+<Select size="lg" placeholder="Large">...</Select>`}
       >
-        <Select size="sm" options={fruitOptions} placeholder="Small" />
-        <Select size="md" options={fruitOptions} placeholder="Medium" />
-        <Select size="lg" options={fruitOptions} placeholder="Large" />
+        {(["sm", "md", "lg"] as const).map((size) => (
+          <Select key={size} size={size} placeholder={size}>
+            {fruits.map((f) => (
+              <Select.Item key={f} value={f.toLowerCase()}>{f}</Select.Item>
+            ))}
+          </Select>
+        ))}
       </CodePreview>
 
       <h2>With Error</h2>
       <CodePreview
-        code={`<Select 
-  label="Required Field"
-  options={options}
-  error="Please select an option"
-/>`}
+        code={`<Select label="Required Field" error="Please select an option">
+  <Select.Item value="apple">Apple</Select.Item>
+</Select>`}
       >
         <Select
           label="Required Field"
-          options={fruitOptions}
           placeholder="Select..."
           error="Please select an option"
-        />
+        >
+          {fruits.map((f) => (
+            <Select.Item key={f} value={f.toLowerCase()}>{f}</Select.Item>
+          ))}
+        </Select>
       </CodePreview>
 
       <h2>Props</h2>

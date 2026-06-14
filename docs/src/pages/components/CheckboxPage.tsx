@@ -37,7 +37,7 @@ function CheckboxDemo() {
     <Checkbox
       label="Accept terms and conditions"
       checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
+      onCheckedChange={(value) => setChecked(value === true)}
     />
   );
 }
@@ -52,7 +52,7 @@ export default function CheckboxPage() {
 
       <h2>Basic Usage</h2>
       <CodePreview
-        code={`<Checkbox label="Accept terms" checked={checked} onChange={...} />`}
+        code={`<Checkbox label="Accept terms" checked={checked} onCheckedChange={setChecked} />`}
       >
         <CheckboxDemo />
       </CodePreview>

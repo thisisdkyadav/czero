@@ -2,8 +2,11 @@ import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 // ===== Root =====
+// Base on plain div attributes (children/className/style) rather than the
+// Radix Root prop type, which is a `single | multiple` union and can't be
+// extended by an interface.
 export interface AccordionSingleProps
-  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   type?: "single";
   defaultValue?: string;
   value?: string;
@@ -12,7 +15,7 @@ export interface AccordionSingleProps
 }
 
 export interface AccordionMultipleProps
-  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   type: "multiple";
   defaultValue?: string[];
   value?: string[];
