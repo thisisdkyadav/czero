@@ -15,6 +15,10 @@ const MODAL_BASE_Z_INDEX = 60;
 const MODAL_LAYER_STEP = 2;
 let nextModalLayer = 0;
 
+// Slightly longer than the CSS exit animation (150ms) so the content finishes
+// animating out before we notify the consumer / allow unmount.
+const MODAL_EXIT_MS = 180;
+
 function toCssDimension(value?: number | string): string | undefined {
   if (value === undefined || value === null) return undefined;
   return typeof value === "number" ? `${value}px` : value;
@@ -118,49 +122,68 @@ export const Modal = React.forwardRef<
     const isControlled = resolvedOpen !== undefined;
     const resolvedDefaultOpen =
       defaultOpen ?? (!isControlled && !trigger ? true : undefined);
-    const [isOpenState, setIsOpenState] = React.useState<boolean>(() => {
+
+    // We drive Radix's open state from internal state. On close we flip it to
+    // false (which plays the exit animation) and only notify the consumer
+    // after the animation finishes — so the content can animate out even when
+    // the parent unmounts this Modal on close (the common
+    // `{open && <SomeModal onClose />}` pattern).
+    const [internalOpen, setInternalOpen] = React.useState<boolean>(() => {
       if (resolvedOpen !== undefined) return resolvedOpen;
       if (resolvedDefaultOpen !== undefined) return resolvedDefaultOpen;
       return false;
     });
     const [layerIndex, setLayerIndex] = React.useState(0);
     const assignedLayerRef = React.useRef<number | null>(null);
+    const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    const clearCloseTimer = React.useCallback(() => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+    }, []);
+
+    // Mirror a controlled open/isOpen prop into internal state.
     React.useEffect(() => {
       if (resolvedOpen !== undefined) {
-        setIsOpenState(resolvedOpen);
+        clearCloseTimer();
+        setInternalOpen(resolvedOpen);
       }
-    }, [resolvedOpen]);
+    }, [resolvedOpen, clearCloseTimer]);
+
+    // Clear any pending close timer on unmount.
+    React.useEffect(() => clearCloseTimer, [clearCloseTimer]);
 
     React.useEffect(() => {
-      if (!isOpenState) {
-        assignedLayerRef.current = null;
-        setLayerIndex(0);
-        return;
-      }
-
+      if (!internalOpen) return;
       if (assignedLayerRef.current === null) {
         assignedLayerRef.current = nextModalLayer++;
       }
-
       setLayerIndex(assignedLayerRef.current);
-    }, [isOpenState]);
+    }, [internalOpen]);
 
     const handleOpenChange = React.useCallback(
       (nextOpen: boolean) => {
-        setIsOpenState(nextOpen);
-        if (!nextOpen) {
+        if (nextOpen) {
+          clearCloseTimer();
+          setInternalOpen(true);
+          onOpenChange?.(true);
+          return;
+        }
+        // Closing: keep mounted, play the exit animation, then notify.
+        setInternalOpen(false);
+        clearCloseTimer();
+        closeTimerRef.current = setTimeout(() => {
+          closeTimerRef.current = null;
           assignedLayerRef.current = null;
-        }
-        onOpenChange?.(nextOpen);
-        if (!nextOpen) {
+          onOpenChange?.(false);
           onClose?.();
-        }
+        }, MODAL_EXIT_MS);
       },
-      [onOpenChange, onClose]
+      [clearCloseTimer, onOpenChange, onClose]
     );
 
-    const hasOpenHandler = Boolean(onOpenChange || onClose);
     const resolvedMinHeight = toCssDimension(minHeight);
 
     // Only dynamic, instance-specific values stay inline. All visual styling
@@ -333,9 +356,8 @@ export const Modal = React.forwardRef<
 
     return (
       <DialogPrimitive.Root
-        open={resolvedOpen}
-        defaultOpen={resolvedDefaultOpen}
-        onOpenChange={hasOpenHandler ? handleOpenChange : onOpenChange}
+        open={internalOpen}
+        onOpenChange={handleOpenChange}
         modal={modal}
       >
         {trigger ? <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger> : null}
