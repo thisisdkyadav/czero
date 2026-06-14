@@ -1,4 +1,9 @@
 import * as React from "react";
+import {
+  themeToCssVars,
+  cssVarsToString,
+  type ThemeOverride,
+} from "../../core/tokens";
 
 type Theme = "light" | "dark" | "system";
 
@@ -6,6 +11,32 @@ interface ThemeProviderProps {
   children: React.ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
+  /**
+   * Optional token overrides applied once for the whole app. Anything you set
+   * here overrides the shipped defaults; anything you omit falls back to them.
+   * Every component reads these variables, so this is all "theme once" needs.
+   */
+  theme?: ThemeOverride;
+}
+
+const STYLE_ELEMENT_ID = "czero-theme-vars";
+
+/** Inject (or update) a single <style> tag holding the app's token overrides. */
+function applyThemeVars(override: ThemeOverride | undefined) {
+  if (typeof document === "undefined") return;
+  const existing = document.getElementById(STYLE_ELEMENT_ID);
+
+  if (!override || Object.keys(override).length === 0) {
+    existing?.remove();
+    return;
+  }
+
+  const css = cssVarsToString(themeToCssVars(override));
+  const style =
+    (existing as HTMLStyleElement | null) ??
+    Object.assign(document.createElement("style"), { id: STYLE_ELEMENT_ID });
+  if (style.textContent !== css) style.textContent = css;
+  if (!style.isConnected) document.head.appendChild(style);
 }
 
 interface ThemeContextValue {
@@ -47,7 +78,21 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
   defaultTheme = "system",
   storageKey = "czero-theme",
+  theme: themeOverride,
 }) => {
+  // Apply token overrides as soon as possible (and before paint when supported)
+  // so the app's brand is in place before components first render.
+  const useIsomorphicEffect =
+    typeof document === "undefined" ? React.useEffect : React.useLayoutEffect;
+  // Key off the override's content, not its identity, so an inline object
+  // literal doesn't re-run this every render.
+  const overrideKey = themeOverride ? JSON.stringify(themeOverride) : "";
+  useIsomorphicEffect(() => {
+    applyThemeVars(themeOverride);
+    return () => applyThemeVars(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [overrideKey]);
+
   const [theme, setThemeState] = React.useState<Theme>(() => {
     // SSR: return default, will be corrected on mount
     if (typeof window === "undefined") return defaultTheme;
@@ -118,3 +163,4 @@ export function useTheme(): ThemeContextValue {
 }
 
 export type { Theme, ThemeProviderProps, ThemeContextValue };
+export type { ThemeOverride, ColorValue } from "../../core/tokens";

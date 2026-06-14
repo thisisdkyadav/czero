@@ -56,4 +56,6 @@ export {
   type Theme,
   type ThemeProviderProps,
   type ThemeContextValue,
+  type ThemeOverride,
+  type ColorValue,
 } from "./hooks/use-theme";

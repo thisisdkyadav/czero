@@ -1,15 +1,11 @@
 {
   "name": "czero",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "type": "module",
-  "description": "A lightweight, design-token-driven React component library with Radix UI primitives",
+  "description": "A lightweight, design-token-driven React component library built on Radix UI. Theme once with CSS variables — every component follows.",
   "main": "./dist/react/index.cjs",
   "module": "./dist/react/index.js",
   "types": "./dist/react/index.d.ts",
-  "bin": {
-    "czero": "./dist/cli/index.js",
-    "czero20": "./dist/cli/index.js"
-  },
   "exports": {
     "./styles.css": "./dist/styles.css",
     "./components.css": "./dist/components.css",
@@ -18,24 +14,17 @@
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js",
       "require": "./dist/react/index.cjs"
-    },
-    "./presets": {
-      "types": "./dist/presets/index.d.ts",
-      "import": "./dist/presets/index.js"
-    },
-    "./config": {
-      "types": "./dist/core/types/config.d.ts"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
+    "clean": "rm -rf dist",
     "build:tokens": "tsx src/core/build-tokens.ts",
     "build:css": "mkdir -p dist && cp src/core/styles/reset.css dist/reset.css && cp src/core/styles/components.css dist/components.css && cat src/core/styles/reset.css src/core/styles/tokens.css src/core/styles/components.css > dist/styles.css",
     "build:components": "rollup -c",
-    "build:cli": "npx esbuild cli/index.ts --bundle --platform=node --format=esm --outdir=dist/cli --packages=external",
-    "build": "npm run build:tokens && npm run build:css && npm run build:components && npm run build:cli",
+    "build": "npm run clean && npm run build:tokens && npm run build:css && npm run build:components",
     "dev": "rollup -c -w",
     "typecheck": "tsc --noEmit"
   },
@@ -87,7 +76,9 @@
     "ui",
     "design-system",
     "design-tokens",
-    "cli"
+    "css-variables",
+    "theming",
+    "radix-ui"
   ],
   "license": "MIT"
 }
