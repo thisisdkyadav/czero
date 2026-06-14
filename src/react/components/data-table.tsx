@@ -218,47 +218,47 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
     const containerStyles: React.CSSProperties = {
       display: "flex",
       flexDirection: "column",
-      background: "var(--cz-data-table-container-bg, var(--color-bg-primary, hsl(var(--cz-color-bg))))",
-      borderRadius: "var(--cz-data-table-container-border-radius, var(--radius-card, var(--cz-radius-lg)))",
-      border: "1px solid var(--cz-data-table-container-border-color, var(--color-border-primary, hsl(var(--cz-color-border))))",
-      boxShadow: "var(--cz-data-table-container-shadow, var(--shadow-card, var(--cz-shadow-sm)))",
+      background: "var(--cz-data-table-container-bg, hsl(var(--cz-color-bg)))",
+      borderRadius: "var(--cz-data-table-container-border-radius, var(--cz-radius-lg))",
+      border: "1px solid var(--cz-data-table-container-border-color, hsl(var(--cz-color-border)))",
+      boxShadow: "var(--cz-data-table-container-shadow, var(--cz-shadow-sm))",
       overflow: "hidden",
       ["--cz-table-row-hover-bg" as string]:
-        "var(--cz-data-table-row-hover-bg, var(--color-bg-hover, hsl(var(--cz-color-muted) / 0.5)))",
+        "var(--cz-data-table-row-hover-bg, hsl(var(--cz-color-muted) / 0.5))",
       ...style,
     };
 
     const headerCellStyles = (column: DataTableColumn): React.CSSProperties => ({
-      padding: "var(--cz-data-table-header-cell-padding, var(--spacing-3, 0.75rem) var(--spacing-4, 1rem))",
+      padding: "var(--cz-data-table-header-cell-padding, 0.75rem 1rem)",
       textAlign: column.align || "left",
-      fontWeight: "var(--cz-data-table-header-font-weight, var(--font-weight-medium, var(--cz-font-weight-medium)))",
-      color: "var(--cz-data-table-header-color, var(--table-header-text, var(--color-text-muted, hsl(var(--cz-color-mutedFg)))))",
-      fontSize: "var(--cz-data-table-header-font-size, var(--font-size-xs, var(--cz-font-size-xs)))",
+      fontWeight: "var(--cz-data-table-header-font-weight, var(--cz-font-weight-medium))",
+      color: "var(--cz-data-table-header-color, hsl(var(--cz-color-mutedFg)))",
+      fontSize: "var(--cz-data-table-header-font-size, var(--cz-font-size-xs))",
       letterSpacing: "var(--cz-data-table-header-letter-spacing, 0.02em)",
       textTransform: "var(--cz-data-table-header-text-transform, uppercase)",
       whiteSpace: "nowrap",
       cursor: sortable && column.sortable !== false ? "pointer" : "default",
       userSelect: sortable && column.sortable !== false ? "none" : "auto",
       width: column.width,
-      borderBottom: "1px solid var(--cz-data-table-row-border-color, var(--color-border-primary, var(--cz-table-border-color)))",
+      borderBottom: "1px solid var(--cz-data-table-row-border-color, var(--cz-table-border-color))",
     });
 
     const bodyCellStyles = (align: DataTableAlign = "left"): React.CSSProperties => ({
-      padding: "var(--cz-data-table-body-cell-padding, var(--spacing-3-5, 0.875rem) var(--spacing-4, 1rem))",
+      padding: "var(--cz-data-table-body-cell-padding, 0.875rem 1rem)",
       textAlign: align,
-      color: "var(--cz-data-table-body-color, var(--color-text-body, hsl(var(--cz-color-fg))))",
+      color: "var(--cz-data-table-body-color, hsl(var(--cz-color-fg)))",
       verticalAlign: "middle",
       lineHeight: "1.5",
-      fontSize: "var(--cz-data-table-body-font-size, var(--font-size-sm, var(--cz-font-size-sm)))",
-      borderBottom: "1px solid var(--cz-data-table-row-border-color, var(--color-border-light, var(--cz-table-border-color)))",
+      fontSize: "var(--cz-data-table-body-font-size, var(--cz-font-size-sm))",
+      borderBottom: "1px solid var(--cz-data-table-row-border-color, var(--cz-table-border-color))",
     });
 
     const renderSortIcon = (key: string): React.ReactNode => {
       if (sortKey !== key) return <SortNeutralIcon />;
       if (sortDir === "asc") {
-        return <span style={{ color: "var(--cz-data-table-sort-active-color, var(--color-primary, hsl(var(--cz-color-primary))))" }}><SortAscIcon /></span>;
+        return <span style={{ color: "var(--cz-data-table-sort-active-color, hsl(var(--cz-color-primary)))" }}><SortAscIcon /></span>;
       }
-      return <span style={{ color: "var(--cz-data-table-sort-active-color, var(--color-primary, hsl(var(--cz-color-primary))))" }}><SortDescIcon /></span>;
+      return <span style={{ color: "var(--cz-data-table-sort-active-color, hsl(var(--cz-color-primary)))" }}><SortDescIcon /></span>;
     };
 
     const tableClassName = variant === "striped" ? "cz-table-striped" : "";
@@ -269,15 +269,15 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       justifyContent: "center",
       width: "var(--cz-data-table-pagination-button-size, 32px)",
       height: "var(--cz-data-table-pagination-button-size, 32px)",
-      borderRadius: "var(--cz-data-table-pagination-button-radius, var(--radius-md, var(--cz-radius-md)))",
+      borderRadius: "var(--cz-data-table-pagination-button-radius, var(--cz-radius-md))",
       background: "transparent",
       border: "1px solid var(--cz-data-table-pagination-button-border-color, transparent)",
       color: disabled
-        ? "var(--cz-data-table-pagination-button-disabled-color, var(--color-text-disabled, hsl(var(--cz-color-mutedFg))))"
-        : "var(--cz-data-table-pagination-button-color, var(--color-text-body, hsl(var(--cz-color-fg))))",
+        ? "var(--cz-data-table-pagination-button-disabled-color, hsl(var(--cz-color-mutedFg)))"
+        : "var(--cz-data-table-pagination-button-color, hsl(var(--cz-color-fg)))",
       cursor: disabled ? "not-allowed" : "pointer",
       opacity: disabled ? 0.5 : 1,
-      transition: "all var(--transition-fast, var(--cz-transition-fast))",
+      transition: "all var(--cz-transition-fast)",
     });
 
     if (isBusy) {
@@ -305,7 +305,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                           height: 18,
                           borderRadius: 4,
                           background:
-                            "linear-gradient(90deg, var(--cz-data-table-loading-shimmer-base, var(--color-bg-tertiary, hsl(var(--cz-color-muted)))) 25%, var(--cz-data-table-loading-shimmer-highlight, var(--color-bg-hover, hsl(var(--cz-color-muted)/0.5))) 50%, var(--cz-data-table-loading-shimmer-base, var(--color-bg-tertiary, hsl(var(--cz-color-muted)))) 75%)",
+                            "linear-gradient(90deg, var(--cz-data-table-loading-shimmer-base, hsl(var(--cz-color-muted))) 25%, var(--cz-data-table-loading-shimmer-highlight, hsl(var(--cz-color-muted)/0.5)) 50%, var(--cz-data-table-loading-shimmer-base, hsl(var(--cz-color-muted))) 75%)",
                         }}
                         className="cz-data-table-shimmer"
                       />
@@ -317,9 +317,9 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                         style={{
                           width: `${40 + ((rowIndex + columnIndex * 7) % 40)}%`,
                           height: 16,
-                          borderRadius: "var(--radius-sm, var(--cz-radius-sm))",
+                          borderRadius: "var(--cz-radius-sm)",
                           background:
-                            "linear-gradient(90deg, var(--cz-data-table-loading-shimmer-base, var(--color-bg-tertiary, hsl(var(--cz-color-muted)))) 25%, var(--cz-data-table-loading-shimmer-highlight, var(--color-bg-hover, hsl(var(--cz-color-muted)/0.5))) 50%, var(--cz-data-table-loading-shimmer-base, var(--color-bg-tertiary, hsl(var(--cz-color-muted)))) 75%)",
+                            "linear-gradient(90deg, var(--cz-data-table-loading-shimmer-base, hsl(var(--cz-color-muted))) 25%, var(--cz-data-table-loading-shimmer-highlight, hsl(var(--cz-color-muted)/0.5)) 50%, var(--cz-data-table-loading-shimmer-base, hsl(var(--cz-color-muted))) 75%)",
                         }}
                         className="cz-data-table-shimmer"
                       />
@@ -339,14 +339,14 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
           {emptyState || (
             <div
               style={{
-                padding: "var(--spacing-16, 4rem) var(--spacing-6, 1.5rem)",
+                padding: "4rem 1.5rem",
                 textAlign: "center",
-                color: "var(--cz-data-table-empty-state-color, var(--color-text-muted, hsl(var(--cz-color-mutedFg))))",
+                color: "var(--cz-data-table-empty-state-color, hsl(var(--cz-color-mutedFg)))",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "var(--spacing-4, 1rem)",
+                gap: "1rem",
               }}
             >
               <div
@@ -354,26 +354,26 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                   width: 64,
                   height: 64,
                   borderRadius: "50%",
-                  background: "var(--cz-data-table-empty-state-icon-bg, var(--color-bg-secondary, hsl(var(--cz-color-muted))))",
+                  background: "var(--cz-data-table-empty-state-icon-bg, hsl(var(--cz-color-muted)))",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "var(--cz-data-table-empty-state-icon-color, var(--color-text-placeholder, hsl(var(--cz-color-mutedFg))))",
+                  color: "var(--cz-data-table-empty-state-icon-color, hsl(var(--cz-color-mutedFg)))",
                 }}
               >
                 <EmptyStateIcon />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-1, 0.25rem)" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
                 <span
                   style={{
-                    fontSize: "var(--font-size-md, var(--cz-font-size-md))",
-                    fontWeight: "var(--font-weight-medium, var(--cz-font-weight-medium))",
-                    color: "var(--cz-data-table-empty-state-title-color, var(--color-text-secondary, hsl(var(--cz-color-fg))))",
+                    fontSize: "var(--cz-font-size-md)",
+                    fontWeight: "var(--cz-font-weight-medium)",
+                    color: "var(--cz-data-table-empty-state-title-color, hsl(var(--cz-color-fg)))",
                   }}
                 >
                   No Data Found
                 </span>
-                <span style={{ fontSize: "var(--font-size-sm, var(--cz-font-size-sm))", maxWidth: 300 }}>
+                <span style={{ fontSize: "var(--cz-font-size-sm)", maxWidth: 300 }}>
                   {emptyMessage || "There are no records to display at this time."}
                 </span>
               </div>
@@ -411,7 +411,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "var(--spacing-2, 0.5rem)",
+                      gap: "0.5rem",
                       justifyContent:
                         column.align === "right"
                           ? "flex-end"
@@ -438,7 +438,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                   style={{
                     cursor: onRowClick ? "pointer" : "default",
                     background: isSelected
-                      ? "var(--cz-data-table-selected-row-bg, var(--color-primary-bg, hsl(var(--cz-color-primary) / 0.12)))"
+                      ? "var(--cz-data-table-selected-row-bg, hsl(var(--cz-color-primary) / 0.12))"
                       : variant === "striped" && index % 2 === 1
                         ? "var(--cz-data-table-striped-row-bg, var(--cz-table-striped-bg))"
                       : undefined,
@@ -475,19 +475,19 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "var(--cz-data-table-pagination-padding, var(--spacing-3, 0.75rem) var(--spacing-4, 1rem))",
-              background: "var(--cz-data-table-container-bg, var(--color-bg-primary, hsl(var(--cz-color-bg))))",
-              borderTop: "1px solid var(--cz-data-table-pagination-border-color, var(--color-border-light, var(--cz-table-border-color)))",
-              fontSize: "var(--font-size-sm, var(--cz-font-size-sm))",
-              color: "var(--cz-data-table-pagination-text-color, var(--color-text-muted, hsl(var(--cz-color-mutedFg))))",
+              padding: "var(--cz-data-table-pagination-padding, 0.75rem 1rem)",
+              background: "var(--cz-data-table-container-bg, hsl(var(--cz-color-bg)))",
+              borderTop: "1px solid var(--cz-data-table-pagination-border-color, var(--cz-table-border-color))",
+              fontSize: "var(--cz-font-size-sm)",
+              color: "var(--cz-data-table-pagination-text-color, hsl(var(--cz-color-mutedFg)))",
             }}
           >
-            <span style={{ color: "var(--cz-data-table-pagination-text-strong-color, var(--color-text-body, hsl(var(--cz-color-fg))))" }}>
+            <span style={{ color: "var(--cz-data-table-pagination-text-strong-color, hsl(var(--cz-color-fg)))" }}>
               Showing <strong>{(page - 1) * pageSize + 1}</strong>-
               <strong>{Math.min(page * pageSize, sortedData.length)}</strong> of{" "}
               <strong>{sortedData.length}</strong>
             </span>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--cz-data-table-pagination-gap, var(--spacing-2, 0.5rem))" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--cz-data-table-pagination-gap, 0.5rem)" }}>
               <button
                 type="button"
                 className="cz-data-table-page-btn"

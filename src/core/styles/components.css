@@ -1169,7 +1169,7 @@
   position: fixed;
   inset: 0;
   z-index: 60;
-  background-color: var(--cz-modal-overlay-bg, var(--color-bg-modal-overlay, rgba(15, 23, 42, 0.55)));
+  background-color: var(--cz-modal-overlay-bg, rgba(15, 23, 42, 0.55));
   backdrop-filter: blur(2px);
   animation: cz-modal-overlay-show 150ms ease;
 }
@@ -1180,10 +1180,10 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 61;
-  background-color: var(--cz-modal-content-bg, var(--color-bg-primary, hsl(var(--cz-color-bg))));
-  border-radius: var(--cz-modal-content-border-radius, var(--radius-modal, var(--cz-radius-lg)));
+  background-color: var(--cz-modal-content-bg, hsl(var(--cz-color-bg)));
+  border-radius: var(--cz-modal-content-border-radius, var(--cz-radius-lg));
   border: 1px solid var(--cz-modal-content-border-color, hsl(var(--cz-color-border)));
-  box-shadow: var(--cz-modal-content-shadow, var(--shadow-modal, var(--cz-shadow-lg)));
+  box-shadow: var(--cz-modal-content-shadow, var(--cz-shadow-lg));
   width: min(36rem, calc(100% - 2rem));
   max-width: calc(100% - 2rem);
   max-height: calc(100vh - 2rem);
@@ -1224,7 +1224,7 @@
   margin: 0;
   font-size: var(--cz-font-size-xl);
   font-weight: var(--cz-font-weight-semibold);
-  color: var(--color-primary, hsl(var(--cz-color-primary)));
+  color: hsl(var(--cz-color-primary));
   line-height: var(--cz-font-lineHeight-tight);
 }
 
@@ -1243,16 +1243,16 @@
   padding: var(--cz-modal-close-icon-padding, 0.5rem);
   flex-shrink: 0;
   border: 0;
-  border-radius: var(--cz-modal-close-icon-radius, var(--radius-button, var(--cz-radius-md)));
+  border-radius: var(--cz-modal-close-icon-radius, var(--cz-radius-md));
   background: var(--cz-modal-close-icon-bg, transparent);
-  color: var(--cz-modal-close-icon-color, var(--color-text-muted, hsl(var(--cz-color-mutedFg))));
+  color: var(--cz-modal-close-icon-color, hsl(var(--cz-color-mutedFg)));
   cursor: pointer;
   transition: all var(--cz-modal-close-icon-transition, 200ms ease);
 }
 
 .cz-modal-close-icon:hover {
-  background: var(--cz-modal-close-icon-hover-bg, var(--color-primary-bg, var(--color-bg-tertiary, hsl(var(--cz-color-muted)))));
-  color: var(--cz-modal-close-icon-hover-color, var(--color-primary, hsl(var(--cz-color-primary))));
+  background: var(--cz-modal-close-icon-hover-bg, hsl(var(--cz-color-muted)));
+  color: var(--cz-modal-close-icon-hover-color, hsl(var(--cz-color-primary)));
 }
 
 .cz-modal-close-icon:focus,
@@ -1306,7 +1306,7 @@
 /* ===== DATA TABLE ===== */
 
 .cz-data-table-page-btn {
-  transition: all var(--transition-fast, var(--cz-transition-fast));
+  transition: all var(--cz-transition-fast);
 }
 
 .cz-data-table-page-btn:hover:not(:disabled) {

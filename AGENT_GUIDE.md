@@ -73,3 +73,4 @@ Known pre-existing issue: a few components (e.g. `accordion.tsx`) trip `tsc` wit
 - **Don't hand-edit `tokens.css`.** It's generated.
 - **Don't reintroduce a config compiler / CLI / token DSL.** Theming is CSS variables. Keep it that way.
 - Keep `tokens.ts` the only place that maps tokens → variable names.
+- **Only reference `--cz-*` variables (and Radix's own `--radix-*`).** Never reference a consumer app's namespace (e.g. `--color-*`, `--table-*`) — that couples czero to one app. Component-specific knobs are `--cz-<component>-<prop>` with a `--cz-*`/literal fallback.

@@ -4,6 +4,18 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.3.1] - 2026-06-14
+
+### Fixed
+
+- Removed leftover consumer-specific (non-`--cz-`) CSS variable fallbacks from
+  component styles (e.g. `--color-bg-primary`, `--table-border`, `--radius-modal`).
+  Components now reference only `--cz-*` tokens (and Radix's own `--radix-*`),
+  so the library is fully self-contained and theme-namespace independent. No
+  behavior change — those fallbacks were already inert.
+
+---
+
 ## [0.3.0] - 2026-06-14
 
 ### ✨ Simplified theming

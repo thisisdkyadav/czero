@@ -173,7 +173,7 @@ export const Modal = React.forwardRef<
       position: "fixed",
       inset: 0,
       zIndex: MODAL_BASE_Z_INDEX + layerIndex * MODAL_LAYER_STEP,
-      backgroundColor: "var(--cz-modal-overlay-bg, var(--color-bg-modal-overlay, rgba(15, 23, 42, 0.55)))",
+      backgroundColor: "var(--cz-modal-overlay-bg, rgba(15, 23, 42, 0.55))",
       backdropFilter: "blur(2px)",
     };
 
@@ -183,10 +183,10 @@ export const Modal = React.forwardRef<
       top: "50%",
       transform: "translate(-50%, -50%)",
       zIndex: MODAL_BASE_Z_INDEX + layerIndex * MODAL_LAYER_STEP + 1,
-      backgroundColor: "var(--cz-modal-content-bg, var(--color-bg-primary, hsl(var(--cz-color-bg))))",
-      borderRadius: "var(--cz-modal-content-border-radius, var(--radius-modal, var(--cz-radius-lg)))",
+      backgroundColor: "var(--cz-modal-content-bg, hsl(var(--cz-color-bg)))",
+      borderRadius: "var(--cz-modal-content-border-radius, var(--cz-radius-lg))",
       border: "1px solid var(--cz-modal-content-border-color, hsl(var(--cz-color-border)))",
-      boxShadow: "var(--cz-modal-content-shadow, var(--shadow-modal, var(--cz-shadow-lg)))",
+      boxShadow: "var(--cz-modal-content-shadow, var(--cz-shadow-lg))",
       display: "flex",
       flexDirection: "column",
       overflow: "hidden",
@@ -219,7 +219,7 @@ export const Modal = React.forwardRef<
       margin: 0,
       fontSize: "var(--cz-font-size-xl)",
       fontWeight: "var(--cz-font-weight-semibold)",
-      color: "var(--color-primary, hsl(var(--cz-color-primary)))",
+      color: "hsl(var(--cz-color-primary))",
       lineHeight: "var(--cz-font-lineHeight-tight)",
     };
 
@@ -299,12 +299,12 @@ export const Modal = React.forwardRef<
         ? "var(--cz-font-weight-semibold)"
         : "var(--cz-modal-tab-font-weight, var(--cz-font-weight-medium))",
       color: isActive
-        ? "var(--cz-modal-tab-active-color, var(--color-primary, hsl(var(--cz-color-primary))))"
-        : "var(--cz-modal-tab-color, var(--color-text-muted, hsl(var(--cz-color-mutedFg))))",
+        ? "var(--cz-modal-tab-active-color, hsl(var(--cz-color-primary)))"
+        : "var(--cz-modal-tab-color, hsl(var(--cz-color-mutedFg)))",
       backgroundColor: "transparent",
       border: 0,
       borderBottom: isActive
-        ? "2px solid var(--cz-modal-tab-active-border-color, var(--color-primary, hsl(var(--cz-color-primary))))"
+        ? "2px solid var(--cz-modal-tab-active-border-color, hsl(var(--cz-color-primary)))"
         : "2px solid transparent",
       marginBottom: "-1px",
       whiteSpace: "nowrap",
