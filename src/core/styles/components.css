@@ -137,7 +137,9 @@
   gap: 0.5rem;
   border-radius: var(--cz-radius-md);
   font-weight: var(--cz-font-weight-medium);
-  transition: all var(--cz-transition-fast);
+  /* Smooth, slightly slower easing across color/shadow/transform for a more
+     polished feel than a quick linear fade. */
+  transition: var(--cz-btn-transition, all 200ms cubic-bezier(0.4, 0, 0.2, 1));
   cursor: pointer;
   border: none;
 }
@@ -147,9 +149,19 @@
   box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring));
 }
 
+/* Tactile press feedback (matches the old custom button's active scale). */
+.cz-btn:not(:disabled):active {
+  transform: scale(0.98);
+}
+
 .cz-btn:disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cz-btn { transition-duration: 1ms; }
+  .cz-btn:not(:disabled):active { transform: none; }
 }
 
 /* Button Sizes */

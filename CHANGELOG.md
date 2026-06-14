@@ -4,6 +4,18 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.4.3] - 2026-06-14
+
+### Button — smoother feel
+
+- Smoother, slightly slower transition (200ms ease-in-out across
+  color/shadow/transform) instead of a quick fade.
+- Added a tactile press effect (`active: scale(0.98)`) — the polish the old
+  hand-rolled buttons had.
+- `prefers-reduced-motion` support. New `--cz-btn-transition` override hook.
+
+---
+
 ## [0.4.2] - 2026-06-14
 
 ### Switch — overflow fix + matured
