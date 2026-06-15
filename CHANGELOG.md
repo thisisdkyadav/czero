@@ -4,6 +4,21 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.4.4] - 2026-06-14
+
+### Checkbox — matured
+
+- Animated check "pop" (scale + fade) when toggled on, a tactile
+  `active: scale(0.94)` press, and smoother split transitions (no more
+  `transition: all`).
+- Softer focus ring (`ring/0.6`), `:hover` no longer highlights a disabled box,
+  and `prefers-reduced-motion` support.
+- New theming hooks: `--cz-checkbox-size`, `--cz-checkbox-radius`,
+  `--cz-checkbox-border`, `--cz-checkbox-bg`, `--cz-checkbox-bg-checked`,
+  `--cz-checkbox-check-color`.
+
+---
+
 ## [0.4.3] - 2026-06-14
 
 ### Button — smoother feel
