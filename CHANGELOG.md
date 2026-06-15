@@ -4,6 +4,18 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.4.5] - 2026-06-14
+
+### Radio — matured (consistent with Checkbox/Switch)
+
+- Dot now "pops" in with a gentle overshoot + fade; tactile `active: scale(0.94)`
+  press; smoother split transitions (no `transition: all`); softer focus ring;
+  hover guarded against disabled; `prefers-reduced-motion` support.
+- New theming hooks: `--cz-radio-size`, `--cz-radio-border`, `--cz-radio-bg`,
+  `--cz-radio-checked`, `--cz-radio-dot`.
+
+---
+
 ## [0.4.4] - 2026-06-14
 
 ### Checkbox — matured
