@@ -774,8 +774,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--cz-checkbox-size, 1.25rem);
-  height: var(--cz-checkbox-size, 1.25rem);
+  width: var(--cz-checkbox-size, 1rem);
+  height: var(--cz-checkbox-size, 1rem);
   border-radius: var(--cz-checkbox-radius, var(--cz-radius-sm));
   border: 2px solid var(--cz-checkbox-border, hsl(var(--cz-color-border)));
   background-color: var(--cz-checkbox-bg, hsl(var(--cz-color-bg)));
@@ -842,14 +842,14 @@
 }
 
 /* Checkbox Sizes */
-.cz-checkbox-sm { width: 1rem; height: 1rem; }
-.cz-checkbox-sm .cz-checkbox-indicator svg { width: 10px; height: 10px; }
+.cz-checkbox-sm { width: 0.875rem; height: 0.875rem; }
+.cz-checkbox-sm .cz-checkbox-indicator svg { width: 9px; height: 9px; }
 
-.cz-checkbox-md { width: 1.25rem; height: 1.25rem; }
-.cz-checkbox-md .cz-checkbox-indicator svg { width: 12px; height: 12px; }
+.cz-checkbox-md { width: 1rem; height: 1rem; }
+.cz-checkbox-md .cz-checkbox-indicator svg { width: 10px; height: 10px; }
 
-.cz-checkbox-lg { width: 1.5rem; height: 1.5rem; }
-.cz-checkbox-lg .cz-checkbox-indicator svg { width: 14px; height: 14px; }
+.cz-checkbox-lg { width: 1.25rem; height: 1.25rem; }
+.cz-checkbox-lg .cz-checkbox-indicator svg { width: 13px; height: 13px; }
 
 /* Checkbox with Description */
 .cz-checkbox-wrapper-with-description {

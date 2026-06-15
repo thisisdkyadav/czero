@@ -4,6 +4,13 @@ All notable changes to CZero will be documented in this file.
 
 ---
 
+## [0.4.6] - 2026-06-14
+
+### Checkbox — smaller default sizes
+
+- Reduced the checkbox scale ~4px: md 20px → 16px (the standard default),
+  sm 16px → 14px, lg 24px → 20px, with proportionally smaller check icons.
+
 ## [0.4.5] - 2026-06-14
 
 ### Radio — matured (consistent with Checkbox/Switch)
