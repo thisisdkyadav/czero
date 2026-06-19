@@ -1,60 +1,115 @@
-.code-preview {
+/* ============================================================
+   Component showcase — a labelled canvas with a Preview/Code
+   tab strip. Zero-radius, hairline, light + dark.
+   ============================================================ */
+
+.cz-preview {
+  margin: 0 0 26px;
   border: 1px solid var(--line-strong);
-  margin: 0 0 24px;
   background: var(--bg);
 }
 
-.preview-area {
-  padding: 32px clamp(20px, 3vw, 36px);
+/* ---- tab strip (reads like an editor tab row) ---- */
+.cz-preview-bar {
   display: flex;
-  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-elev);
+}
+
+.cz-preview-tabs {
+  display: flex;
+}
+
+.cz-preview-tab {
+  position: relative;
+  height: 40px;
+  padding: 0 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--line);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.cz-preview-tab:hover { color: var(--ink-soft); }
+.cz-preview-tab.is-active {
+  color: var(--ink);
+  background: var(--bg);
+}
+/* accent underline on the active tab */
+.cz-preview-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.cz-preview-copy {
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  background:
-    linear-gradient(var(--bg), var(--bg)) padding-box,
-    repeating-linear-gradient(45deg, var(--bg-elev) 0 8px, transparent 8px 16px);
-}
-
-.preview-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0;
-  border-top: 1px solid var(--line);
-}
-
-.toolbar-btn {
-  height: 38px;
+  gap: 7px;
+  height: 40px;
   padding: 0 16px;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--ink-mute);
   background: transparent;
   border: none;
   border-left: 1px solid var(--line);
   cursor: pointer;
   transition: color 0.15s ease, background-color 0.15s ease;
 }
-.toolbar-btn:hover { color: var(--ink); background: var(--bg-elev); }
-.toolbar-btn.active { color: var(--accent); }
-.toolbar-btn-copy.copied { color: var(--accent); }
+.cz-preview-copy:hover { color: var(--ink); background: var(--bg); }
+.cz-preview-copy.is-copied { color: var(--accent); }
+.cz-preview-copy svg { flex-shrink: 0; }
 
-.code-preview .code-block {
+/* ---- the canvas the live components sit on ---- */
+.cz-preview-canvas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(28px, 5vw, 48px) clamp(20px, 3vw, 36px);
+  /* faint dot grid — a quiet "design canvas", adapts to theme */
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: -1px -1px;
+}
+.cz-preview-canvas.align-center { justify-content: center; }
+.cz-preview-canvas.align-start { justify-content: flex-start; }
+.cz-preview-canvas.align-stretch {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+/* ---- code view ---- */
+.cz-preview-code {
   margin: 0;
-  border: none;
-  border-top: 1px solid var(--line);
+  padding: 20px clamp(20px, 3vw, 32px);
   background: var(--bg-code);
   color: #c7d6ee;
-  padding: 18px clamp(20px, 3vw, 36px);
   overflow-x: auto;
   font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.65;
+  font-size: 12.5px;
+  line-height: 1.7;
   white-space: pre;
 }
-.code-preview .code-block code {
+.cz-preview-code code {
   background: transparent;
   color: inherit;
   padding: 0;

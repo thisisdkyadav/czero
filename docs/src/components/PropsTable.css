@@ -31,6 +31,10 @@
   vertical-align: top;
   line-height: 1.55;
 }
+.props-table tbody tr {
+  transition: background-color 0.12s ease;
+}
+.props-table tbody tr:hover { background: var(--bg-elev); }
 .props-table tr:last-child td { border-bottom: none; }
 
 .props-table code {

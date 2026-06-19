@@ -174,13 +174,15 @@
   background-color: hsl(var(--cz-color-primary));
   color: hsl(var(--cz-color-primaryFg));
 }
-.cz-btn-primary:hover { opacity: 0.9; }
+/* brightness shift reads crisper than opacity, which washes the fill over
+   whatever sits behind the button (especially on dark surfaces). */
+.cz-btn-primary:hover { filter: brightness(0.94); }
 
 .cz-btn-secondary {
   background-color: hsl(var(--cz-color-secondary));
   color: hsl(var(--cz-color-secondaryFg));
 }
-.cz-btn-secondary:hover { opacity: 0.8; }
+.cz-btn-secondary:hover { background-color: hsl(var(--cz-color-muted)); }
 
 .cz-btn-outline {
   background-color: transparent;
@@ -199,7 +201,7 @@
   background-color: hsl(var(--cz-color-danger));
   color: hsl(var(--cz-color-dangerFg));
 }
-.cz-btn-danger:hover { opacity: 0.9; }
+.cz-btn-danger:hover { filter: brightness(0.94); }
 
 .cz-btn-link {
   background-color: transparent;
