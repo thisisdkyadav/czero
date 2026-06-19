@@ -1,59 +1,62 @@
 .code-preview {
-  border: 1px solid hsl(var(--cz-color-border));
-  border-radius: var(--cz-radius-lg);
-  overflow: hidden;
-  margin: var(--cz-spacing-lg) 0;
+  border: 1px solid var(--line-strong);
+  margin: 0 0 24px;
+  background: var(--bg);
 }
 
 .preview-area {
-  padding: var(--cz-spacing-xl);
-  background: hsl(var(--cz-color-bg));
+  padding: 32px clamp(20px, 3vw, 36px);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--cz-spacing-md);
   align-items: center;
+  gap: 14px;
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    repeating-linear-gradient(45deg, var(--bg-elev) 0 8px, transparent 8px 16px);
 }
 
 .preview-toolbar {
   display: flex;
   justify-content: flex-end;
-  gap: var(--cz-spacing-sm);
-  padding: var(--cz-spacing-sm) var(--cz-spacing-md);
-  background: hsl(var(--cz-color-muted));
-  border-top: 1px solid hsl(var(--cz-color-border));
+  gap: 0;
+  border-top: 1px solid var(--line);
 }
 
 .toolbar-btn {
+  height: 38px;
+  padding: 0 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
   background: transparent;
-  border: 1px solid hsl(var(--cz-color-border));
-  border-radius: var(--cz-radius-md);
-  padding: var(--cz-spacing-xs) var(--cz-spacing-md);
-  font-size: var(--cz-font-size-sm);
+  border: none;
+  border-left: 1px solid var(--line);
   cursor: pointer;
-  color: hsl(var(--cz-color-fg));
-  transition: all var(--cz-transition-fast);
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
+.toolbar-btn:hover { color: var(--ink); background: var(--bg-elev); }
+.toolbar-btn.active { color: var(--accent); }
+.toolbar-btn-copy.copied { color: var(--accent); }
 
-.toolbar-btn:hover,
-.toolbar-btn.active {
-  background: hsl(var(--cz-color-primary));
-  color: hsl(var(--cz-color-primaryFg));
-  border-color: hsl(var(--cz-color-primary));
-}
-
-.toolbar-btn-copy.copied {
-  background: hsl(var(--cz-color-success));
-  color: hsl(var(--cz-color-successFg));
-  border-color: hsl(var(--cz-color-success));
-}
-
-.code-block {
-  background: hsl(220 40% 8%);
-  color: hsl(210 40% 96%);
-  padding: var(--cz-spacing-lg);
+.code-preview .code-block {
   margin: 0;
+  border: none;
+  border-top: 1px solid var(--line);
+  background: var(--bg-code);
+  color: #c7d6ee;
+  padding: 18px clamp(20px, 3vw, 36px);
   overflow-x: auto;
-  font-family: "Fira Code", "Consolas", monospace;
-  font-size: var(--cz-font-size-sm);
-  line-height: 1.6;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre;
+}
+.code-preview .code-block code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
 }

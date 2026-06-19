@@ -1,4 +1,126 @@
-/* CZero styles, imported straight from source (reset + tokens + components) */
+/* ============================================================
+   czero docs — design system
+   Zero-radius, hairline-grid, monospace-label aesthetic.
+   Light + dark. Light-blue accent.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+/* czero's own styles (drives the live component demos) */
 @import "../../src/core/styles/reset.css";
 @import "../../src/core/styles/tokens.css";
 @import "../../src/core/styles/components.css";
+
+:root {
+  /* type */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* surfaces */
+  --bg: #ffffff;
+  --bg-elev: #f6f9fd;
+  --bg-sunken: #eef3fb;
+  --bg-code: #0b1220;
+
+  /* ink */
+  --ink: #0a1726;
+  --ink-soft: #4d6076;
+  --ink-mute: #8696ac;
+
+  /* lines (hairlines — the structural grid) */
+  --line: rgba(10, 23, 38, 0.10);
+  --line-strong: rgba(10, 23, 38, 0.22);
+
+  /* accent — light blue */
+  --accent: #1e6cf0;
+  --accent-hover: #155ed8;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(30, 108, 240, 0.09);
+  --accent-line: rgba(30, 108, 240, 0.32);
+
+  /* let czero's demo components inherit the site brand */
+  --cz-color-primary: 217 87% 53%;
+  --cz-color-ring: 217 87% 53%;
+  --cz-font-fontFamily: "Inter", system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #070b11;
+  --bg-elev: #0d131c;
+  --bg-sunken: #04070b;
+  --bg-code: #0a0f18;
+
+  --ink: #e8eef7;
+  --ink-soft: #97a6bb;
+  --ink-mute: #5b6878;
+
+  --line: rgba(255, 255, 255, 0.085);
+  --line-strong: rgba(255, 255, 255, 0.17);
+
+  --accent: #4f9bff;
+  --accent-hover: #6aabff;
+  --accent-ink: #060c16;
+  --accent-soft: rgba(79, 155, 255, 0.13);
+  --accent-line: rgba(79, 155, 255, 0.30);
+
+  --cz-color-primary: 214 100% 66%;
+  --cz-color-ring: 214 100% 66%;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+a {
+  color: inherit;
+}
+
+/* shared utility: monospace eyebrow/label */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* focus visibility floor */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

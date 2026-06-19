@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./ThemeCustomizer.css";
 
 // A live editor for CZero's global design tokens. Everything here works by
@@ -88,9 +88,16 @@ export default function ThemeCustomizer() {
   const [config, setConfig] = useState<TokenConfig>(defaultConfig);
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState<Set<string>>(new Set(["colors"]));
+  const touched = useRef(false);
 
-  // Apply tokens live by writing --cz-* variables onto :root.
+  // Apply tokens live by writing --cz-* variables onto :root — but only after
+  // the user edits something, so the customizer doesn't clobber the site's own
+  // theme (and dark mode) just by being mounted.
   useEffect(() => {
+    if (!touched.current) {
+      touched.current = true;
+      return;
+    }
     const root = document.documentElement;
     Object.entries(config.color).forEach(([name, hex]) =>
       root.style.setProperty(`--cz-color-${name}`, hexToHsl(hex))
@@ -143,7 +150,11 @@ export default function ThemeCustomizer() {
         onClick={() => setIsOpen(!isOpen)}
         title="Theme Customizer"
       >
-        {isOpen ? "✕" : "🎨"}
+        {isOpen ? (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" /></svg>
+        )}
       </button>
 
       <aside className={`customizer-sidebar ${isOpen ? "open" : ""}`}>
@@ -153,7 +164,7 @@ export default function ThemeCustomizer() {
         </div>
 
         <div className="customizer-body">
-          <Section title="🎨 Colors" expanded={expanded.has("colors")} onToggle={() => toggleSection("colors")}>
+          <Section title="Colors" expanded={expanded.has("colors")} onToggle={() => toggleSection("colors")}>
             <div className="adv-rows">
               {colorKeys.map((name) => (
                 <div key={name} className="adv-row">
@@ -175,7 +186,7 @@ export default function ThemeCustomizer() {
             </div>
           </Section>
 
-          <Section title="📐 Radius" expanded={expanded.has("radius")} onToggle={() => toggleSection("radius")}>
+          <Section title="Radius" expanded={expanded.has("radius")} onToggle={() => toggleSection("radius")}>
             <div className="preset-row">
               {Object.entries(RADIUS_PRESETS).map(([key, values]) => (
                 <button
@@ -189,7 +200,7 @@ export default function ThemeCustomizer() {
             </div>
           </Section>
 
-          <Section title="🌑 Shadows" expanded={expanded.has("shadows")} onToggle={() => toggleSection("shadows")}>
+          <Section title="Shadows" expanded={expanded.has("shadows")} onToggle={() => toggleSection("shadows")}>
             <div className="preset-row">
               {Object.entries(SHADOW_PRESETS).map(([key, values]) => (
                 <button
@@ -203,7 +214,7 @@ export default function ThemeCustomizer() {
             </div>
           </Section>
 
-          <Section title="📏 Spacing" expanded={expanded.has("spacing")} onToggle={() => toggleSection("spacing")}>
+          <Section title="Spacing" expanded={expanded.has("spacing")} onToggle={() => toggleSection("spacing")}>
             {Object.entries(config.spacing).map(([name, val]) => (
               <div key={name} className="adv-row">
                 <label>{name}</label>
@@ -212,7 +223,7 @@ export default function ThemeCustomizer() {
             ))}
           </Section>
 
-          <Section title="🔤 Typography" expanded={expanded.has("typography")} onToggle={() => toggleSection("typography")}>
+          <Section title="Typography" expanded={expanded.has("typography")} onToggle={() => toggleSection("typography")}>
             <div className="adv-row">
               <label>family</label>
               <input
@@ -239,7 +250,7 @@ export default function ThemeCustomizer() {
         <div className="customizer-footer">
           <button className="action-btn" onClick={() => setConfig(defaultConfig)}>Reset</button>
           <button className="action-btn primary" onClick={copyCss}>
-            {copied ? "✓ Copied!" : "Copy CSS"}
+            {copied ? "Copied" : "Copy CSS"}
           </button>
         </div>
       </aside>

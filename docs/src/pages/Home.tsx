@@ -1,212 +1,212 @@
 import { Link } from "react-router-dom";
+import { useState, type CSSProperties } from "react";
+import { Button, Input, Switch, Badge, StatusBadge } from "../../../src/react";
 import "./Home.css";
 
+const ACCENTS = [
+  { name: "blue", hsl: "217 87% 53%" },
+  { name: "violet", hsl: "262 83% 62%" },
+  { name: "teal", hsl: "176 68% 40%" },
+  { name: "rose", hsl: "342 79% 56%" },
+  { name: "amber", hsl: "33 92% 50%" },
+];
+
+const PRINCIPLES = [
+  { k: "01", t: "Theme once", d: "Set your --cz-* variables a single time. Every component reads them — no per-component config, no drift." },
+  { k: "02", t: "No build step", d: "Import one stylesheet and go. No CSS-in-JS runtime, no config compiler, no codegen to maintain." },
+  { k: "03", t: "Built on Radix", d: "Behaviour, focus management and ARIA come from Radix primitives. The styling is ours." },
+  { k: "04", t: "Light and dark", d: "Every color ships both modes. Toggle a class, or pass a typed theme to the provider." },
+  { k: "05", t: "Typed theming", d: "Hand ThemeProvider a typed theme object; anything you omit falls back to the defaults." },
+  { k: "06", t: "Small", d: "A 235 kB package, tree-shakeable ESM and CJS. Ship only the components you import." },
+];
+
+const COMPONENTS = [
+  "Button", "Input", "Select", "Checkbox", "Switch", "Radio", "Textarea", "Label",
+  "Modal", "Dialog", "Dropdown", "Tooltip", "Tabs", "Accordion", "Breadcrumb",
+  "Table", "DataTable", "Badge", "StatusBadge", "Tag", "Avatar", "Alert", "Toast",
+  "Progress", "Spinner", "Skeleton", "Card", "Stack", "Grid", "Separator", "Kbd", "Code",
+];
+
+function slug(name: string) {
+  return name.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+}
+
 export default function Home() {
+  const [accent, setAccent] = useState(ACCENTS[0]);
+  const [on, setOn] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  const copy = () => {
+    navigator.clipboard.writeText("npm i czero");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  };
+
+  const themed = {
+    "--cz-color-primary": accent.hsl,
+    "--cz-color-ring": accent.hsl,
+  } as CSSProperties;
+
   return (
     <div className="home">
-      {/* Hero Section */}
+      {/* ---- hero ---- */}
       <section className="hero">
-        <div className="hero-bg">
-          <div className="hero-glow-1"></div>
-          <div className="hero-glow-2"></div>
-        </div>
-        <div className="hero-content">
-          <div className="hero-badge">
-            <span className="hero-badge-icon">✨</span>
-            <span>Design Token Driven</span>
+        <div className="hero-grid-bg" aria-hidden="true" />
+        <div className="hero-inner">
+          <div className="hero-copy">
+            <span className="hero-eyebrow">React · Design tokens · No build step</span>
+            <h1 className="hero-title">
+              Theme once.<br />
+              <span className="hero-title-accent">Every component follows.</span>
+            </h1>
+            <p className="hero-lead">
+              czero is a design-token React library built on Radix. Set your{" "}
+              <code>--cz-*</code> variables once and every component picks them up —
+              in light and dark, with no config drift.
+            </p>
+
+            <div className="hero-install">
+              <span className="hero-install-prompt">$</span>
+              <code className="hero-install-cmd">npm i czero</code>
+              <button type="button" className="hero-install-copy" onClick={copy}>
+                {copied ? "copied" : "copy"}
+              </button>
+            </div>
+
+            <div className="hero-cta">
+              <Link to="/docs" className="btn btn-accent">Get started</Link>
+              <Link to="/docs/components/button" className="btn btn-ghost">Browse components</Link>
+            </div>
           </div>
-          <h1 className="hero-title">
-            Build beautiful React apps with
-            <span className="hero-title-highlight"> CZero</span>
-          </h1>
-          <p className="hero-subtitle">
-            A lightweight, accessible component library powered by design tokens.
-            <br />
-            One config file. One CSS output. Infinite possibilities.
+
+          {/* signature: change one token, watch them follow */}
+          <div className="hero-panel" style={themed}>
+            <div className="hero-panel-bar">
+              <span className="hero-panel-file">theme.css</span>
+              <div className="hero-swatches" role="group" aria-label="Accent color">
+                {ACCENTS.map((a) => (
+                  <button
+                    key={a.name}
+                    type="button"
+                    className={`hero-swatch ${a.name === accent.name ? "is-active" : ""}`}
+                    style={{ background: `hsl(${a.hsl})` }}
+                    onClick={() => setAccent(a)}
+                    aria-label={`Set accent to ${a.name}`}
+                    aria-pressed={a.name === accent.name}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="hero-panel-body">
+              <pre className="hero-tokens">
+                <span className="tline"><span className="tsel">:root</span> {"{"}</span>
+                <span className="tline">  <span className="tk">--cz-color-primary</span>: <span className="tv">{accent.hsl}</span>;</span>
+                <span className="tline">  <span className="tk">--cz-radius-md</span>: <span className="tv">0.5rem</span>;</span>
+                <span className="tline">  <span className="tk">--cz-font-fontFamily</span>: <span className="tv">Inter</span>;</span>
+                <span className="tline">{"}"}</span>
+              </pre>
+
+              <div className="hero-demo">
+                <div className="hero-demo-row">
+                  <Button variant="primary" size="sm">Primary</Button>
+                  <Button variant="outline" size="sm">Outline</Button>
+                </div>
+                <Input placeholder="you@example.com" />
+                <div className="hero-demo-inline">
+                  <Switch checked={on} onCheckedChange={setOn} />
+                  <Badge variant="primary">Active</Badge>
+                  <StatusBadge status="success" />
+                </div>
+              </div>
+            </div>
+
+            <div className="hero-panel-foot">
+              <span className="hero-panel-comment">// change one token — every component follows</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- principles ---- */}
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">Why czero</span>
+          <h2 className="section-title">A component library that stays out of your way.</h2>
+        </div>
+        <div className="grid-rule cols-3">
+          {PRINCIPLES.map((p) => (
+            <article key={p.k} className="cell principle">
+              <span className="principle-k">{p.k}</span>
+              <h3 className="principle-t">{p.t}</h3>
+              <p className="principle-d">{p.d}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ---- components manifest ---- */}
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">The set</span>
+          <h2 className="section-title">{COMPONENTS.length} components. One token system.</h2>
+          <p className="section-sub">
+            Forms, overlays, data, feedback and layout — every one reading the same variables.
           </p>
-          <div className="hero-actions">
-            <Link to="/docs" className="hero-btn hero-btn-primary">
-              <span>Get Started</span>
-              <span className="hero-btn-icon">→</span>
+        </div>
+        <div className="grid-rule manifest">
+          {COMPONENTS.map((name) => (
+            <Link key={name} to={`/docs/components/${slug(name)}`} className="cell manifest-item">
+              <span className="manifest-name">{name}</span>
+              <svg className="manifest-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3.5 8.5 8.5 3.5M4.5 3.5h4v4" />
+              </svg>
             </Link>
-            <Link to="/docs/components/button" className="hero-btn hero-btn-secondary">
-              Browse Components
-            </Link>
-          </div>
-          <div className="hero-stats">
-            <div className="hero-stat">
-            <span className="hero-stat-value">36+</span>
-              <span className="hero-stat-label">Components</span>
-            </div>
-            <div className="hero-stat-divider"></div>
-            <div className="hero-stat">
-              <span className="hero-stat-value">0</span>
-              <span className="hero-stat-label">Runtime Dependencies</span>
-            </div>
-            <div className="hero-stat-divider"></div>
-            <div className="hero-stat">
-              <span className="hero-stat-value">100%</span>
-              <span className="hero-stat-label">Accessible</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="features">
-        <div className="features-header">
-          <h2 className="features-title">Why CZero?</h2>
-          <p className="features-subtitle">Everything you need to build modern, accessible UIs</p>
+      {/* ---- quickstart ---- */}
+      <section className="section">
+        <div className="section-head">
+          <span className="section-eyebrow">Quickstart</span>
+          <h2 className="section-title">Three lines to your first component.</h2>
         </div>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <span className="feature-icon">🎨</span>
-            </div>
-            <h3>Design Token Driven</h3>
-            <p>Control your entire design system from a single config file. Colors, spacing, typography – all in one place.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <span className="feature-icon">⚡</span>
-            </div>
-            <h3>Zero Runtime CSS</h3>
-            <p>No CSS-in-JS overhead. Compile once, ship a single lightweight CSS file. Your users will thank you.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <span className="feature-icon">🌙</span>
-            </div>
-            <h3>Dark Mode Ready</h3>
-            <p>Built-in dark mode support. Just add a class and watch your entire UI adapt seamlessly.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <span className="feature-icon">♿</span>
-            </div>
-            <h3>Accessible by Default</h3>
-            <p>Built on Radix UI primitives. Keyboard navigation, screen reader support, and ARIA compliance out of the box.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <span className="feature-icon">📦</span>
-            </div>
-            <h3>Tree Shakeable</h3>
-            <p>Import only what you need. ESM and CJS builds ensure optimal bundle sizes.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <span className="feature-icon">🔧</span>
-            </div>
-            <h3>Fully Customizable</h3>
-            <p>Override any token to match your brand. Create custom themes without touching component code.</p>
-          </div>
+        <div className="grid-rule cols-3 steps">
+          <article className="cell step">
+            <span className="step-k">01</span>
+            <h3 className="step-t">Install</h3>
+            <pre className="code-snippet"><code>npm i czero</code></pre>
+          </article>
+          <article className="cell step">
+            <span className="step-k">02</span>
+            <h3 className="step-t">Import</h3>
+            <pre className="code-snippet"><code>{`import "czero/styles.css";
+import { Button } from "czero/react";`}</code></pre>
+          </article>
+          <article className="cell step">
+            <span className="step-k">03</span>
+            <h3 className="step-t">Use</h3>
+            <pre className="code-snippet"><code>{`<Button variant="primary">
+  Ship it
+</Button>`}</code></pre>
+          </article>
         </div>
       </section>
 
-      {/* Quick Start Section */}
-      <section className="quickstart">
-        <div className="quickstart-content">
-          <h2 className="quickstart-title">Get started in seconds</h2>
-          <p className="quickstart-subtitle">Install CZero and start building beautiful interfaces</p>
-          <div className="quickstart-steps">
-            <div className="quickstart-step">
-              <div className="quickstart-step-number">1</div>
-              <div className="quickstart-step-content">
-                <h4>Install the package</h4>
-                <pre className="quickstart-code">
-                  <code>npm install czero</code>
-                </pre>
-              </div>
-            </div>
-            <div className="quickstart-step">
-              <div className="quickstart-step-number">2</div>
-              <div className="quickstart-step-content">
-                <h4>Import styles & components</h4>
-                <pre className="quickstart-code">
-                  <code>{`import "czero/styles.css";
-import { Button, Card } from "czero/react";`}</code>
-                </pre>
-              </div>
-            </div>
-            <div className="quickstart-step">
-              <div className="quickstart-step-number">3</div>
-              <div className="quickstart-step-content">
-                <h4>Build something amazing</h4>
-                <pre className="quickstart-code">
-                  <code>{`<Card>
-  <Button variant="primary">
-    Let's go! 🚀
-  </Button>
-</Card>`}</code>
-                </pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Component Preview Section */}
-      <section className="preview">
-        <div className="preview-header">
-          <h2 className="preview-title">36+ Beautiful Components</h2>
-          <p className="preview-subtitle">From buttons to dialogs, everything you need</p>
-        </div>
-        <div className="preview-grid">
-          <div className="preview-item">
-            <span className="preview-item-icon">🔘</span>
-            <span>Buttons</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">📝</span>
-            <span>Forms</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">🃏</span>
-            <span>Cards</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">💬</span>
-            <span>Dialogs</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">📊</span>
-            <span>Tables</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">🔔</span>
-            <span>Toasts</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">📑</span>
-            <span>Tabs</span>
-          </div>
-          <div className="preview-item">
-            <span className="preview-item-icon">⏳</span>
-            <span>Progress</span>
-          </div>
-        </div>
-        <Link to="/docs/components/button" className="preview-cta">
-          Explore all components →
-        </Link>
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta">
-        <div className="cta-content">
-          <h2>Ready to build something amazing?</h2>
-          <p>Start using CZero today and create beautiful, accessible React applications.</p>
-          <div className="cta-actions">
-            <Link to="/docs" className="hero-btn hero-btn-primary">
-              Read the Docs
-            </Link>
-            <a 
-              href="https://github.com/thisisdkyadav/czero" 
-              target="_blank" 
+      {/* ---- cta ---- */}
+      <section className="section cta">
+        <div className="cta-box">
+          <h2 className="cta-title">Build the next thing on one token system.</h2>
+          <div className="hero-cta">
+            <Link to="/docs" className="btn btn-accent">Read the docs</Link>
+            <a
+              href="https://github.com/thisisdkyadav/czero"
+              target="_blank"
               rel="noopener noreferrer"
-              className="hero-btn hero-btn-secondary"
+              className="btn btn-ghost"
             >
-              Star on GitHub ⭐
+              View on GitHub
             </a>
           </div>
         </div>

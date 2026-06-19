@@ -59,7 +59,7 @@ const theme = {
 </ThemeProvider>`}</code>
       </pre>
       <p>
-        Try the <strong>🎨 customizer</strong> in the bottom-right corner — it
+        Try the <strong>customizer</strong> in the bottom-right corner — it
         edits these tokens live and gives you the CSS to copy.
       </p>
 

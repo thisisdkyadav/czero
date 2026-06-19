@@ -34,7 +34,7 @@ export default function CodePreview({ children, code }: CodePreviewProps) {
           className={`toolbar-btn toolbar-btn-copy ${copied ? "copied" : ""}`}
           onClick={handleCopy}
         >
-          {copied ? "✓ Copied!" : "Copy"}
+          {copied ? "Copied" : "Copy"}
         </button>
       </div>
       {showCode && (
