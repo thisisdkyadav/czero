@@ -12,6 +12,18 @@
   align-items: start;
 }
 
+/* When the customizer is docked as a right rail, give the page full width
+   and reserve room on the right so the fixed rail never overlaps content. */
+.rail-docked .docs-container {
+  max-width: none;
+  margin: 0;
+  padding-right: 340px;
+}
+/* keep the header aligned with the now full-width body */
+.rail-docked .site-header-inner {
+  max-width: none;
+}
+
 /* ---- sidebar ---- */
 .sidebar {
   position: sticky;

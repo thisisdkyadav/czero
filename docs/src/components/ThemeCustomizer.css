@@ -1,9 +1,13 @@
 /* ============================================================
-   Live theme customizer — a docked "control deck".
+   Live theme customizer.
+   Three presentations of one panel:
+     .is-docked  → permanent right rail (wide screens)
+     .is-drawer  → slide-in overlay (narrow screens)
+     .is-hidden  → not shown (collapsed); a pill brings it back
    Zero-radius, hairline, mono labels. Light + dark.
    ============================================================ */
 
-/* ---- floating trigger ---- */
+/* ---- floating trigger (when hidden) ---- */
 .czc-trigger {
   position: fixed;
   bottom: 22px;
@@ -28,37 +32,46 @@
 }
 .czc-trigger:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .czc-trigger svg { flex-shrink: 0; }
-.czc-trigger-dot {
-  width: 6px;
-  height: 6px;
-  margin-left: 1px;
-  background: var(--accent-ink);
-  border-radius: 50%;
-}
+.czc-trigger-dot { width: 6px; height: 6px; margin-left: 1px; background: var(--accent-ink); border-radius: 50%; }
 
-/* ---- panel ---- */
+/* ---- panel: shared shell ---- */
 .czc {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 90;
-  width: 360px;
-  max-width: 90vw;
-  height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--bg);
-  border-left: 1px solid var(--line-strong);
-  transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.czc.is-open { transform: translateX(0); }
+.czc.is-hidden { display: none; }
 
+.czc.is-docked {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  z-index: 40;
+  border-left: 1px solid var(--line);
+}
+
+.czc.is-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: 360px;
+  max-width: 90vw;
+  z-index: 90;
+  border-left: 1px solid var(--line-strong);
+  box-shadow: -20px 0 50px -30px rgba(2, 6, 23, 0.5);
+  animation: czc-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes czc-slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* ---- header ---- */
 .czc-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 20px 22px 18px;
+  padding: 18px 22px 16px;
   border-bottom: 1px solid var(--line);
 }
 .czc-eyebrow {
@@ -74,7 +87,7 @@
 .czc-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -82,20 +95,48 @@
 .czc-close {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   color: var(--ink-soft);
   background: transparent;
   border: 1px solid var(--line-strong);
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 .czc-close:hover { color: var(--ink); border-color: var(--ink-mute); }
 
-.czc-scroll {
-  flex: 1;
-  overflow-y: auto;
+/* ---- mode tabs ---- */
+.czc-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
 }
+.czc-mode {
+  position: relative;
+  height: 38px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.czc-mode:first-child { border-right: 1px solid var(--line); }
+.czc-mode:hover { color: var(--ink-soft); }
+.czc-mode.is-active { color: var(--ink); }
+.czc-mode.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.czc-scroll { flex: 1; overflow-y: auto; }
 
 /* ---- live preview stage ---- */
 .czc-stage {
@@ -109,17 +150,10 @@
   background-size: 15px 15px;
   background-position: -1px -1px;
 }
-.czc-stage-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.czc-stage-row { display: flex; align-items: center; gap: 12px; }
 
-/* ---- control blocks ---- */
-.czc-block {
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--line);
-}
+/* ---- simple-mode blocks ---- */
+.czc-block { padding: 18px 22px; border-bottom: 1px solid var(--line); }
 .czc-label {
   font-family: var(--font-mono);
   font-size: 10.5px;
@@ -128,14 +162,8 @@
   text-transform: uppercase;
   color: var(--ink-mute);
 }
-.czc-label-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
+.czc-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 
-/* swatches */
 .czc-swatches {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -153,27 +181,16 @@
   transition: transform 0.14s ease;
 }
 .czc-swatch:hover { transform: scale(1.08); }
-.czc-swatch.is-active {
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--ink);
-}
+.czc-swatch.is-active { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--ink); }
 .czc-swatch-custom {
-  display: grid;
-  place-items: center;
   overflow: hidden;
   background: conic-gradient(from 90deg, #f43f5e, #f59e0b, #10b981, #3b82f6, #8b5cf6, #f43f5e);
 }
 .czc-swatch-custom input[type="color"] {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  border: none;
-  padding: 0;
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; cursor: pointer; border: none; padding: 0;
 }
 
-/* segmented control */
 .czc-seg {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -183,7 +200,6 @@
 .czc-seg-btn {
   height: 34px;
   font-size: 12px;
-  font-weight: 450;
   color: var(--ink-soft);
   background: transparent;
   border: none;
@@ -193,12 +209,87 @@
 }
 .czc-seg-btn:last-child { border-right: none; }
 .czc-seg-btn:hover { color: var(--ink); background: var(--bg-elev); }
-.czc-seg-btn.is-active {
-  color: var(--accent-ink);
-  background: var(--accent);
-}
+.czc-seg-btn.is-active { color: var(--accent-ink); background: var(--accent); }
 
-/* copy button */
+/* ---- advanced-mode groups ---- */
+.czc-group { border-bottom: 1px solid var(--line); }
+.czc-group-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.czc-group-head:hover .czc-label { color: var(--ink-soft); }
+.czc-chev { color: var(--ink-mute); transition: transform 0.2s ease; }
+.czc-chev.is-open { transform: rotate(180deg); }
+.czc-group-body { padding: 0 22px 18px; }
+
+.czc-edit-theme {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 11.5px;
+  color: var(--ink-mute);
+}
+.czc-edit-theme strong { color: var(--ink); font-weight: 600; text-transform: capitalize; }
+.czc-mini {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  padding: 4px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.czc-mini:hover { color: var(--ink); border-color: var(--ink-mute); }
+
+.czc-rows { display: flex; flex-direction: column; gap: 8px; }
+.czc-row { display: flex; align-items: center; gap: 10px; }
+.czc-row.is-wide { flex-direction: column; align-items: stretch; gap: 5px; }
+.czc-row-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  text-transform: capitalize;
+}
+.czc-color {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+.czc-color span { display: block; width: 100%; height: 100%; }
+.czc-color input[type="color"] {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; cursor: pointer; border: none; padding: 0;
+}
+.czc-text {
+  width: 116px;
+  height: 28px;
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+}
+.czc-row.is-wide .czc-text { width: 100%; }
+.czc-text:focus { outline: none; border-color: var(--accent); }
+
+/* ---- copy / generated css ---- */
 .czc-copy {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -215,7 +306,6 @@
 .czc-copy:hover { color: var(--ink); border-color: var(--ink-mute); }
 .czc-copy.is-copied { color: var(--accent); border-color: var(--accent-line); }
 
-/* generated css block */
 .czc-code {
   margin: 0;
   padding: 14px 16px;
@@ -255,12 +345,9 @@
 }
 .czc-reset:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-mute); }
 .czc-reset:disabled { opacity: 0.4; cursor: not-allowed; }
-.czc-hint {
-  font-size: 11px;
-  color: var(--ink-mute);
-}
+.czc-hint { font-size: 11px; color: var(--ink-mute); }
 
-/* ---- overlay ---- */
+/* ---- overlay (drawer only) ---- */
 .czc-overlay {
   position: fixed;
   inset: 0;
@@ -271,7 +358,6 @@
 }
 
 @media (max-width: 720px) {
-  .czc-trigger { bottom: 16px; right: 16px; }
+  .czc-trigger { bottom: 16px; right: 16px; padding: 0; width: 40px; justify-content: center; }
   .czc-trigger span { display: none; }
-  .czc-trigger { padding: 0; width: 40px; justify-content: center; }
 }
