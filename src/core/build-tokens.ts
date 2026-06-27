@@ -35,16 +35,12 @@ function generateResetCSS(): string {
   box-sizing: border-box;
   margin: 0;
 }
-`;
+
+/* "Theme once" for type: every component picks up the font token (Code/Kbd
+   override to monospace via their own rules, which win by source order). */
+[class*="cz-"] {
+  font-family: var(--cz-font-fontFamily, inherit);
 }
-
-function generateIndexCSS(): string {
-  return `/**
- * CZero Styles Entry Point
- */
-
-@import "./reset.css";
-@import "./tokens.css";
 `;
 }
 
@@ -53,12 +49,11 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-// Write files
+// Write files. The single shipped entry is dist/styles.css (reset + tokens +
+// components, concatenated by build:css) — there's no partial index.css.
 fs.writeFileSync(path.join(OUTPUT_DIR, "tokens.css"), generateTokensCSS());
 fs.writeFileSync(path.join(OUTPUT_DIR, "reset.css"), generateResetCSS());
-fs.writeFileSync(path.join(OUTPUT_DIR, "index.css"), generateIndexCSS());
 
 console.log("✅ Tokens generated successfully!");
 console.log(`   → ${path.join(OUTPUT_DIR, "tokens.css")}`);
 console.log(`   → ${path.join(OUTPUT_DIR, "reset.css")}`);
-console.log(`   → ${path.join(OUTPUT_DIR, "index.css")}`);

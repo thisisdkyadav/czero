@@ -1,64 +1,46 @@
-# CZero Documentation Site
+# czero — documentation site
 
-This is an example app demonstrating how to use CZero in a real project.
+The docs site for [czero](../README.md): component reference, live examples, and
+the interactive theme customizer. Built with Vite + React Router.
 
-## How This App Uses CZero
+It consumes czero **directly from source** (`../src`) so changes to the library
+are reflected immediately while developing — no build step, no codegen.
 
-### 1. Theme Configuration
-
-We created `czero.config.js` with our custom theme:
-
-```js
-export default {
-  color: {
-    primary: { light: "222 47% 45%", dark: "210 80% 65%" },
-    // ...
-  },
-  radius: { md: "0.5rem" },
-  typography: { fontFamily: "Inter, system-ui, sans-serif" },
-};
-```
-
-### 2. Generate CSS
-
-We run the CZero CLI to generate our styles:
+## Run it
 
 ```bash
-npm run generate:css
-# or directly: npx czero build --config czero.config.js --output src/czero.css
+npm install        # docs deps (vite, react-router)
+npm run dev        # start the dev server
+npm run build      # type-check + production build → dist/
+npm run preview    # serve the production build
 ```
 
-This creates `src/czero.css` with:
-- CSS reset
-- Design tokens from our config
-- Component styles (Button, Input, Card, Badge)
+> The library's own deps (React, Radix) resolve from the repo root, so run
+> `npm install` at the root once as well.
 
-### 3. Import & Use
+## How it uses czero
 
-In `src/index.css`:
+Styles come from czero's source CSS, imported once in `src/index.css`:
+
 ```css
-@import "./czero.css";
+@import "../../src/core/styles/reset.css";
+@import "../../src/core/styles/tokens.css";
+@import "../../src/core/styles/components.css";
 ```
 
-In components:
+Components are imported from source:
+
 ```jsx
-import { Button, Input, Card, Badge } from "../../src/react";
-// When using from npm: import { Button } from "czero/react";
+import { Button, Card } from "../../src/react";
+// In a real app installed from npm:
+//   import "czero/styles.css";
+//   import { Button, Card } from "czero/react";
 ```
 
-## Scripts
+## Theming
 
-- `npm run dev` - Start dev server
-- `npm run generate:css` - Regenerate CSS from config
-- `npm run build` - Production build (auto-regenerates CSS)
-
-## Customization
-
-1. Edit `czero.config.js`
-2. Run `npm run generate:css`
-3. Refresh the browser
-
-Try changing the primary color to purple:
-```js
-primary: { light: "280 70% 50%", dark: "280 60% 60%" }
-```
+Every component reads `--cz-*` CSS variables, so a theme is just values for
+those variables — set them in `:root`/`.dark` or pass a typed object to
+`<ThemeProvider>`. The **theme customizer** (the docked panel on the component
+pages) edits these tokens live and hands you the exact CSS to copy. See the
+[Getting Started](src/pages/GettingStarted.tsx) page for the full reference.

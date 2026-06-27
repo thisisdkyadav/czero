@@ -3,130 +3,21 @@
  * Pure CSS using --cz-* design tokens
  */
 
-/* ===== UTILITIES ===== */
+/* ===== SHARED ===== */
 
-/* Display */
-.cz-inline-flex { display: inline-flex; }
-.cz-flex { display: flex; }
-.cz-flex-col { flex-direction: column; }
-.cz-items-center { align-items: center; }
-.cz-justify-center { justify-content: center; }
-.cz-flex-wrap { flex-wrap: wrap; }
-
-/* Gap */
-.cz-gap-1 { gap: 0.25rem; }
-.cz-gap-1\.5 { gap: 0.375rem; }
-.cz-gap-2 { gap: 0.5rem; }
-
-/* Width */
-.cz-w-full { width: 100%; }
-
-/* Whitespace */
-.cz-whitespace-nowrap { white-space: nowrap; }
-
-/* Opacity */
-.cz-opacity-25 { opacity: 0.25; }
-.cz-opacity-50 { opacity: 0.5; }
-.cz-opacity-75 { opacity: 0.75; }
-
-/* Animation */
+/* Spinner keyframes — used by Button's loading state and the Spinner component. */
 @keyframes cz-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-.cz-animate-spin { animation: cz-spin 1s linear infinite; }
 
-/* Sizing */
-.cz-h-4 { height: 1rem; }
-.cz-w-4 { width: 1rem; }
-.cz-h-8 { height: 2rem; }
-.cz-h-10 { height: 2.5rem; }
-.cz-h-12 { height: 3rem; }
-
-/* Padding */
-.cz-px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-.cz-px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-.cz-px-4 { padding-left: 1rem; padding-right: 1rem; }
-.cz-px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-.cz-py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
-.cz-p-lg { padding: var(--cz-spacing-lg); }
-.cz-pb-md { padding-bottom: var(--cz-spacing-md); }
-.cz-pt-md { padding-top: var(--cz-spacing-md); }
-.cz-px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
-
-/* Margin */
-.cz-mb-md { margin-bottom: var(--cz-spacing-md); }
-.cz-mt-md { margin-top: var(--cz-spacing-md); }
-
-/* Typography */
-.cz-text-xs { font-size: var(--cz-font-size-xs); }
-.cz-text-sm { font-size: var(--cz-font-size-sm); }
-.cz-text-md { font-size: var(--cz-font-size-md); }
-.cz-text-lg { font-size: var(--cz-font-size-lg); }
-.cz-font-medium { font-weight: var(--cz-font-weight-medium); }
-.cz-font-semibold { font-weight: var(--cz-font-weight-semibold); }
-.cz-leading-tight { line-height: var(--cz-font-lineHeight-tight); }
-
-/* Colors - Background */
-.cz-bg-bg { background-color: hsl(var(--cz-color-bg)); }
-.cz-bg-primary { background-color: hsl(var(--cz-color-primary)); }
-.cz-bg-secondary { background-color: hsl(var(--cz-color-secondary)); }
-.cz-bg-muted { background-color: hsl(var(--cz-color-muted)); }
-.cz-bg-danger { background-color: hsl(var(--cz-color-danger)); }
-.cz-bg-success { background-color: hsl(var(--cz-color-success)); }
-.cz-bg-warning { background-color: hsl(var(--cz-color-warning)); }
-.cz-bg-transparent { background-color: transparent; }
-
-/* Colors - Text */
-.cz-text-fg { color: hsl(var(--cz-color-fg)); }
-.cz-text-primary-fg { color: hsl(var(--cz-color-primaryFg)); }
-.cz-text-secondary-fg { color: hsl(var(--cz-color-secondaryFg)); }
-.cz-text-muted-fg { color: hsl(var(--cz-color-mutedFg)); }
-.cz-text-danger { color: hsl(var(--cz-color-danger)); }
-.cz-text-danger-fg { color: hsl(var(--cz-color-dangerFg)); }
-.cz-text-success-fg { color: hsl(var(--cz-color-successFg)); }
-.cz-text-warning-fg { color: hsl(var(--cz-color-warningFg)); }
-
-/* Border */
-.cz-border { border-width: 1px; border-style: solid; }
-.cz-border-b { border-bottom-width: 1px; border-bottom-style: solid; }
-.cz-border-t { border-top-width: 1px; border-top-style: solid; }
-.cz-border-border { border-color: hsl(var(--cz-color-border)); }
-.cz-border-danger { border-color: hsl(var(--cz-color-danger)); }
-
-/* Border Radius */
-.cz-rounded-sm { border-radius: var(--cz-radius-sm); }
-.cz-rounded-md { border-radius: var(--cz-radius-md); }
-.cz-rounded-lg { border-radius: var(--cz-radius-lg); }
-.cz-rounded-full { border-radius: var(--cz-radius-full); }
-
-/* Shadow */
-.cz-shadow-sm { box-shadow: var(--cz-shadow-sm); }
-
-/* Transitions */
-.cz-transition { transition: all var(--cz-transition-fast); }
-
-/* States */
+/* Disabled state modifier applied by interactive components (input, select,
+   switch, checkbox, radio) to their wrapper. */
 .cz-disabled {
   pointer-events: none;
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-/* Focus */
-.cz-focus-ring:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring));
-}
-
-.cz-focus-ring:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring));
-}
-
-/* Hover states */
-.cz-hover-opacity:hover { opacity: 0.9; }
-.cz-hover-muted:hover { background-color: hsl(var(--cz-color-muted)); }
 
 /* ===== BUTTON ===== */
 
@@ -459,7 +350,7 @@
 }
 
 /* Badge Sizes */
-.cz-badge-sm { padding: 0.125rem 0.375rem; font-size: 0.7rem; }
+.cz-badge-sm { padding: 0.125rem 0.375rem; font-size: var(--cz-font-size-xs); }
 .cz-badge-md { padding: 0.125rem 0.5rem; font-size: var(--cz-font-size-xs); }
 
 /* Badge Variants */
@@ -1130,81 +1021,6 @@
   padding-top: var(--cz-spacing-lg);
 }
 
-/* ===== DIALOG ===== */
-
-.cz-dialog-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.cz-dialog-content {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 51;
-  background-color: hsl(var(--cz-color-bg));
-  border-radius: var(--cz-radius-lg);
-  box-shadow: var(--cz-shadow-lg);
-  max-width: 32rem;
-  width: calc(100% - 2rem);
-  max-height: calc(100vh - 4rem);
-  overflow-y: auto;
-  padding: var(--cz-spacing-lg);
-}
-
-.cz-dialog-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: transparent;
-  border-radius: var(--cz-radius-sm);
-  font-size: 1.25rem;
-  color: hsl(var(--cz-color-mutedFg));
-  cursor: pointer;
-  transition: all var(--cz-transition-fast);
-}
-
-.cz-dialog-close:hover {
-  background-color: hsl(var(--cz-color-muted));
-  color: hsl(var(--cz-color-fg));
-}
-
-.cz-dialog-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding-bottom: var(--cz-spacing-md);
-}
-
-.cz-dialog-title {
-  font-size: var(--cz-font-size-lg);
-  font-weight: var(--cz-font-weight-semibold);
-  color: hsl(var(--cz-color-fg));
-  margin: 0;
-}
-
-.cz-dialog-description {
-  font-size: var(--cz-font-size-sm);
-  color: hsl(var(--cz-color-mutedFg));
-  margin: 0;
-}
-
-.cz-dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  padding-top: var(--cz-spacing-lg);
-}
-
 /* ===== MODAL ===== */
 
 .cz-modal-overlay {
@@ -1412,6 +1228,13 @@
 
 /* ===== SELECT ===== */
 
+/* Field wrapper (label + trigger) — mirrors .cz-input-field / .cz-textarea-field. */
+.cz-select-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
 .cz-select {
   all: unset;
   box-sizing: border-box;
@@ -1520,93 +1343,14 @@
   color: hsl(var(--cz-color-mutedFg));
 }
 
-/* ===== RADIO GROUP ===== */
-
-.cz-radio-group {
-  display: flex;
-}
-
-.cz-radio-group-vertical {
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.cz-radio-group-horizontal {
-  flex-direction: row;
-  gap: 1rem;
-}
-
-.cz-radio-wrapper {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  user-select: none;
-}
-
-.cz-radio-wrapper.cz-disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.cz-radio {
-  all: unset;
-  box-sizing: border-box;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: var(--cz-radius-full);
-  border: 2px solid hsl(var(--cz-color-border));
-  background-color: hsl(var(--cz-color-bg));
-  transition: all var(--cz-transition-fast);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
-.cz-radio:hover {
-  border-color: hsl(var(--cz-color-primary));
-}
-
-.cz-radio:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px hsl(var(--cz-color-bg)), 0 0 0 4px hsl(var(--cz-color-ring));
-}
-
-.cz-radio:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.cz-radio[data-state="checked"] {
-  border-color: hsl(var(--cz-color-primary));
-}
-
-.cz-radio-indicator {
-  width: 0.625rem;
-  height: 0.625rem;
-  border-radius: var(--cz-radius-full);
-  background-color: hsl(var(--cz-color-primary));
-}
-
-.cz-radio-label {
-  font-size: var(--cz-font-size-sm);
-  color: hsl(var(--cz-color-fg));
-}
-
-/* ===== TABLE ===== */
-
-:root {
-  --cz-table-border-radius: var(--cz-radius-md);
-  --cz-table-border-width: 1px;
-  --cz-table-cell-padding: 0.75rem 1rem;
-}
+/* ===== TABLE =====
+   Override hooks (--cz-table-*) carry inline defaults, mirroring the modal /
+   data-table sections — no stray :root block in the component stylesheet. */
 
 .cz-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border-radius: var(--cz-table-border-radius);
+  border-radius: var(--cz-table-border-radius, var(--cz-radius-md));
 }
 
 .cz-table {
@@ -1625,22 +1369,22 @@
 }
 
 .cz-table-body .cz-table-row:hover {
-  background-color: hsl(var(--cz-color-muted) / 0.5);
+  background-color: var(--cz-table-row-hover-bg, hsl(var(--cz-color-muted) / 0.5));
 }
 
 .cz-table-head {
-  padding: var(--cz-table-cell-padding);
+  padding: var(--cz-table-cell-padding, 0.75rem 1rem);
   text-align: left;
   font-weight: var(--cz-font-weight-semibold);
   color: hsl(var(--cz-color-fg));
   white-space: nowrap;
-  border-bottom: var(--cz-table-border-width) solid hsl(var(--cz-color-border));
+  border-bottom: var(--cz-table-border-width, 1px) solid hsl(var(--cz-color-border));
 }
 
 .cz-table-cell {
-  padding: var(--cz-table-cell-padding);
+  padding: var(--cz-table-cell-padding, 0.75rem 1rem);
   color: hsl(var(--cz-color-fg));
-  border-bottom: var(--cz-table-border-width) solid hsl(var(--cz-color-border));
+  border-bottom: var(--cz-table-border-width, 1px) solid hsl(var(--cz-color-border));
 }
 
 /* ===== ACCORDION ===== */
@@ -1921,32 +1665,6 @@
   border-radius: var(--cz-radius-sm);
 }
 
-/* ===== SCROLL AREA ===== */
-
-.cz-scroll-area {
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: hsl(var(--cz-color-border)) transparent;
-}
-
-.cz-scroll-area::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.cz-scroll-area::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.cz-scroll-area::-webkit-scrollbar-thumb {
-  background-color: hsl(var(--cz-color-border));
-  border-radius: var(--cz-radius-full);
-}
-
-.cz-scroll-area::-webkit-scrollbar-thumb:hover {
-  background-color: hsl(var(--cz-color-mutedFg));
-}
-
 /* ===== DROPDOWN MENU ===== */
 
 .cz-dropdown {
@@ -2167,18 +1885,18 @@
 }
 
 .cz-tag-success {
-  background-color: hsl(142 76% 36%);
-  color: white;
+  background-color: hsl(var(--cz-color-success));
+  color: hsl(var(--cz-color-successFg));
 }
 
 .cz-tag-warning {
-  background-color: hsl(38 92% 50%);
-  color: white;
+  background-color: hsl(var(--cz-color-warning));
+  color: hsl(var(--cz-color-warningFg));
 }
 
 .cz-tag-danger {
   background-color: hsl(var(--cz-color-danger));
-  color: white;
+  color: hsl(var(--cz-color-dangerFg));
 }
 
 /* ===== SCROLL AREA ===== */
@@ -2241,4 +1959,20 @@
 
 .cz-scroll-area-corner {
   background-color: hsl(var(--cz-color-muted));
+}
+
+/* ===== REDUCED MOTION =====
+   One global guard for every czero element. Individual components may still
+   declare their own reduced-motion rules; this catches the rest. The only
+   !important in the stylesheet — justified because it must override any
+   component animation/transition regardless of specificity. */
+@media (prefers-reduced-motion: reduce) {
+  [class*="cz-"],
+  [class*="cz-"]::before,
+  [class*="cz-"]::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

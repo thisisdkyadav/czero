@@ -27,7 +27,6 @@ export {
   type TabsVariant,
   type TabsSize,
 } from "./components/tabs";
-export { Dialog, type DialogProps, type DialogTriggerProps, type DialogContentProps, type DialogHeaderProps, type DialogFooterProps } from "./components/dialog";
 export { Modal, type ModalProps, type ModalSize, type ModalCloseButtonVariant } from "./components/modal";
 export { Select, type SelectProps } from "./components/select";
 export { RadioGroup, type RadioGroupProps, type RadioGroupItemProps } from "./components/radio-group";

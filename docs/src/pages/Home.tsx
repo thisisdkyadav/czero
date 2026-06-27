@@ -22,7 +22,7 @@ const PRINCIPLES = [
 
 const COMPONENTS = [
   "Button", "Input", "Select", "Checkbox", "Switch", "Radio", "Textarea", "Label",
-  "Modal", "Dialog", "Dropdown", "Tooltip", "Tabs", "Accordion", "Breadcrumb",
+  "Modal", "Dropdown", "Tooltip", "Tabs", "Accordion", "Breadcrumb",
   "Table", "DataTable", "Badge", "StatusBadge", "Tag", "Avatar", "Alert", "Toast",
   "Progress", "Spinner", "Skeleton", "Card", "Stack", "Grid", "Separator", "Kbd", "Code",
 ];

@@ -16,19 +16,24 @@
       "require": "./dist/react/index.cjs"
     }
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
-    "dist/**/*.js",
-    "dist/**/*.cjs",
-    "dist/**/*.css",
-    "dist/**/*.d.ts"
+    "dist/react/index.js",
+    "dist/react/index.cjs",
+    "dist/react/index.d.ts",
+    "dist/styles.css",
+    "dist/components.css",
+    "dist/reset.css"
   ],
   "scripts": {
     "clean": "rm -rf dist",
     "build:tokens": "tsx src/core/build-tokens.ts",
     "build:css": "mkdir -p dist && cp src/core/styles/reset.css dist/reset.css && cp src/core/styles/components.css dist/components.css && cat src/core/styles/reset.css src/core/styles/tokens.css src/core/styles/components.css > dist/styles.css",
-    "build:components": "rollup -c",
+    "build:components": "rollup -c rollup.config.ts",
     "build": "npm run clean && npm run build:tokens && npm run build:css && npm run build:components",
-    "dev": "rollup -c -w",
+    "dev": "rollup -c rollup.config.ts -w",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

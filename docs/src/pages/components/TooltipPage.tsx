@@ -45,34 +45,34 @@ export default function TooltipPage() {
 
       <h2>Positions</h2>
       <CodePreview
-        code={`<Tooltip content="Top" position="top"><Button>Top</Button></Tooltip>
-<Tooltip content="Bottom" position="bottom"><Button>Bottom</Button></Tooltip>
-<Tooltip content="Left" position="left"><Button>Left</Button></Tooltip>
-<Tooltip content="Right" position="right"><Button>Right</Button></Tooltip>`}
+        code={`<Tooltip content="Top" side="top"><Button>Top</Button></Tooltip>
+<Tooltip content="Bottom" side="bottom"><Button>Bottom</Button></Tooltip>
+<Tooltip content="Left" side="left"><Button>Left</Button></Tooltip>
+<Tooltip content="Right" side="right"><Button>Right</Button></Tooltip>`}
       >
-        <Tooltip content="Top" position="top">
+        <Tooltip content="Top" side="top">
           <Button variant="outline">Top</Button>
         </Tooltip>
-        <Tooltip content="Bottom" position="bottom">
+        <Tooltip content="Bottom" side="bottom">
           <Button variant="outline">Bottom</Button>
         </Tooltip>
-        <Tooltip content="Left" position="left">
+        <Tooltip content="Left" side="left">
           <Button variant="outline">Left</Button>
         </Tooltip>
-        <Tooltip content="Right" position="right">
+        <Tooltip content="Right" side="right">
           <Button variant="outline">Right</Button>
         </Tooltip>
       </CodePreview>
 
       <h2>Custom Delay</h2>
       <CodePreview
-        code={`<Tooltip content="Instant!" delay={0}><Button>No delay</Button></Tooltip>
-<Tooltip content="Wait for it..." delay={500}><Button>500ms delay</Button></Tooltip>`}
+        code={`<Tooltip content="Instant!" delayDuration={0}><Button>No delay</Button></Tooltip>
+<Tooltip content="Wait for it..." delayDuration={500}><Button>500ms delay</Button></Tooltip>`}
       >
-        <Tooltip content="Instant!" delay={0}>
+        <Tooltip content="Instant!" delayDuration={0}>
           <Button variant="secondary">No delay</Button>
         </Tooltip>
-        <Tooltip content="Wait for it..." delay={500}>
+        <Tooltip content="Wait for it..." delayDuration={500}>
           <Button variant="secondary">500ms delay</Button>
         </Tooltip>
       </CodePreview>

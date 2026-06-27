@@ -240,7 +240,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       cursor: sortable && column.sortable !== false ? "pointer" : "default",
       userSelect: sortable && column.sortable !== false ? "none" : "auto",
       width: column.width,
-      borderBottom: "1px solid var(--cz-data-table-row-border-color, var(--cz-table-border-color))",
+      borderBottom: "1px solid var(--cz-data-table-row-border-color, hsl(var(--cz-color-border)))",
     });
 
     const bodyCellStyles = (align: DataTableAlign = "left"): React.CSSProperties => ({
@@ -250,7 +250,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
       verticalAlign: "middle",
       lineHeight: "1.5",
       fontSize: "var(--cz-data-table-body-font-size, var(--cz-font-size-sm))",
-      borderBottom: "1px solid var(--cz-data-table-row-border-color, var(--cz-table-border-color))",
+      borderBottom: "1px solid var(--cz-data-table-row-border-color, hsl(var(--cz-color-border)))",
     });
 
     const renderSortIcon = (key: string): React.ReactNode => {
@@ -440,7 +440,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
                     background: isSelected
                       ? "var(--cz-data-table-selected-row-bg, hsl(var(--cz-color-primary) / 0.12))"
                       : variant === "striped" && index % 2 === 1
-                        ? "var(--cz-data-table-striped-row-bg, var(--cz-table-striped-bg))"
+                        ? "var(--cz-data-table-striped-row-bg, hsl(var(--cz-color-muted) / 0.3))"
                       : undefined,
                   }}
                 >
@@ -477,7 +477,7 @@ export const DataTable = React.forwardRef<HTMLDivElement, DataTableProps>(
               justifyContent: "space-between",
               padding: "var(--cz-data-table-pagination-padding, 0.75rem 1rem)",
               background: "var(--cz-data-table-container-bg, hsl(var(--cz-color-bg)))",
-              borderTop: "1px solid var(--cz-data-table-pagination-border-color, var(--cz-table-border-color))",
+              borderTop: "1px solid var(--cz-data-table-pagination-border-color, hsl(var(--cz-color-border)))",
               fontSize: "var(--cz-font-size-sm)",
               color: "var(--cz-data-table-pagination-text-color, hsl(var(--cz-color-mutedFg)))",
             }}

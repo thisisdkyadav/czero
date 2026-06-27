@@ -10,3 +10,9 @@
   box-sizing: border-box;
   margin: 0;
 }
+
+/* "Theme once" for type: every component picks up the font token (Code/Kbd
+   override to monospace via their own rules, which win by source order). */
+[class*="cz-"] {
+  font-family: var(--cz-font-fontFamily, inherit);
+}

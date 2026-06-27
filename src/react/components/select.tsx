@@ -32,7 +32,7 @@ const SelectRoot: React.FC<SelectProps> = ({
   const hasLegacyOptions = options && options.length > 0;
 
   return (
-    <div className="cz-flex cz-flex-col cz-gap-1.5">
+    <div className="cz-select-field">
       {label && <span className="cz-label">{label}</span>}
       <SelectPrimitive.Root
         value={value}

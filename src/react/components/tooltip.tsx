@@ -7,10 +7,6 @@ export interface TooltipProps {
   side?: "top" | "bottom" | "left" | "right";
   align?: "start" | "center" | "end";
   delayDuration?: number;
-  /** @deprecated Use `side` instead */
-  position?: "top" | "bottom" | "left" | "right";
-  /** @deprecated Use `delayDuration` instead */
-  delay?: number;
 }
 
 export const TooltipProvider = TooltipPrimitive.Provider;
@@ -21,15 +17,12 @@ export const Tooltip = React.forwardRef<
 >(({
   content,
   children,
-  side,
-  position,
+  side = "top",
   align = "center",
-  delayDuration,
-  delay,
+  delayDuration = 200,
 }, ref) => {
-  // Support legacy props
-  const resolvedSide = side ?? position ?? "top";
-  const resolvedDelay = delayDuration ?? delay ?? 200;
+  const resolvedSide = side;
+  const resolvedDelay = delayDuration;
 
   return (
     <TooltipPrimitive.Root delayDuration={resolvedDelay}>
